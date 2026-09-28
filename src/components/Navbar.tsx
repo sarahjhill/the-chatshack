@@ -32,6 +32,7 @@ const navItems: NavItem[] = [
       { label: "Contact", path: "/contact" },
     ],
   },
+  { label: "Donate", path: "/donate" },
 ];
 
 export default function Navbar() {

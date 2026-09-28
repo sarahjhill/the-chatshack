@@ -5,6 +5,7 @@ const footerLinks = [
   { label: "About Us", path: "/about" },
   { label: "I Need Support", path: "/support" },
   { label: "Our Community", path: "/community" },
+  { label: "Donate", path: "/donate" },
   { label: "Homeless Outreach", path: "/homeless-outreach" },
   { label: "Partners & Resources", path: "/partners" },
   { label: "Get Involved", path: "/get-involved" },
