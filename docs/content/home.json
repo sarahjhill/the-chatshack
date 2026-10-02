@@ -1,0 +1,96 @@
+{
+  "hero": {
+    "eyebrow": "YOU ARE NOT ALONE.",
+    "title": "The ChatShack C.I.C.",
+    "lede1": "A peer-led mental health support community for adults aged 18+.",
+    "lede2": "A safe, confidential and non-judgemental place to talk, connect, find support and explore the next step.",
+    "tags": ["FREE", "18+", "PEER-LED", "COMMUNITY BASED"],
+    "primaryButtonLabel": "I NEED SUPPORT",
+    "secondaryButtonLabel": "FIND OUT ABOUT THE CHATSHACK",
+    "cornerLine1": "A safe place to talk...",
+    "cornerLine2": "A brighter tomorrow..."
+  },
+  "about": {
+    "heading": "What is The ChatShack?",
+    "tagline": "A place where you can talk.",
+    "intro": "The ChatShack C.I.C. is a peer-led mental health support community created around a simple belief:",
+    "belief": "Nobody should have to face difficult times alone.",
+    "paragraph1": "We provide a welcoming community where adults can meet others, talk openly, build connections and access appropriate support.",
+    "paragraph2": "We are not here to judge you, tell you how you should feel or make assumptions about your circumstances.",
+    "paragraph3": "We're here to listen, support and help you find the right next step."
+  },
+  "approach": {
+    "heading": "Our Approach",
+    "cards": [
+      { "title": "TALK", "desc": "Someone to listen without judgement." },
+      { "title": "CONNECT", "desc": "Meet people and become part of a community." },
+      { "title": "SUPPORT", "desc": "Peer support, groups, activities and individual support." },
+      { "title": "ACCESS", "desc": "Help finding appropriate professional services and treatment when needed." }
+    ]
+  },
+  "promise": {
+    "heading": "Our Promise",
+    "items": [
+      { "label": "SAFE\nSPACE" },
+      { "label": "CONFIDENTIAL" },
+      { "label": "NON-\nJUDGEMENTAL" },
+      { "label": "FREE" },
+      { "label": "18+" }
+    ],
+    "note": "You don't have to have all the answers before you come through the door."
+  },
+  "crisis": {
+    "heading": "Need help today?",
+    "paragraph1": "The ChatShack aims to provide a 1st Point of Contact for people experiencing mental-health difficulties.",
+    "paragraph2": "Where appropriate and where available, we can help people navigate towards same-day support and treatment.",
+    "paragraph3": "If we can't provide what you need ourselves, our Directory of Partners & Resources helps connect you with organisations that may be able to help.",
+    "buttonLabel": "FIND SUPPORT",
+    "emergencyTitle": "IN AN EMERGENCY OR IMMEDIATE DANGER",
+    "emergencyNumber": "PLEASE CALL 999",
+    "emergencyNote": "or go to your nearest A&E department."
+  },
+  "community": {
+    "heading": "Our Community",
+    "subheading": "MORE THAN A GROUP. A COMMUNITY.",
+    "paragraph": "The ChatShack isn't just about sitting in a room and talking. Our community can include:",
+    "items": [
+      "Men's groups",
+      "Women's groups",
+      "Walk & Talk sessions",
+      "Peer mentoring",
+      "1-to-1 peer support",
+      "Wellbeing activities",
+      "Stress-relief activities",
+      "Community events",
+      "Online community connection",
+      "Support for people who may find traditional services difficult to access"
+    ],
+    "buttonLabel": "JOIN OUR COMMUNITY",
+    "quoteLine1": "Real People.",
+    "quoteLine2": "Real support.",
+    "quoteLine3": "Real change.",
+    "quote": "\"Nobody should have to face difficult times alone.\""
+  },
+  "partners": {
+    "heading": "Partners & Resources",
+    "subheading": "WE DON'T HAVE TO DO IT ALL OURSELVES.",
+    "paragraph1": "The ChatShack is building a Community of Like-Minded Communities. We work bringing together trusted organisations, professionals, community groups and resources across mental health, wellbeing and wider social support.",
+    "paragraph2": "If we can't help, one of our partners may be able to.",
+    "buttonLabel": "EXPLORE OUR PARTNERS",
+    "categories": [
+      { "label": "Mental\nHealth" },
+      { "label": "Therapy" },
+      { "label": "Wellbeing" },
+      { "label": "Physical\nHealth" },
+      { "label": "Housing &\nHomelessness" },
+      { "label": "Financial\nSupport" },
+      { "label": "Addiction &\nRecovery" },
+      { "label": "Community\nGroups" }
+    ]
+  },
+  "donate": {
+    "heading": "Together we can make a bigger difference.",
+    "paragraph": "Your donation helps us keep our services free and available for everyone who needs them.",
+    "buttonLabel": "DONATE TODAY"
+  }
+}
