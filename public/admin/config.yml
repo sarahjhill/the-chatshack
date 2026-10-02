@@ -24,8 +24,108 @@ collections:
   - name: "pages"
     label: "Pages"
     files:
-      - file: "content/home.md"
+      - file: "public/content/home.json"
         label: "Home Page"
         name: "home"
+        format: "json"
+        description: "Edit the text on the home page. Saving here updates the live site automatically within a minute or two - no need to touch any code."
         fields:
-          - { label: "Title", name: "title", widget:
+          - label: "Hero (top banner)"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Small line above the title", name: "eyebrow", widget: "string" }
+              - { label: "Main title", name: "title", widget: "string" }
+              - { label: "First line of text", name: "lede1", widget: "text" }
+              - { label: "Second line of text", name: "lede2", widget: "text" }
+              - { label: "Small tags (e.g. FREE, 18+)", name: "tags", widget: "list" }
+              - { label: "Main button text", name: "primaryButtonLabel", widget: "string" }
+              - { label: "Second button text", name: "secondaryButtonLabel", widget: "string" }
+              - { label: "Corner text, line 1", name: "cornerLine1", widget: "string" }
+              - { label: "Corner text, line 2", name: "cornerLine2", widget: "string" }
+
+          - label: "What is The ChatShack?"
+            name: "about"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Subheading", name: "tagline", widget: "string" }
+              - { label: "Intro line", name: "intro", widget: "text" }
+              - { label: "Highlighted belief statement", name: "belief", widget: "text" }
+              - { label: "Paragraph 1", name: "paragraph1", widget: "text" }
+              - { label: "Paragraph 2", name: "paragraph2", widget: "text" }
+              - { label: "Closing bold line", name: "paragraph3", widget: "text" }
+
+          - label: "Our Approach"
+            name: "approach"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - label: "Cards (keep exactly 4 - the icons and colours are fixed in the design)"
+                name: "cards"
+                widget: "list"
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Description", name: "desc", widget: "text" }
+
+          - label: "Our Promise"
+            name: "promise"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - label: "Items (keep exactly 5 - the icons are fixed in the design)"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Label", name: "label", widget: "text", hint: "Use a line break for a 2-line label" }
+              - { label: "Note below", name: "note", widget: "text" }
+
+          - label: "Need Help Today"
+            name: "crisis"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Paragraph 1", name: "paragraph1", widget: "text" }
+              - { label: "Paragraph 2", name: "paragraph2", widget: "text" }
+              - { label: "Paragraph 3", name: "paragraph3", widget: "text" }
+              - { label: "Button text", name: "buttonLabel", widget: "string" }
+              - { label: "Emergency box title", name: "emergencyTitle", widget: "string" }
+              - { label: "Emergency number line", name: "emergencyNumber", widget: "string" }
+              - { label: "Emergency note", name: "emergencyNote", widget: "string" }
+
+          - label: "Our Community"
+            name: "community"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Subheading", name: "subheading", widget: "string" }
+              - { label: "Intro paragraph", name: "paragraph", widget: "text" }
+              - { label: "Community activities list", name: "items", widget: "list" }
+              - { label: "Button text", name: "buttonLabel", widget: "string" }
+              - { label: "Quote line 1", name: "quoteLine1", widget: "string" }
+              - { label: "Quote line 2", name: "quoteLine2", widget: "string" }
+              - { label: "Quote line 3", name: "quoteLine3", widget: "string" }
+              - { label: "Small italic quote", name: "quote", widget: "string" }
+
+          - label: "Partners & Resources"
+            name: "partners"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Subheading", name: "subheading", widget: "string" }
+              - { label: "Paragraph 1", name: "paragraph1", widget: "text" }
+              - { label: "Paragraph 2", name: "paragraph2", widget: "text" }
+              - { label: "Button text", name: "buttonLabel", widget: "string" }
+              - label: "Categories (keep exactly 8 - the icons are fixed in the design)"
+                name: "categories"
+                widget: "list"
+                fields:
+                  - { label: "Label", name: "label", widget: "text", hint: "Use a line break for a 2-line label" }
+
+          - label: "Donate"
+            name: "donate"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Paragraph", name: "paragraph", widget: "text" }
+              - { label: "Button text", name: "buttonLabel", widget: "string" }
