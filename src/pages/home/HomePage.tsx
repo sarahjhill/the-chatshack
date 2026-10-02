@@ -23,7 +23,7 @@ import {
   UsersRound,
 } from "lucide-react";
 
-const HERO_IMAGE = "https://hercules-cdn.com/file_B5UqrbI6WsVQwsMACEmI7E6G";
+const HERO_IMAGE = "/images/hero-image.jpg";
 
 const approachCards = [
   {
@@ -229,7 +229,7 @@ export default function HomePage() {
       <section
         className="relative py-14"
         style={{
-          backgroundImage: `url(https://hercules-cdn.com/file_TmghhIqkmNeW0pr0rRs5DTe1)`,
+          backgroundImage: `url(/images/homepage-bg.jpg)`,
           backgroundSize: "cover",
           backgroundPosition: "center 60%",
         }}

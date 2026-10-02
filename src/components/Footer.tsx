@@ -24,8 +24,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex-shrink-0">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-12 h-12 rounded-full bg-primary/30 flex items-center justify-center">
-                <span className="text-2xl">🏠</span>
+              <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center overflow-hidden">
+                <img src="/images/chatshack-logo.png" alt="The Chat Shack logo" className="w-10 h-10 object-contain" />
               </div>
               <div>
                 <div className="font-black text-white text-base leading-tight">THE CHAT SHACK C.I.C.</div>

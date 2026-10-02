@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, MessageCircle, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils.ts";
 
-const WOOD_BG = "https://hercules-cdn.com/file_nZ6cZnPvtWy25wdmcejj9mFG";
+const WOOD_BG = "/images/wood-bg.jpg";
 
 type NavItem = {
   label: string;
@@ -61,8 +61,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between py-3">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 flex-shrink-0">
-            <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center flex-shrink-0 shadow-md">
-              <span className="text-2xl">🏠</span>
+            <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center flex-shrink-0 shadow-md overflow-hidden">
+              <img src="/images/chatshack-logo.png" alt="The Chat Shack logo" className="w-10 h-10 object-contain" />
             </div>
             <div>
               <div className="font-black text-white text-lg leading-tight tracking-tight drop-shadow-md">

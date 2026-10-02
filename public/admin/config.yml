@@ -1,7 +1,7 @@
 # Use DecapBridge classic auth (required)
 backend:
   name: git-gateway
-  repo: sarahjhill/the-chatstack
+  repo: sarahjhill/the-chatshack
   branch: main
   identity_url: https://auth.decapbridge.com/sites/a9b22e2d-6d56-49e3-9fde-cd5b8ac7bc61
   gateway_url: https://gateway.decapbridge.com
@@ -15,7 +15,7 @@ backend:
     openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
 
 logo_url: https://decapbridge.com/decapcms-with-bridge.svg
-site_url: https://chatstack.sarahjhill.com
+site_url: https://chatshack.sarahjhill.com
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"

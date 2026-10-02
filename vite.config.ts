@@ -1,6 +1,5 @@
 import path from "node:path";
 import tailwindcss from "@tailwindcss/vite";
-import hercules from "@usehercules/vite";
 import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 
@@ -15,10 +14,9 @@ export default defineConfig({
     },
   },
   base: "/",
-  plugins: [react(), tailwindcss(), hercules()],
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      "@/convex": path.resolve(import.meta.dirname, "./convex"),
       "@": path.resolve(import.meta.dirname, "./src"),
     },
     dedupe: [
@@ -29,6 +27,7 @@ export default defineConfig({
     ],
   },
   build: {
+    outDir: "docs",
     chunkSizeWarningLimit: 1000,
   },
 });
