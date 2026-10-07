@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
-import { Users, CheckCircle, ShieldCheck } from "lucide-react";
+import { Users, CheckCircle, ShieldCheck, Lightbulb } from "lucide-react";
 import PolicyPageHeader from "@/components/PolicyPageHeader.tsx";
+import SuggestionForm from "@/components/SuggestionForm.tsx";
+
+// Once you've signed up at https://formspree.io and created a form, paste its
+// id here (the part after "/f/" in the URL Formspree gives you), e.g. "xyzabcde".
+// Leave blank and the section shows a "coming soon" notice instead.
+const FORMSPREE_FORM_ID = "";
 
 const communityItems = [
   "Men's groups",
@@ -52,11 +58,25 @@ export default function CommunityPage() {
             guaranteed where there's a safeguarding concern. You're always free to leave a session if
             you're uncomfortable.
           </p>
-          <div className="flex items-center gap-2 text-[#1a7a4a] font-bold mb-10">
+          <div className="flex items-center gap-2 text-[#1a7a4a] font-bold mb-12">
             <ShieldCheck className="w-5 h-5" />
             <Link to="/safeguarding" className="underline">
               See how we keep people safe
             </Link>
+          </div>
+
+          {/* Suggestions */}
+          <div className="flex items-center gap-2 mb-2">
+            <Lightbulb className="w-6 h-6 text-[#1a7a4a]" />
+            <h2 className="text-2xl font-black text-[#1a3a2a]">Tell us what's needed</h2>
+          </div>
+          <p className="text-[#4a4a4a] mb-5">
+            This community is shaped by the people in it. If there's a group, activity or type of support
+            you'd find helpful — or something about an existing session that isn't working for you — we
+            want to hear it. You don't need to give your name.
+          </p>
+          <div className="mb-12">
+            <SuggestionForm formId={FORMSPREE_FORM_ID} />
           </div>
 
           <div className="text-center">
