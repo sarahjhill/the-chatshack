@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 import { Mail, AlertTriangle } from "lucide-react";
-import PolicyPageHeader from "@/components/PolicyPageHeader.tsx";
+import PageHero from "@/components/PageHero.tsx";
+
+// Hero background photo for this page. Replace public/images/contact-hero.jpg
+// with a real photo (keep the same file name) and it updates here automatically.
+const HERO_IMAGE = "/images/contact-hero.jpg";
 
 export default function ContactPage() {
   return (
     <div className="min-h-screen">
-      <PolicyPageHeader
+      <PageHero
+        image={HERO_IMAGE}
         icon={Mail}
         eyebrow="Get in touch"
         title="Contact Us"

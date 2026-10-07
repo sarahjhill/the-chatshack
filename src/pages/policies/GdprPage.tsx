@@ -20,7 +20,7 @@ export default function GdprPage() {
       />
 
       <section className="bg-white py-14">
-        <div className="max-w-3xl mx-auto px-4">
+        <div className="max-w-4xl mx-auto px-4">
           <p className="text-[#4a4a4a] mb-8">
             The ChatShack complies with applicable UK data protection law, including the UK GDPR and the
             Data Protection Act 2018, as amended. Mental health information is health information, and

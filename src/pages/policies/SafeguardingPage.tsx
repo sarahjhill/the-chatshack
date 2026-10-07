@@ -20,7 +20,7 @@ export default function SafeguardingPage() {
       />
 
       <section className="bg-white py-14">
-        <div className="max-w-3xl mx-auto px-4">
+        <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">Our commitment</h2>
           <p className="text-[#4a4a4a] mb-3">
             The ChatShack exists on the belief that people should be treated as people first, not problems

@@ -34,7 +34,7 @@ export default function CodeOfConductPage() {
       />
 
       <section className="bg-white py-14">
-        <div className="max-w-3xl mx-auto px-4">
+        <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-2xl font-black text-[#1a3a2a] mb-4">Our core principles</h2>
           <div className="grid sm:grid-cols-2 gap-4 mb-10">
             {corePrinciples.map((p) => (
