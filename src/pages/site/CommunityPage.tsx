@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 import { Users, CheckCircle, ShieldCheck, Lightbulb } from "lucide-react";
-import PolicyPageHeader from "@/components/PolicyPageHeader.tsx";
+import SplitHero from "@/components/SplitHero.tsx";
 import SuggestionForm from "@/components/SuggestionForm.tsx";
 
 // Once you've signed up at https://formspree.io and created a form, paste its
 // id here (the part after "/f/" in the URL Formspree gives you), e.g. "xyzabcde".
 // Leave blank and the section shows a "coming soon" notice instead.
 const FORMSPREE_FORM_ID = "mqpepqzq";
+
+// Hero background photos - replace these two files (same names) with real photos any time.
+const HERO_IMAGE_LEFT = "/images/community-hero-mens.jpg";
+const HERO_IMAGE_RIGHT = "/images/community-hero-womens.jpg";
 
 const communityItems = [
   "Men's groups",
@@ -24,7 +28,9 @@ const communityItems = [
 export default function CommunityPage() {
   return (
     <div className="min-h-screen">
-      <PolicyPageHeader
+      <SplitHero
+        imageLeft={HERO_IMAGE_LEFT}
+        imageRight={HERO_IMAGE_RIGHT}
         icon={Users}
         eyebrow="More than a group"
         title="Our Community"
