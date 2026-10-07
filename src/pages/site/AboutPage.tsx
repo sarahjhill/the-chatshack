@@ -1,4 +1,4 @@
-import { HeartHandshake, Scale, Compass, Users, Shield, Handshake } from "lucide-react";
+import { HeartHandshake, Scale, Compass, Users, Shield, Handshake, Quote } from "lucide-react";
 import { Link } from "react-router-dom";
 import PageHero from "@/components/PageHero.tsx";
 import FounderVideo from "@/components/FounderVideo.tsx";
@@ -31,6 +31,8 @@ const principles = [
   { icon: Handshake, title: "Partnership", desc: "We work constructively alongside statutory, clinical and community organisations." },
 ];
 
+const whoWeAre = ["We listen.", "We talk.", "We signpost.", "We connect."];
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen">
@@ -44,7 +46,59 @@ export default function AboutPage() {
 
       <section className="bg-white py-14">
         <div className="max-w-3xl mx-auto px-4">
+          {/* A note from the founder */}
+          <div className="bg-[#f5f0e8] border border-amber-200 rounded-2xl p-6 md:p-8 mb-12 relative">
+            <Quote className="w-9 h-9 text-[#1a7a4a]/30 absolute top-5 left-5" />
+            <div className="relative">
+              <p className="text-xs font-bold uppercase tracking-wide text-amber-600 mb-3">
+                A note from Scott, founder of The ChatShack
+              </p>
+              <p className="text-[#3a3a3a] italic mb-3">
+                "When I first thought about what The ChatShack could become, I wanted to create something
+                simple — a place where people could come and talk, without judgement, without feeling like
+                they had to explain themselves, and without being made to feel like a number."
+              </p>
+              <p className="text-[#3a3a3a] mb-3">
+                The ChatShack has grown from that simple idea into a peer-led mental health support
+                community for people aged 18+, built around one very important principle:
+              </p>
+              <p className="font-black text-[#1a7a4a] text-lg mb-3">
+                You don't have to wait until things become a crisis before asking for support.
+              </p>
+              <p className="text-[#3a3a3a] mb-1">
+                We want The ChatShack to be a <strong>1st Point of Contact</strong> for anyone who needs
+                somebody to talk to, some guidance, a little bit of support, or simply a safe place to be
+                around other people.
+              </p>
+              <p className="text-[#3a3a3a] font-bold">
+                And importantly — you do NOT have to have a diagnosed mental health issue to use The
+                ChatShack.
+              </p>
+              <p className="text-right font-bold text-[#1a3a2a] mt-5">— Scott, Founder</p>
+            </div>
+          </div>
+
           <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">Our ethos</h2>
+          <p className="text-[#4a4a4a] mb-3">
+            We're not here to replace the NHS, doctors, therapists or other professional services. We're
+            here to help people find their way through what can often feel like a very complicated system.
+            We're ordinary people supporting ordinary people.
+          </p>
+          <div className="flex flex-wrap gap-x-6 gap-y-1 mb-3 font-bold text-[#1a7a4a]">
+            {whoWeAre.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </div>
+          <p className="text-[#4a4a4a] mb-3">
+            And when someone needs more specialist support, we work with our{" "}
+            <Link to="/partners" className="text-[#1a7a4a] font-bold underline">
+              Partners &amp; Resources Directory
+            </Link>{" "}
+            to try to connect that person with the right organisation, professional or service.
+          </p>
+          <div className="bg-[#e8f5ee] border-l-4 border-[#1a7a4a] px-5 py-4 rounded-r-xl mb-3 font-bold text-[#1a7a4a] text-center">
+            If we can help, we'll help. If we can't, we'll try to find somebody who can.
+          </div>
           <p className="text-[#4a4a4a] mb-3">
             We provide a safe environment where adults can talk without judgement; be listened to; meet
             people with shared experiences; develop supportive relationships; access information;
@@ -58,9 +112,9 @@ export default function AboutPage() {
           <p className="text-[#4a4a4a] mb-12">The ChatShack seeks to remain human at all times.</p>
 
           {/* Founder video */}
-          <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">Hear from our founder</h2>
+          <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">Watch Scott introduce The ChatShack</h2>
           <p className="text-[#4a4a4a] mb-4">
-            A short word from the person who started The ChatShack, on why it exists and who it's for.
+            A short word from Scott, on why The ChatShack exists and who it's for.
           </p>
           <div className="mb-12">
             <FounderVideo videoUrl={FOUNDER_VIDEO_URL} poster={FOUNDER_VIDEO_POSTER} />
