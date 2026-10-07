@@ -45,7 +45,7 @@ export default function AboutPage() {
       />
 
       <section className="bg-white py-14">
-        <div className="max-w-5xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             {/* A note from the founder */}
             <div className="bg-[#f5f0e8] border border-amber-200 rounded-2xl p-6 md:p-8 mb-12 relative">

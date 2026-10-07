@@ -31,7 +31,7 @@ export default function HomelessOutreachPage() {
       />
 
       <section className="bg-white py-14">
-        <div className="max-w-5xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <p className="text-[#4a4a4a] mb-3">
               Our Homeless Mental Health Support Team extends The ChatShack's peer-led model beyond the

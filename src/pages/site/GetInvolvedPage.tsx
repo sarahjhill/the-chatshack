@@ -27,7 +27,7 @@ export default function GetInvolvedPage() {
       />
 
       <section className="bg-white py-14">
-        <div className="max-w-5xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
             {ways.map((w) => (
               <div key={w.title} className="bg-[#f5f0e8] rounded-xl p-4 border border-amber-200">

@@ -1,9 +1,5 @@
 import type { LucideIcon } from "lucide-react";
 
-/**
- * Plain banner header for legal/policy pages (no photo) — left-aligned to
- * match the look of the photo heroes used elsewhere on the site.
- */
 export default function PolicyPageHeader({
   icon: Icon,
   eyebrow,
@@ -16,18 +12,14 @@ export default function PolicyPageHeader({
   subtitle: string;
 }) {
   return (
-    <section className="bg-[#1a2e1a] py-16">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="max-w-xl">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-9 h-9 rounded-full bg-[#1a7a4a]/20 flex items-center justify-center flex-shrink-0">
-              <Icon className="w-4 h-4 text-amber-400" />
-            </div>
-            <p className="text-amber-400 text-sm font-bold uppercase tracking-wide">{eyebrow}</p>
-          </div>
-          <h1 className="text-white font-black text-4xl md:text-5xl leading-tight mb-3">{title}</h1>
-          <p className="text-white/70 text-lg">{subtitle}</p>
+    <section className="bg-[#1a2e1a] py-14 text-center">
+      <div className="max-w-3xl mx-auto px-4">
+        <div className="w-14 h-14 rounded-full bg-[#1a7a4a]/20 flex items-center justify-center mx-auto mb-4">
+          <Icon className="w-7 h-7 text-amber-400" />
         </div>
+        <p className="text-amber-400 text-sm font-bold uppercase tracking-wide mb-2">{eyebrow}</p>
+        <h1 className="text-white font-black text-3xl md:text-4xl mb-3">{title}</h1>
+        <p className="text-white/70">{subtitle}</p>
       </div>
     </section>
   );

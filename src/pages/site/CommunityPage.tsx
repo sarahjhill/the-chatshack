@@ -38,7 +38,7 @@ export default function CommunityPage() {
       />
 
       <section className="bg-white py-14">
-        <div className="max-w-5xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <p className="text-[#4a4a4a] mb-6">Our community can include:</p>
           <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3 mb-10">
