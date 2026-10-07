@@ -6,7 +6,7 @@ import SuggestionForm from "@/components/SuggestionForm.tsx";
 // Once you've signed up at https://formspree.io and created a form, paste its
 // id here (the part after "/f/" in the URL Formspree gives you), e.g. "xyzabcde".
 // Leave blank and the section shows a "coming soon" notice instead.
-const FORMSPREE_FORM_ID = "";
+const FORMSPREE_FORM_ID = "mqpepqzq";
 
 const communityItems = [
   "Men's groups",
