@@ -55,7 +55,15 @@ export default function Footer() {
               <span className="text-blue-400 font-bold text-sm">f</span>
               @TheChatShack
             </a>
-            <p className="text-sm italic text-white/60 mt-2">"You are not alone."</p>
+            <p className="text-sm italic text-white/60 mt-2">"It's ok not to be ok. It's not ok to stay there."</p>
+            <a
+              href="/documents/chatshack-employers-liability-certificate.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/50 hover:text-white/80 text-xs underline mt-2 inline-block"
+            >
+              Employers' Liability Certificate
+            </a>
           </div>
 
           {/* Link groups */}

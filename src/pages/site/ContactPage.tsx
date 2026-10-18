@@ -19,6 +19,10 @@ export default function ContactPage() {
 
       <section className="bg-white py-14">
         <div className="max-w-3xl mx-auto px-4">
+          <p className="text-center font-bold text-[#1a7a4a] text-lg mb-8">
+            It's ok not to be ok. It's not ok to stay there.
+          </p>
+
           <div className="bg-[#f5f0e8] rounded-xl p-6 border border-amber-200 mb-10 text-center">
             <div className="w-12 h-12 bg-[#1a7a4a]/10 rounded-full flex items-center justify-center mx-auto mb-3">
               <span className="text-[#1a7a4a] font-black text-xl">f</span>

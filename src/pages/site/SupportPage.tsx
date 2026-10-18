@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MessageCircle, AlertTriangle, ArrowRight, Ear, HeartHandshake, UserCheck, HelpCircle } from "lucide-react";
+import { MessageCircle, AlertTriangle, ArrowRight, Ear, HeartHandshake, UserCheck, Sparkles, HelpCircle, Download } from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
 
 // Hero background photo for this page. Replace public/images/support-hero.jpg
@@ -7,9 +7,10 @@ import PageHero from "@/components/PageHero.tsx";
 const HERO_IMAGE = "/images/support-hero.jpg";
 
 const howWeHelp = [
-  { icon: Ear, title: "We listen", desc: "No judgement, no pressure to share more than you want to." },
-  { icon: HeartHandshake, title: "We support", desc: "Peer support, groups, activities and one-to-one support." },
-  { icon: UserCheck, title: "We signpost", desc: "Help finding the right professional service or treatment, where needed." },
+  { icon: Ear, title: "We listen", desc: "No judgement, no pressure to share more than you want to.", color: "bg-[#2d8a55]" },
+  { icon: HeartHandshake, title: "We support", desc: "Peer support, groups, activities and one-to-one support.", color: "bg-[#4a7ebf]" },
+  { icon: UserCheck, title: "We signpost", desc: "Help finding the right professional service or treatment, where needed.", color: "bg-[#e07b39]" },
+  { icon: Sparkles, title: "We don't just help", desc: "We aim to change — not just get you through today, but towards something better.", color: "bg-[#8b5fb8]" },
 ];
 
 const faqs = [
@@ -40,41 +41,63 @@ export default function SupportPage() {
 
       <section className="bg-white py-14">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid sm:grid-cols-3 gap-4 mb-12">
-            {howWeHelp.map((h) => (
-              <div key={h.title} className="bg-[#f5f0e8] rounded-xl p-4 border border-amber-200 text-center">
-                <div className="w-10 h-10 bg-[#1a7a4a]/10 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <h.icon className="w-5 h-5 text-[#1a7a4a]" />
+          <div className="grid md:grid-cols-2 gap-12 mb-10 items-start">
+            <div>
+              <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">What to expect</h2>
+              <p className="text-[#4a4a4a] mb-3">
+                Reaching out can be the hardest part. Where appropriate and where available, we help people
+                navigate towards same-day support and treatment. If we can't provide what you need ourselves,
+                our{" "}
+                <Link to="/partners" className="text-[#1a7a4a] font-bold underline">
+                  Directory of Partners &amp; Resources
+                </Link>{" "}
+                helps connect you with organisations who may be able to.
+              </p>
+              <p className="text-[#4a4a4a] mb-3">
+                One-to-one peer support has clear boundaries — a peer supporter is not a therapist,
+                psychiatrist, GP, crisis service or emergency responder. They will listen, provide appropriate
+                emotional support, signpost you, and encourage professional help where it's needed.
+              </p>
+              <p className="text-[#4a4a4a]">
+                Our{" "}
+                <Link to="/privacy" className="text-[#1a7a4a] font-bold underline">
+                  confidentiality policy
+                </Link>{" "}
+                explains what you tell us stays between us, with rare, clearly explained exceptions.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              {howWeHelp.map((h) => (
+                <div
+                  key={h.title}
+                  className={`${h.color} text-white rounded-xl p-4 flex flex-col items-center text-center`}
+                >
+                  <h.icon className="w-7 h-7 mb-2" />
+                  <p className="font-black text-sm">{h.title}</p>
+                  <p className="text-white/90 text-xs mt-1">{h.desc}</p>
                 </div>
-                <p className="font-bold text-[#1a3a2a] mb-1">{h.title}</p>
-                <p className="text-sm text-[#4a4a4a]">{h.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">What to expect</h2>
-            <p className="text-[#4a4a4a] mb-3">
-              Reaching out can be the hardest part. Where appropriate and where available, we help people
-              navigate towards same-day support and treatment. If we can't provide what you need ourselves,
-              our{" "}
-              <Link to="/partners" className="text-[#1a7a4a] font-bold underline">
-                Directory of Partners &amp; Resources
-              </Link>{" "}
-              helps connect you with organisations who may be able to.
+          <div className="bg-[#f5f0e8] border border-amber-200 rounded-2xl p-6 md:p-8 text-center max-w-2xl mx-auto mb-14">
+            <h3 className="font-black text-lg text-[#1a3a2a] mb-2">Want to get a head start?</h3>
+            <p className="text-[#4a4a4a] text-sm mb-5">
+              If it helps to gather your thoughts beforehand, you can download our First Contact &amp;
+              Initial Support Form. It's entirely optional, nothing here is compulsory to answer, and you
+              can bring it along or send it to us however feels comfortable &mdash; it's just there to make
+              that first step a little easier if you want it.
             </p>
-            <p className="text-[#4a4a4a] mb-3">
-              One-to-one peer support has clear boundaries — a peer supporter is not a therapist,
-              psychiatrist, GP, crisis service or emergency responder. They will listen, provide appropriate
-              emotional support, signpost you, and encourage professional help where it's needed.
-            </p>
-            <p className="text-[#4a4a4a] mb-12">
-              Our{" "}
-              <Link to="/privacy" className="text-[#1a7a4a] font-bold underline">
-                confidentiality policy
-              </Link>{" "}
-              explains what you tell us stays between us, with rare, clearly explained exceptions.
-            </p>
+            <a
+              href="/documents/chatshack-first-contact-form.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#1a7a4a] hover:bg-[#156039] text-white font-bold px-6 py-3 rounded-full transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              DOWNLOAD FIRST CONTACT FORM
+            </a>
           </div>
 
           {/* FAQs */}
@@ -91,27 +114,29 @@ export default function SupportPage() {
             ))}
           </div>
 
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-red-600 text-white rounded-xl p-5 flex gap-3 mb-10">
-              <AlertTriangle className="w-8 h-8 flex-shrink-0 mt-1" />
-              <div>
-                <p className="font-black text-lg">IN AN EMERGENCY OR IMMEDIATE DANGER</p>
-                <p className="font-bold text-xl">PLEASE CALL 999</p>
-                <p className="text-white/90 text-sm mt-1">or go to your nearest A&amp;E department.</p>
-              </div>
-            </div>
+          <div className="bg-[#e8f5ee] border-l-4 border-[#1a7a4a] px-5 py-4 rounded-r-xl mb-6 font-bold text-[#1a7a4a] text-center">
+            It's ok not to be ok. It's not ok to stay there.
+          </div>
 
-            <div className="text-center">
-              <a
-                href="https://facebook.com/TheChatShack"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#1a7a4a] hover:bg-[#156039] text-white font-bold px-6 py-3 rounded-full transition-colors"
-              >
-                <ArrowRight className="w-4 h-4" />
-                REACH OUT TO US
-              </a>
+          <div className="bg-red-600 text-white rounded-xl p-5 flex gap-3 mb-8 max-w-3xl mx-auto">
+            <AlertTriangle className="w-8 h-8 flex-shrink-0 mt-1" />
+            <div>
+              <p className="font-black text-lg">IN AN EMERGENCY OR IMMEDIATE DANGER</p>
+              <p className="font-bold text-xl">PLEASE CALL 999</p>
+              <p className="text-white/90 text-sm mt-1">or go to your nearest A&amp;E department.</p>
             </div>
+          </div>
+
+          <div className="text-center">
+            <a
+              href="https://facebook.com/TheChatShack"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#1a7a4a] hover:bg-[#156039] text-white font-bold px-6 py-3 rounded-full transition-colors"
+            >
+              <ArrowRight className="w-4 h-4" />
+              REACH OUT TO US
+            </a>
           </div>
         </div>
       </section>

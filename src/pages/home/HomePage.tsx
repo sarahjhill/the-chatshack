@@ -32,6 +32,8 @@ const HERO_IMAGE = "/images/hero-image.jpg";
 // position.
 const approachIcons = [MessageCircle, Users, Heart, Compass];
 const approachColors = ["bg-[#2d8a55]", "bg-[#4a7ebf]", "bg-[#e07b39]", "bg-[#8b5fb8]"];
+// Where each "Our Approach" card (TALK, CONNECT, SUPPORT, ACCESS) sends people, in order.
+const approachLinks = ["/support", "/community", "/support", "/partners"];
 const promiseIcons = [Shield, Lock, Smile, DollarSign, User];
 const partnerIcons = [Brain, Stethoscope, Activity, Dumbbell, Home, Banknote, RefreshCw, UsersRound];
 
@@ -281,39 +283,43 @@ export default function HomePage() {
               {approach.cards.map((card, i) => {
                 const Icon = approachIcons[i];
                 return (
-                  <motion.div
-                    key={card.title}
-                    whileHover={{ scale: 1.03 }}
-                    className={`${approachColors[i]} text-white rounded-xl p-4 flex flex-col items-center text-center cursor-default`}
-                  >
-                    {Icon && <Icon className="w-8 h-8 mb-2" />}
-                    <div className="font-black text-lg">{card.title}</div>
-                    <div className="text-white text-xs mt-1">{card.desc}</div>
-                  </motion.div>
+                  <Link key={card.title} to={approachLinks[i]} className="block">
+                    <motion.div
+                      whileHover={{ scale: 1.03 }}
+                      className={`${approachColors[i]} text-white rounded-xl p-4 flex flex-col items-center text-center h-full cursor-pointer`}
+                    >
+                      {Icon && <Icon className="w-8 h-8 mb-2" />}
+                      <div className="font-black text-lg">{card.title}</div>
+                      <div className="text-white text-xs mt-1">{card.desc}</div>
+                    </motion.div>
+                  </Link>
                 );
               })}
             </div>
 
-            {/* Our Promise */}
-            <div className="bg-[#f5f0e8] rounded-xl p-4 border border-amber-200">
-              <h3 className="font-black text-[#1a3a2a] text-center mb-3">{promise.heading}</h3>
-              <div className="flex justify-around flex-wrap gap-2">
-                {promise.items.map((item, i) => {
-                  const Icon = promiseIcons[i];
-                  return (
-                    <div key={item.label} className="flex flex-col items-center gap-1">
-                      <div className="w-10 h-10 bg-[#1a7a4a]/10 rounded-full flex items-center justify-center">
-                        {Icon && <Icon className="w-5 h-5 text-[#1a7a4a]" />}
-                      </div>
-                      <span className="text-xs font-bold text-[#1a3a2a] text-center whitespace-pre-line leading-tight">
-                        {item.label}
-                      </span>
+          </div>
+        </div>
+
+        {/* Our Promise - full width */}
+        <div className="max-w-7xl mx-auto px-4 mt-10">
+          <div className="bg-[#f5f0e8] rounded-xl p-4 border border-amber-200">
+            <h3 className="font-black text-[#1a3a2a] text-center mb-3">{promise.heading}</h3>
+            <div className="flex justify-around flex-wrap gap-2">
+              {promise.items.map((item, i) => {
+                const Icon = promiseIcons[i];
+                return (
+                  <div key={item.label} className="flex flex-col items-center gap-1">
+                    <div className="w-10 h-10 bg-[#1a7a4a]/10 rounded-full flex items-center justify-center">
+                      {Icon && <Icon className="w-5 h-5 text-[#1a7a4a]" />}
                     </div>
-                  );
-                })}
-              </div>
-              <p className="text-center text-xs italic text-[#6a6a6a] mt-3">{promise.note}</p>
+                    <span className="text-xs font-bold text-[#1a3a2a] text-center whitespace-pre-line leading-tight">
+                      {item.label}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
+            <p className="text-center text-xs italic text-[#6a6a6a] mt-3">{promise.note}</p>
           </div>
         </div>
       </section>
@@ -379,7 +385,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div>
               <h2 className="text-2xl font-black text-[#1a3a2a] mb-1">{community.heading}</h2>
-              <h3 className="text-lg font-bold uppercase tracking-wide text-amber-600 mb-3">
+              <h3 className="text-lg font-bold uppercase tracking-wide text-amber-800 mb-3">
                 {community.subheading}
               </h3>
               <p className="text-[#3a3a3a] mb-4">{community.paragraph}</p>
@@ -420,7 +426,7 @@ export default function HomePage() {
                 </div>
                 <div>
                   <h2 className="text-2xl font-black text-[#1a3a2a]">{partners.heading}</h2>
-                  <p className="text-sm font-bold uppercase tracking-wide text-amber-600">{partners.subheading}</p>
+                  <p className="text-sm font-bold uppercase tracking-wide text-amber-800">{partners.subheading}</p>
                 </div>
               </div>
               <p className="text-[#3a3a3a] mb-3">{partners.paragraph1}</p>
@@ -460,7 +466,7 @@ export default function HomePage() {
           <p className="text-white/80 mb-6">{donate.paragraph}</p>
           <Link
             to="/donate"
-            className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-3 rounded-full transition-colors text-lg"
+            className="inline-flex items-center gap-2 bg-amber-700 hover:bg-amber-800 text-white font-bold px-8 py-3 rounded-full transition-colors text-lg"
           >
             <Heart className="w-5 h-5" />
             {donate.buttonLabel}
