@@ -92,9 +92,19 @@ export default function Footer() {
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-white/20 mt-8 pt-4 text-center text-white/50 text-xs">
           <span>© {new Date().getFullYear()} The Chat Shack C.I.C. Registered in England & Wales. All rights reserved.</span>
-          <Link to="/" className="text-white/50 hover:text-white/80 transition-colors">
-            Home
-          </Link>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://sarahjhill.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/50 hover:text-white/80 transition-colors"
+            >
+              Created by Sarah J Hill - Dragon Fire Design
+            </a>
+            <Link to="/" className="text-white/50 hover:text-white/80 transition-colors">
+              Home
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
