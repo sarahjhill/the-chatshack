@@ -26,5 +26,8 @@ tsconfig.tsbuildinfo
 *.sln
 *.sw?
 
-# Environment variables
-.env*
+# Environment variables - .env.production is tracked on purpose: it only
+# holds the public API base URL the GitHub Actions build needs, no secrets.
+.env
+.env.local
+.env.*.local

@@ -1,20 +1,19 @@
 import { useState } from "react";
 import { Lightbulb, Send, CheckCircle2 } from "lucide-react";
+import { API_URL, postToApi } from "@/lib/api";
 
 /**
- * Community suggestions form, posts to Formspree (https://formspree.io).
+ * Community suggestions form - posts to the Django backend's
+ * /api/suggestions/ endpoint (see backend/submissions/). Scott sees every
+ * submission in the Django admin and gets emailed when one comes in.
  *
- * To make this live:
- *   1. Go to https://formspree.io and sign up free.
- *   2. Create a new form, pointed at the email address you want suggestions to land in.
- *   3. Formspree gives you a form ID that looks like "xyzabcde" (part of a URL like
- *      https://formspree.io/f/xyzabcde).
- *   4. In CommunityPage.tsx, set FORMSPREE_FORM_ID to that id.
- * Until that's set, this shows a friendly "coming soon" notice instead of a form.
+ * Until the backend is deployed and VITE_API_URL is set (see .env /
+ * .env.production), this shows a friendly "coming soon" notice instead of
+ * a form, so nobody fills in something that would silently go nowhere.
  */
-export default function SuggestionForm({ formId }: { formId: string }) {
+export default function SuggestionForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const configured = formId.trim().length > 0;
+  const configured = Boolean(API_URL);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -22,19 +21,15 @@ export default function SuggestionForm({ formId }: { formId: string }) {
     setStatus("sending");
     const form = e.currentTarget;
     const data = new FormData(form);
-    try {
-      const res = await fetch(`https://formspree.io/f/${formId}`, {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
-      });
-      if (res.ok) {
-        setStatus("sent");
-        form.reset();
-      } else {
-        setStatus("error");
-      }
-    } catch {
+    const ok = await postToApi("/api/suggestions/", {
+      name: data.get("name") || "",
+      email: data.get("email") || "",
+      message: data.get("suggestion") || "",
+    });
+    if (ok) {
+      setStatus("sent");
+      form.reset();
+    } else {
       setStatus("error");
     }
   }
@@ -74,9 +69,6 @@ export default function SuggestionForm({ formId }: { formId: string }) {
 
   return (
     <form onSubmit={handleSubmit} className="bg-[#f5f0e8] border border-amber-200 rounded-2xl p-6">
-      {/* Honeypot field to deter simple spam bots; hidden from real visitors */}
-      <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
-
       <label className="block mb-4">
         <span className="block font-bold text-[#1a3a2a] mb-1 text-sm">Your name (optional)</span>
         <input

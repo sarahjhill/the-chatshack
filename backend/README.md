@@ -20,13 +20,37 @@ hasn't changed). This backend gives you:
   reading the static `public/content/home.json` file, so editing content
   in the admin actually changes the live site.
 
-## What's NOT done yet
+## What's now wired up
 
-The React site still reads `public/content/home.json` directly - it isn't
-calling this new API yet, and none of the three forms (suggestions, first
-contact, partner applications) submit to it yet either. That's a separate,
-small follow-up once you're happy with this backend and it's deployed
-somewhere real - purely wiring, no visual changes.
+The React site (`../src/pages/home/HomePage.tsx`) now fetches homepage
+content from `GET /api/home/` first, and only falls back to the static
+`public/content/home.json` file if the API isn't reachable (e.g. before
+this backend is deployed, or if it's briefly down). So once this is
+deployed, edits you make in the admin show up on the live site - no code
+changes needed.
+
+All three forms on the site now submit straight to this backend instead
+of Formspree/PDF-only downloads:
+
+- **Community page** "Tell us what's needed" box -> `POST /api/suggestions/`
+- **Support page** First Contact form (now a real form, not just a PDF
+  download - the PDF is still there as an alternative) -> `POST /api/first-contact/`
+- **Partners & Resources** application form (same - real form, PDF still
+  available) -> `POST /api/partner-applications/`
+
+The frontend only does this when `VITE_API_URL` is set (see
+`../.env` for local dev and `../.env.production` for the live build) -
+without it, each form shows a friendly fallback instead of silently
+failing.
+
+**One extra thing to run**: the suggestions form now also captures an
+optional email address (so you can reply, same as the other two forms
+already could), which needed one more migration. After pulling this,
+run:
+
+```bash
+python manage.py migrate
+```
 
 ## Running it locally
 
@@ -42,6 +66,10 @@ python manage.py runserver
 Then open http://127.0.0.1:8000/admin/ and log in with the superuser you
 created. The homepage content and site settings are already pre-filled
 with your real current content (seeded from `home.json`).
+
+To see the React site actually talking to this backend locally, also run
+the frontend dev server in another terminal (`npm run dev` from the repo
+root) - `.env` already points it at `http://127.0.0.1:8000`.
 
 API endpoints to try:
 - `GET /api/home/` - homepage content as JSON

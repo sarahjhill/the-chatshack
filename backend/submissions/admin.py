@@ -5,10 +5,10 @@ from .models import FirstContactSubmission, PartnerApplicationSubmission, Sugges
 
 @admin.register(SuggestionSubmission)
 class SuggestionSubmissionAdmin(admin.ModelAdmin):
-    list_display = ["name_display", "message_preview", "created_at", "is_reviewed"]
+    list_display = ["name_display", "email", "message_preview", "created_at", "is_reviewed"]
     list_filter = ["is_reviewed", "created_at"]
-    search_fields = ["name", "message"]
-    readonly_fields = ["name", "message", "created_at"]
+    search_fields = ["name", "email", "message"]
+    readonly_fields = ["name", "email", "message", "created_at"]
 
     @admin.display(description="From")
     def name_display(self, obj):

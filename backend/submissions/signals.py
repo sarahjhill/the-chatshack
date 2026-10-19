@@ -11,7 +11,7 @@ def notify_new_suggestion(sender, instance, created, **kwargs):
         return
     notify(
         "New community suggestion",
-        f"From: {instance.name or 'Anonymous'}\n\n{instance.message}",
+        f"From: {instance.name or 'Anonymous'}\nEmail: {instance.email or '(not given)'}\n\n{instance.message}",
     )
 
 

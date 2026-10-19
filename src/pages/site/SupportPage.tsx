@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { MessageCircle, AlertTriangle, ArrowRight, Ear, HeartHandshake, UserCheck, Sparkles, HelpCircle, Download } from "lucide-react";
+import { MessageCircle, AlertTriangle, ArrowRight, Ear, HeartHandshake, UserCheck, Sparkles, HelpCircle } from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
+import FirstContactForm from "@/components/FirstContactForm.tsx";
 
 // Hero background photo for this page. Replace public/images/support-hero.jpg
 // with a real photo (keep the same file name) and it updates here automatically.
@@ -81,24 +82,7 @@ export default function SupportPage() {
             </div>
           </div>
 
-          <div className="bg-[#f5f0e8] border border-amber-200 rounded-2xl p-6 md:p-8 text-center max-w-2xl mx-auto mb-14">
-            <h3 className="font-black text-lg text-[#1a3a2a] mb-2">Want to get a head start?</h3>
-            <p className="text-[#4a4a4a] text-sm mb-5">
-              If it helps to gather your thoughts beforehand, you can download our First Contact &amp;
-              Initial Support Form. It's entirely optional, nothing here is compulsory to answer, and you
-              can bring it along or send it to us however feels comfortable &mdash; it's just there to make
-              that first step a little easier if you want it.
-            </p>
-            <a
-              href="/documents/chatshack-first-contact-form.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#1a7a4a] hover:bg-[#156039] text-white font-bold px-6 py-3 rounded-full transition-colors"
-            >
-              <Download className="w-4 h-4" />
-              DOWNLOAD FIRST CONTACT FORM
-            </a>
-          </div>
+          <FirstContactForm />
 
           {/* FAQs */}
           <div className="flex items-center gap-2 mb-5 justify-center">

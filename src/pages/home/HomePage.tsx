@@ -148,29 +148,48 @@ const DEFAULT_CONTENT = {
 
 type HomeContent = typeof DEFAULT_CONTENT;
 
+// Content is editable by Scott in the Django admin. We try the live API
+// first so his edits show up on the site; if the backend isn't reachable
+// (not deployed yet, or briefly down) we fall back to the static JSON file
+// that's always built into the site, so the homepage never breaks.
+const API_URL = import.meta.env.VITE_API_URL as string | undefined;
+
+async function fetchHomeContent(): Promise<Record<string, unknown> | null> {
+  if (API_URL) {
+    try {
+      const res = await fetch(`${API_URL}/api/home/`, { cache: "no-store" });
+      if (res.ok) return await res.json();
+    } catch {
+      // API unreachable - fall through to the static file below.
+    }
+  }
+  try {
+    const res = await fetch("/content/home.json", { cache: "no-store" });
+    if (res.ok) return await res.json();
+  } catch {
+    // Network hiccup or file briefly missing - keep showing defaults.
+  }
+  return null;
+}
+
 export default function HomePage() {
   const [content, setContent] = useState<HomeContent>(DEFAULT_CONTENT);
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/content/home.json", { cache: "no-store" })
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (!cancelled && data) {
-          // Shallow-merge per-section so a partially-filled-in content file
-          // (or one missing a brand-new field) never breaks rendering.
-          setContent((prev) => {
-            const merged = { ...prev } as HomeContent;
-            for (const key of Object.keys(prev) as (keyof HomeContent)[]) {
-              if (data[key]) merged[key] = { ...prev[key], ...data[key] } as never;
-            }
-            return merged;
-          });
-        }
-      })
-      .catch(() => {
-        // Network hiccup or file briefly missing - keep showing defaults.
-      });
+    fetchHomeContent().then((data) => {
+      if (!cancelled && data) {
+        // Shallow-merge per-section so a partially-filled-in content file
+        // (or one missing a brand-new field) never breaks rendering.
+        setContent((prev) => {
+          const merged = { ...prev } as HomeContent;
+          for (const key of Object.keys(prev) as (keyof HomeContent)[]) {
+            if (data[key]) merged[key] = { ...prev[key], ...data[key] } as never;
+          }
+          return merged;
+        });
+      }
+    });
     return () => {
       cancelled = true;
     };

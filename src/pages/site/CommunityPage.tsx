@@ -3,11 +3,6 @@ import { Users, CheckCircle, ShieldCheck, Lightbulb } from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
 import SuggestionForm from "@/components/SuggestionForm.tsx";
 
-// Once you've signed up at https://formspree.io and created a form, paste its
-// id here (the part after "/f/" in the URL Formspree gives you), e.g. "xyzabcde".
-// Leave blank and the section shows a "coming soon" notice instead.
-const FORMSPREE_FORM_ID = "mqpepqzq";
-
 // Hero background photo for this page. Replace public/images/community-hero.webp
 // with a real photo (keep the same file name) and it updates here automatically.
 const HERO_IMAGE = "/images/community-hero.webp";
@@ -128,7 +123,7 @@ export default function CommunityPage() {
               want to hear it. You don't need to give your name.
             </p>
             <div className="mb-12">
-              <SuggestionForm formId={FORMSPREE_FORM_ID} />
+              <SuggestionForm />
             </div>
 
             <div className="text-center">

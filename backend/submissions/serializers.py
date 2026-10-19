@@ -6,7 +6,7 @@ from .models import FirstContactSubmission, PartnerApplicationSubmission, Sugges
 class SuggestionSubmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = SuggestionSubmission
-        fields = ["name", "message"]
+        fields = ["name", "email", "message"]
 
 
 class FirstContactSubmissionSerializer(serializers.ModelSerializer):

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Users, Brain, Stethoscope, Activity, Dumbbell, Home, Banknote, RefreshCw, UsersRound, Download, ShieldCheck } from "lucide-react";
+import { Users, Brain, Stethoscope, Activity, Dumbbell, Home, Banknote, RefreshCw, UsersRound, ShieldCheck } from "lucide-react";
+import PartnerApplicationForm from "@/components/PartnerApplicationForm.tsx";
 import PageHero from "@/components/PageHero.tsx";
 
 // Hero background photo for this page. Replace public/images/partners-hero.jpg
@@ -116,29 +117,7 @@ export default function PartnersPage() {
               </p>
             </div>
 
-            <div className="bg-[#f5f0e8] border border-amber-200 rounded-2xl p-6 md:p-8 text-center">
-              <h3 className="font-black text-lg text-[#1a3a2a] mb-2">
-                Want to offer your services to The ChatShack and our community?
-              </h3>
-              <p className="text-[#4a4a4a] text-sm mb-5">
-                If you're an individual, group or organisation who could offer support, resources or
-                services to the people we work with, we'd love to hear from you. Download and complete
-                our Partner &amp; Resources profile form, then send it to us via the{" "}
-                <Link to="/contact" className="text-[#1a7a4a] font-bold underline">
-                  Contact
-                </Link>{" "}
-                page.
-              </p>
-              <a
-                href="/documents/chatshack-partner-profile-form.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#1a7a4a] hover:bg-[#156039] text-white font-bold px-6 py-3 rounded-full transition-colors"
-              >
-                <Download className="w-4 h-4" />
-                DOWNLOAD PARTNER APPLICATION FORM
-              </a>
-            </div>
+            <PartnerApplicationForm />
           </div>
 
           <div className="flex items-center justify-center gap-2 text-sm text-[#6a6a6a] mb-3">

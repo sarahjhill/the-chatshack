@@ -6,6 +6,7 @@ class SuggestionSubmission(models.Model):
     the site tells people they don't need to give it."""
 
     name = models.CharField(max_length=150, blank=True)
+    email = models.EmailField(blank=True, help_text="Optional - only given if they'd like a reply.")
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     is_reviewed = models.BooleanField(default=False, help_text="Tick once Scott has read and actioned this.")
