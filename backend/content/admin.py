@@ -2,6 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.shortcuts import redirect
 from unfold.admin import ModelAdmin, StackedInline
+from unfold.contrib.forms.widgets import WysiwygWidget
 
 from .models import ContentBlock, HomePageContent, ListItem, PageHero, SiteSettings
 
@@ -75,8 +76,26 @@ class SiteSettingsAdmin(ModelAdmin):
         return redirect("admin:content_sitesettings_change", obj.pk)
 
 
+class ContentBlockForm(forms.ModelForm):
+    """Uses a WYSIWYG (rich text) editor for the body, so Scott can bold
+    text, add links and bullet points, etc. without writing any HTML."""
+
+    class Meta:
+        model = ContentBlock
+        fields = "__all__"
+        widgets = {"body": WysiwygWidget}
+
+
+class ListItemForm(forms.ModelForm):
+    class Meta:
+        model = ListItem
+        fields = "__all__"
+        widgets = {"description": WysiwygWidget}
+
+
 class ContentBlockInline(StackedInline):
     model = ContentBlock
+    form = ContentBlockForm
     extra = 0
     fields = ["section", "order", "heading", "body", "image", "link_text", "link_url"]
     verbose_name = "Text section"
@@ -85,6 +104,7 @@ class ContentBlockInline(StackedInline):
 
 class ListItemInline(StackedInline):
     model = ListItem
+    form = ListItemForm
     extra = 0
     fields = ["section", "order", "title", "description", "image"]
     verbose_name = "Card / list item"

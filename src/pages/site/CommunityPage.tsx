@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { Users, CheckCircle, ShieldCheck, Lightbulb } from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
 import SuggestionForm from "@/components/SuggestionForm.tsx";
-import { usePageContent, block, items, paragraphs } from "@/lib/pageContent.ts";
+import { usePageContent, block, items } from "@/lib/pageContent.ts";
+import RichText from "@/components/RichText.tsx";
 
 // Hero background photo for this page. Replace public/images/community-hero.webp
 // with a real photo (keep the same file name) and it updates here automatically.
@@ -92,13 +93,17 @@ export default function CommunityPage() {
             <div className="flex flex-col h-full">
               <div className="bg-[#e8f5ee] border border-[#1a7a4a]/30 rounded-2xl p-6 h-full flex flex-col justify-center">
                 <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">{howGroupsRun?.heading || "How our groups run"}</h2>
-                {(howGroupsRun?.body ? paragraphs(howGroupsRun.body) : [
-                  "Every group has a named facilitator, a known venue, a clear attendance process and agreed ground rules. We ask everyone to respect others, allow people to speak, avoid discriminatory behaviour, and understand that confidentiality is expected — though it can't always be guaranteed where there's a safeguarding concern. You're always free to leave a session if you're uncomfortable.",
-                ]).map((p, idx) => (
-                  <p key={idx} className="text-[#4a4a4a] mb-4">
-                    {p}
+                {howGroupsRun?.body ? (
+                  <RichText html={howGroupsRun.body} className="text-[#4a4a4a] mb-2" />
+                ) : (
+                  <p className="text-[#4a4a4a] mb-4">
+                    Every group has a named facilitator, a known venue, a clear attendance process and
+                    agreed ground rules. We ask everyone to respect others, allow people to speak, avoid
+                    discriminatory behaviour, and understand that confidentiality is expected — though it
+                    can't always be guaranteed where there's a safeguarding concern. You're always free to
+                    leave a session if you're uncomfortable.
                   </p>
-                ))}
+                )}
                 <div className="flex items-center gap-2 text-[#1a7a4a] font-bold">
                   <ShieldCheck className="w-5 h-5 flex-shrink-0" />
                   <Link to="/safeguarding" className="underline">
@@ -115,13 +120,15 @@ export default function CommunityPage() {
               <Lightbulb className="w-6 h-6 text-[#1a7a4a]" />
               <h2 className="text-2xl font-black text-[#1a3a2a]">{suggestionsIntro?.heading || "Tell us what's needed"}</h2>
             </div>
-            {(suggestionsIntro?.body ? paragraphs(suggestionsIntro.body) : [
-              "This community is shaped by the people in it. If there's a group, activity or type of support you'd find helpful — or something about an existing session that isn't working for you — we want to hear it. You don't need to give your name.",
-            ]).map((p, idx) => (
-              <p key={idx} className="text-[#4a4a4a] mb-5">
-                {p}
+            {suggestionsIntro?.body ? (
+              <RichText html={suggestionsIntro.body} className="text-[#4a4a4a] mb-2" />
+            ) : (
+              <p className="text-[#4a4a4a] mb-5">
+                This community is shaped by the people in it. If there's a group, activity or type of
+                support you'd find helpful — or something about an existing session that isn't working for
+                you — we want to hear it. You don't need to give your name.
               </p>
-            ))}
+            )}
             <div className="mb-12">
               <SuggestionForm />
             </div>

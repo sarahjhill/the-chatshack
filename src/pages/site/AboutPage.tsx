@@ -2,7 +2,8 @@ import { HeartHandshake, Scale, Compass, Users, Shield, Handshake, Quote } from 
 import { Link } from "react-router-dom";
 import PageHero from "@/components/PageHero.tsx";
 import FounderVideo from "@/components/FounderVideo.tsx";
-import { usePageContent, block, items, paragraphs } from "@/lib/pageContent.ts";
+import { usePageContent, block, items } from "@/lib/pageContent.ts";
+import RichText from "@/components/RichText.tsx";
 
 // --- Easy-swap assets --------------------------------------------------
 // Hero background photo for this page. Replace public/images/about-hero.jpg
@@ -90,15 +91,26 @@ export default function AboutPage() {
               <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">
                 {whyWeExist?.heading || "Why The ChatShack exists"}
               </h2>
-              {(whyWeExist?.body ? paragraphs(whyWeExist.body) : [
-                "There's a real gap in the system — not in treatment that doesn't exist, but in treatment that doesn't come fast enough. Three months' wait isn't help when you need someone today.",
-                "The ChatShack is run by people who've been on the other side of that gap — who've been fobbed off, misunderstood, and left to sit in A&E with nowhere else to go. We know the stumbling blocks because we've hit them ourselves.",
-                "So we're your first point of call. You can ring us, talk to us, and we'll advocate for the help you actually need — not just a plaster on the problem, but real change, built from the bottom up. When everything else has failed, we aim to still be there.",
-              ]).map((p, idx) => (
-                <p key={idx} className="text-[#4a4a4a] mb-3">
-                  {p}
-                </p>
-              ))}
+              {whyWeExist?.body ? (
+                <RichText html={whyWeExist.body} className="text-[#4a4a4a]" />
+              ) : (
+                <>
+                  <p className="text-[#4a4a4a] mb-3">
+                    There's a real gap in the system — not in treatment that doesn't exist, but in treatment
+                    that doesn't come fast enough. Three months' wait isn't help when you need someone today.
+                  </p>
+                  <p className="text-[#4a4a4a] mb-3">
+                    The ChatShack is run by people who've been on the other side of that gap — who've been
+                    fobbed off, misunderstood, and left to sit in A&E with nowhere else to go. We know the
+                    stumbling blocks because we've hit them ourselves.
+                  </p>
+                  <p className="text-[#4a4a4a] mb-3">
+                    So we're your first point of call. You can ring us, talk to us, and we'll advocate for
+                    the help you actually need — not just a plaster on the problem, but real change, built
+                    from the bottom up. When everything else has failed, we aim to still be there.
+                  </p>
+                </>
+              )}
               <div className="bg-[#e8f5ee] border-l-4 border-[#1a7a4a] px-5 py-4 rounded-r-xl font-bold text-[#1a7a4a] mb-4">
                 You are not alone. And you are worth getting better.
               </div>
@@ -117,11 +129,7 @@ export default function AboutPage() {
             <div className="order-2 md:order-1">
               <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">{ethos?.heading || "Our ethos & mission"}</h2>
               {ethos?.body ? (
-                paragraphs(ethos.body).map((p, idx) => (
-                  <p key={idx} className="text-[#4a4a4a] mb-3">
-                    {p}
-                  </p>
-                ))
+                <RichText html={ethos.body} className="text-[#4a4a4a]" />
               ) : (
                 <>
                   <p className="text-[#4a4a4a] mb-3">
@@ -185,11 +193,7 @@ export default function AboutPage() {
                   {founderNote?.heading || "A note from Scott, founder of The ChatShack"}
                 </p>
                 {founderNote?.body ? (
-                  paragraphs(founderNote.body).map((p, idx) => (
-                    <p key={idx} className="text-[#3a3a3a] italic mb-3">
-                      {p}
-                    </p>
-                  ))
+                  <RichText html={founderNote.body} className="text-[#3a3a3a] italic" />
                 ) : (
                   <>
                     <p className="text-[#3a3a3a] italic mb-3">

@@ -134,3 +134,4 @@ export function useSiteSettings(): SiteSettings | null {
 
   return settings;
 }
+

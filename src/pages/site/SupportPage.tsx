@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { MessageCircle, AlertTriangle, ArrowRight, Ear, HeartHandshake, UserCheck, Sparkles, HelpCircle } from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
 import FirstContactForm from "@/components/FirstContactForm.tsx";
-import { usePageContent, block, items, paragraphs } from "@/lib/pageContent.ts";
+import { usePageContent, block, items } from "@/lib/pageContent.ts";
+import RichText from "@/components/RichText.tsx";
 
 // Hero background photo for this page. Replace public/images/support-hero.jpg
 // with a real photo (keep the same file name) and it updates here automatically.
@@ -54,7 +55,8 @@ export default function SupportPage() {
   }));
 
   const faqItems = items(content, "faqs");
-  const faqs = faqItems.length ? faqItems.map((f) => ({ q: f.title, a: f.description })) : defaultFaqs;
+  const faqsFromApi = faqItems.length > 0;
+  const faqs = faqsFromApi ? faqItems.map((f) => ({ q: f.title, a: f.description })) : defaultFaqs;
 
   return (
     <div className="min-h-screen">
@@ -75,11 +77,7 @@ export default function SupportPage() {
             <div>
               <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">{whatToExpect?.heading || "What to expect"}</h2>
               {whatToExpect?.body ? (
-                paragraphs(whatToExpect.body).map((p, idx) => (
-                  <p key={idx} className="text-[#4a4a4a] mb-3">
-                    {p}
-                  </p>
-                ))
+                <RichText html={whatToExpect.body} className="text-[#4a4a4a]" />
               ) : (
                 <>
                   <p className="text-[#4a4a4a] mb-3">
@@ -132,7 +130,11 @@ export default function SupportPage() {
             {faqs.map((f) => (
               <div key={f.q} className="bg-[#f5f0e8] border border-amber-200 rounded-2xl p-5">
                 <p className="font-bold text-[#1a3a2a] mb-2">{f.q}</p>
-                <p className="text-[#4a4a4a] text-sm">{f.a}</p>
+                {faqsFromApi ? (
+                  <RichText html={f.a} className="text-[#4a4a4a] text-sm" />
+                ) : (
+                  <p className="text-[#4a4a4a] text-sm">{f.a}</p>
+                )}
               </div>
             ))}
           </div>

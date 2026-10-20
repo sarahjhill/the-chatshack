@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Users, Heart, Mic2, Footprints, Banknote, Handshake, ShieldCheck } from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
 import { usePageContent, items } from "@/lib/pageContent.ts";
+import RichText from "@/components/RichText.tsx";
 
 // Hero background photo for this page. Replace public/images/get-involved-hero.jpg
 // with a real photo (keep the same file name) and it updates here automatically.
@@ -53,10 +54,16 @@ export default function GetInvolvedPage() {
 
           <div className="max-w-3xl mx-auto">
             <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">{saferRecruitment?.title || "Safer recruitment"}</h2>
-            <p className="text-[#4a4a4a] mb-3">
-              {saferRecruitment?.description ||
-                "Every role is assessed for its responsibilities and level of contact with the people we support, including whatever DBS checks, references, identity verification, safeguarding training and experience are appropriate to that role. No one takes on duties beyond what they've been trained and approved for."}
-            </p>
+            {saferRecruitment?.description ? (
+              <RichText html={saferRecruitment.description} className="text-[#4a4a4a] mb-2" />
+            ) : (
+              <p className="text-[#4a4a4a] mb-3">
+                Every role is assessed for its responsibilities and level of contact with the people we
+                support, including whatever DBS checks, references, identity verification, safeguarding
+                training and experience are appropriate to that role. No one takes on duties beyond what
+                they've been trained and approved for.
+              </p>
+            )}
             <div className="flex items-center gap-2 text-[#1a7a4a] font-bold mb-10">
               <ShieldCheck className="w-5 h-5" />
               <Link to="/code-of-conduct" className="underline">

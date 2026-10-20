@@ -44,6 +44,7 @@ CSRF_TRUSTED_ORIGINS = env.list(
 # ---------------------------------------------------------------------------
 INSTALLED_APPS = [
     "unfold",  # must come before django.contrib.admin - restyles the admin UI
+    "unfold.contrib.forms",  # the rich-text (WYSIWYG) editor widget used below
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
