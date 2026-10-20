@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, MessageCircle, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils.ts";
+import { useSiteSettings } from "@/lib/pageContent.ts";
 
 const WOOD_BG = "/images/wood-bg.jpg";
 
@@ -39,6 +40,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const location = useLocation();
+  const settings = useSiteSettings();
 
   function isActive(item: NavItem) {
     if (location.pathname === item.path) return true;
@@ -62,17 +64,21 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 flex-shrink-0">
             <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center flex-shrink-0 shadow-md overflow-hidden">
-              <img src="/images/chatshack-logo.png" alt="The Chat Shack logo" className="w-10 h-10 object-contain" />
+              <img
+                src={settings?.logo || "/images/chatshack-logo.png"}
+                alt="The Chat Shack logo"
+                className="w-10 h-10 object-contain"
+              />
             </div>
             <div>
               <div className="font-black text-white text-lg leading-tight tracking-tight drop-shadow-md">
-                THE CHAT SHACK
+                {settings?.site_name || "THE CHAT SHACK"}
               </div>
               <div className="text-xs text-white/80 leading-tight drop-shadow-sm">
-                Peer-led Mental Health Support
+                {settings?.tagline_1 || "Peer-led Mental Health Support"}
               </div>
               <div className="text-xs text-white/80 leading-tight drop-shadow-sm">
-                Community Group for 18+
+                {settings?.tagline_2 || "Community Group for 18+"}
               </div>
             </div>
           </Link>

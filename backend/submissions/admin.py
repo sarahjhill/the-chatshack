@@ -1,6 +1,27 @@
 from django.contrib import admin
 
-from .models import FirstContactSubmission, PartnerApplicationSubmission, SuggestionSubmission
+from .models import (
+    ContactMessageSubmission,
+    FirstContactSubmission,
+    PartnerApplicationSubmission,
+    SuggestionSubmission,
+)
+
+
+@admin.register(ContactMessageSubmission)
+class ContactMessageSubmissionAdmin(admin.ModelAdmin):
+    list_display = ["name_display", "email", "message_preview", "created_at", "is_resolved"]
+    list_filter = ["is_resolved", "created_at"]
+    search_fields = ["name", "email", "message"]
+    readonly_fields = ["name", "email", "message", "created_at"]
+
+    @admin.display(description="From")
+    def name_display(self, obj):
+        return obj.name or "Anonymous"
+
+    @admin.display(description="Message")
+    def message_preview(self, obj):
+        return (obj.message[:80] + "…") if len(obj.message) > 80 else obj.message
 
 
 @admin.register(SuggestionSubmission)

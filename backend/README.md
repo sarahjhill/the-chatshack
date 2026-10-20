@@ -57,6 +57,53 @@ The frontend only does any of this when `VITE_API_URL` is set (see
 `https://api.chatshack.app`) - without it, each form shows a friendly
 fallback instead of silently failing.
 
+## Editing site content in admin
+
+The admin at `https://api.chatshack.app/admin/` now covers every main page
+on the site, not just the homepage, and it's been restyled (via
+django-unfold) to be easier to use day to day. Under "Site content" in
+the sidebar:
+
+- **Site settings** - contact details, WhatsApp/Facebook, and branding
+  (the name/taglines/logo shown in the navbar and footer, the footer quote
+  and copyright line).
+- **Homepage content** - unchanged from before, one JSON block for the
+  whole homepage.
+- **Page heroes (banner images)** - the big photo + heading + subtitle at
+  the top of About, I Need Support, Our Community, Partners & Resources,
+  Homeless Outreach, Get Involved and Contact Us. One row per page -
+  click a page's row to edit its text or upload a replacement photo.
+- **Page sections** - the freeform paragraphs on each page (e.g. About's
+  "Why The ChatShack exists", Support's "What to expect"). Each one has a
+  heading, body text (leave a blank line between paragraphs) and an
+  optional photo. Filter by page in the list to find the one you want.
+- **Cards & lists** - everything that repeats on a page: principles,
+  FAQs, "how we help" cards, community photos, ways to get involved, and
+  so on. Add a new row to add a new card/photo to that list, or delete
+  one to remove it. Order controls where it appears (lower numbers
+  first) - editable right from the list page.
+
+Anything left blank in admin falls back to the page's original built-in
+text/photo, so there's no way to accidentally blank out the site - you're
+only ever overriding what's already there.
+
+### Uploading photos
+
+Photo uploads (anywhere you see an image field) are stored on
+[Cloudinary](https://cloudinary.com)'s free tier, not on Heroku itself -
+Heroku wipes its own disk on every deploy, so photos saved there would
+vanish. To enable uploads:
+
+1. Create a free Cloudinary account.
+2. From its Dashboard, copy your Cloud name, API Key and API Secret.
+3. Set them as Heroku config vars:
+   ```bash
+   heroku config:set CLOUDINARY_CLOUD_NAME=... CLOUDINARY_API_KEY=... CLOUDINARY_API_SECRET=... --app thechatshack-api
+   ```
+
+Until that's done, the image upload fields in admin will simply fail to
+save a new photo - text editing works regardless.
+
 ## DNS records (Name.com, on the `chatshack.app` domain)
 
 For reference, in case anything ever needs re-pointing:

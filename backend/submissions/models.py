@@ -19,6 +19,25 @@ class SuggestionSubmission(models.Model):
         return f"{who} - {self.created_at:%d %b %Y}"
 
 
+class ContactMessageSubmission(models.Model):
+    """The general Contact Us page form - for anyone (support seekers,
+    volunteers, partner organisations) with a question, not tied to one
+    of the other, more specific forms."""
+
+    name = models.CharField(max_length=150, blank=True)
+    email = models.EmailField(blank=True, help_text="Optional - only given if they'd like a reply.")
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_resolved = models.BooleanField(default=False, help_text="Tick once Scott has read and actioned this.")
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        who = self.name or "Anonymous"
+        return f"{who} - {self.created_at:%d %b %Y}"
+
+
 class FirstContactSubmission(models.Model):
     """The 'First Contact & Initial Support Form' from the Support page -
     entirely optional for the person filling it in, nothing is compulsory."""

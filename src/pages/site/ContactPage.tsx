@@ -1,20 +1,24 @@
 import { Link } from "react-router-dom";
 import { Mail, AlertTriangle } from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
+import { usePageContent } from "@/lib/pageContent.ts";
 
 // Hero background photo for this page. Replace public/images/contact-hero.jpg
 // with a real photo (keep the same file name) and it updates here automatically.
+// Or upload a new one in admin (Page heroes > Contact Us) to override it live.
 const HERO_IMAGE = "/images/contact-hero.jpg";
 
 export default function ContactPage() {
+  const content = usePageContent("contact");
+
   return (
     <div className="min-h-screen">
       <PageHero
-        image={HERO_IMAGE}
+        image={content.hero?.image || HERO_IMAGE}
         icon={Mail}
-        eyebrow="Get in touch"
-        title="Contact Us"
-        subtitle="There's no such thing as a daft question — reach out whenever you're ready."
+        eyebrow={content.hero?.eyebrow || "Get in touch"}
+        title={content.hero?.title || "Contact Us"}
+        subtitle={content.hero?.subtitle || "There's no such thing as a daft question — reach out whenever you're ready."}
       />
 
       <section className="bg-white py-14">

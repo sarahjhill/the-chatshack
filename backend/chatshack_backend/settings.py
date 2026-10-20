@@ -43,12 +43,15 @@ CSRF_TRUSTED_ORIGINS = env.list(
 # Applications
 # ---------------------------------------------------------------------------
 INSTALLED_APPS = [
+    "unfold",  # must come before django.contrib.admin - restyles the admin UI
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "cloudinary_storage",
+    "cloudinary",
     "rest_framework",
     "corsheaders",
     "content",
@@ -113,9 +116,28 @@ STORAGES = {
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# ---------------------------------------------------------------------------
+# Image uploads (admin-uploaded photos for every page) are stored on
+# Cloudinary's free tier, not on Heroku's own disk - Heroku's filesystem is
+# wiped on every restart/deploy, so anything uploaded through the admin
+# would otherwise vanish. Create a free account at cloudinary.com, then set
+# these three env vars (Dashboard page shows all three at a glance).
+# Locally, with no .env values set, image uploads are skipped gracefully by
+# the frontend (pages fall back to their built-in default images).
+# ---------------------------------------------------------------------------
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": env("CLOUDINARY_CLOUD_NAME", default=""),
+    "API_KEY": env("CLOUDINARY_API_KEY", default=""),
+    "API_SECRET": env("CLOUDINARY_API_SECRET", default=""),
+}
+MEDIA_URL = "/media/"
 
 # ---------------------------------------------------------------------------
 # REST framework - admin-only writes except the specific public endpoints
@@ -165,3 +187,55 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+
+# ---------------------------------------------------------------------------
+# Admin UI (django-unfold) - restyles the built-in Django admin so it's
+# cleaner and easier to use day-to-day, without needing a hand-built admin.
+# ---------------------------------------------------------------------------
+UNFOLD = {
+    "SITE_TITLE": "The ChatShack Admin",
+    "SITE_HEADER": "The ChatShack",
+    "SITE_SYMBOL": "forum",
+    "SHOW_HISTORY": True,
+    "SHOW_VIEW_ON_SITE": False,
+    "SIDEBAR": {
+        "show_search": True,
+        "navigation": [
+            {
+                "title": "Site content",
+                "separator": True,
+                "items": [
+                    {"title": "Site settings", "icon": "tune", "link": "/admin/content/sitesettings/1/change/"},
+                    {"title": "Homepage content", "icon": "home", "link": "/admin/content/homepagecontent/1/change/"},
+                    {"title": "Page heroes (banner images)", "icon": "image", "link": "/admin/content/pagehero/"},
+                    {"title": "Page sections", "icon": "article", "link": "/admin/content/contentblock/"},
+                    {"title": "Cards & lists", "icon": "view_list", "link": "/admin/content/listitem/"},
+                ],
+            },
+            {
+                "title": "Forms & submissions",
+                "separator": True,
+                "items": [
+                    {"title": "Suggestions", "icon": "lightbulb", "link": "/admin/submissions/suggestionsubmission/"},
+                    {"title": "First contact forms", "icon": "contact_mail", "link": "/admin/submissions/firstcontactsubmission/"},
+                    {"title": "Partner applications", "icon": "handshake", "link": "/admin/submissions/partnerapplicationsubmission/"},
+                    {"title": "Contact messages", "icon": "mail", "link": "/admin/submissions/contactmessagesubmission/"},
+                ],
+            },
+            {
+                "title": "Volunteering",
+                "separator": True,
+                "items": [
+                    {"title": "Events & shifts", "icon": "event", "link": "/admin/volunteering/event/"},
+                ],
+            },
+            {
+                "title": "Admin users",
+                "separator": True,
+                "items": [
+                    {"title": "Users", "icon": "person", "link": "/admin/auth/user/"},
+                ],
+            },
+        ],
+    },
+}

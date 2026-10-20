@@ -1,12 +1,22 @@
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 
-from .models import FirstContactSubmission, PartnerApplicationSubmission, SuggestionSubmission
+from .models import ContactMessageSubmission, FirstContactSubmission, PartnerApplicationSubmission, SuggestionSubmission
 from .serializers import (
+    ContactMessageSubmissionSerializer,
     FirstContactSubmissionSerializer,
     PartnerApplicationSubmissionSerializer,
     SuggestionSubmissionSerializer,
 )
+
+
+class ContactMessageCreateView(generics.CreateAPIView):
+    """POST /api/contact/ - the general Contact Us page form. Anonymous and
+    open to anyone - no auth required."""
+
+    queryset = ContactMessageSubmission.objects.all()
+    serializer_class = ContactMessageSubmissionSerializer
+    permission_classes = [AllowAny]
 
 
 class SuggestionCreateView(generics.CreateAPIView):

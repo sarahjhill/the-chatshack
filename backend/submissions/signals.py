@@ -2,7 +2,17 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from .emailing import notify
-from .models import FirstContactSubmission, PartnerApplicationSubmission, SuggestionSubmission
+from .models import ContactMessageSubmission, FirstContactSubmission, PartnerApplicationSubmission, SuggestionSubmission
+
+
+@receiver(post_save, sender=ContactMessageSubmission)
+def notify_new_contact_message(sender, instance, created, **kwargs):
+    if not created:
+        return
+    notify(
+        "New contact message",
+        f"From: {instance.name or 'Anonymous'}\nEmail: {instance.email or '(not given)'}\n\n{instance.message}",
+    )
 
 
 @receiver(post_save, sender=SuggestionSubmission)

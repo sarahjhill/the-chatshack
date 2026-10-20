@@ -1,6 +1,17 @@
 from rest_framework import serializers
 
-from .models import FirstContactSubmission, PartnerApplicationSubmission, SuggestionSubmission
+from .models import (
+    ContactMessageSubmission,
+    FirstContactSubmission,
+    PartnerApplicationSubmission,
+    SuggestionSubmission,
+)
+
+
+class ContactMessageSubmissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactMessageSubmission
+        fields = ["name", "email", "message"]
 
 
 class SuggestionSubmissionSerializer(serializers.ModelSerializer):

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useSiteSettings } from "@/lib/pageContent.ts";
 
 const footerGroups: { heading: string; links: { label: string; path: string }[] }[] = [
   {
@@ -30,6 +31,8 @@ const footerGroups: { heading: string; links: { label: string; path: string }[] 
 ];
 
 export default function Footer() {
+  const settings = useSiteSettings();
+
   return (
     <footer className="bg-[#1a2e1a] text-white">
       <div className="max-w-7xl mx-auto px-4 py-10">
@@ -38,12 +41,22 @@ export default function Footer() {
           <div className="flex-shrink-0 md:max-w-xs">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center overflow-hidden">
-                <img src="/images/chatshack-logo.png" alt="The Chat Shack logo" className="w-10 h-10 object-contain" />
+                <img
+                  src={settings?.logo || "/images/chatshack-logo.png"}
+                  alt="The Chat Shack logo"
+                  className="w-10 h-10 object-contain"
+                />
               </div>
               <div>
-                <div className="font-black text-white text-base leading-tight">THE CHAT SHACK C.I.C.</div>
-                <div className="text-xs text-white/70 leading-tight">Peer-led Mental Health Support</div>
-                <div className="text-xs text-white/70 leading-tight">Community for 18+</div>
+                <div className="font-black text-white text-base leading-tight">
+                  {settings?.site_name ? `${settings.site_name} C.I.C.` : "THE CHAT SHACK C.I.C."}
+                </div>
+                <div className="text-xs text-white/70 leading-tight">
+                  {settings?.tagline_1 || "Peer-led Mental Health Support"}
+                </div>
+                <div className="text-xs text-white/70 leading-tight">
+                  {settings?.tagline_2 || "Community for 18+"}
+                </div>
               </div>
             </div>
             <a
@@ -55,7 +68,9 @@ export default function Footer() {
               <span className="text-blue-400 font-bold text-sm">f</span>
               @TheChatShack
             </a>
-            <p className="text-sm italic text-white/60 mt-2">"It's ok not to be ok. It's not ok to stay there."</p>
+            <p className="text-sm italic text-white/60 mt-2">
+              "{settings?.footer_quote || "It's ok not to be ok. It's not ok to stay there."}"
+            </p>
             <a
               href="/documents/chatshack-employers-liability-certificate.pdf"
               target="_blank"
@@ -91,7 +106,11 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-white/20 mt-8 pt-4 text-center text-white/50 text-xs">
-          <span>© {new Date().getFullYear()} The Chat Shack C.I.C. Registered in England & Wales. All rights reserved.</span>
+          <span>
+            © {new Date().getFullYear()}{" "}
+            {settings?.footer_copyright_text ||
+              "The Chat Shack C.I.C. Registered in England & Wales. All rights reserved."}
+          </span>
           <div className="flex items-center gap-4">
             <a
               href="https://sarahjhill.com"

@@ -2,19 +2,28 @@ import { Link } from "react-router-dom";
 import { MessageCircle, AlertTriangle, ArrowRight, Ear, HeartHandshake, UserCheck, Sparkles, HelpCircle } from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
 import FirstContactForm from "@/components/FirstContactForm.tsx";
+import { usePageContent, block, items, paragraphs } from "@/lib/pageContent.ts";
 
 // Hero background photo for this page. Replace public/images/support-hero.jpg
 // with a real photo (keep the same file name) and it updates here automatically.
+// Or upload a new one in admin (Page heroes > I Need Support) to override it live.
 const HERO_IMAGE = "/images/support-hero.jpg";
 
-const howWeHelp = [
-  { icon: Ear, title: "We listen", desc: "No judgement, no pressure to share more than you want to.", color: "bg-[#2d8a55]" },
-  { icon: HeartHandshake, title: "We support", desc: "Peer support, groups, activities and one-to-one support.", color: "bg-[#4a7ebf]" },
-  { icon: UserCheck, title: "We signpost", desc: "Help finding the right professional service or treatment, where needed.", color: "bg-[#e07b39]" },
-  { icon: Sparkles, title: "We don't just help", desc: "We aim to change — not just get you through today, but towards something better.", color: "bg-[#8b5fb8]" },
+const howWeHelpStyle = [
+  { icon: Ear, color: "bg-[#2d8a55]" },
+  { icon: HeartHandshake, color: "bg-[#4a7ebf]" },
+  { icon: UserCheck, color: "bg-[#e07b39]" },
+  { icon: Sparkles, color: "bg-[#8b5fb8]" },
 ];
 
-const faqs = [
+const defaultHowWeHelp = [
+  { title: "We listen", desc: "No judgement, no pressure to share more than you want to." },
+  { title: "We support", desc: "Peer support, groups, activities and one-to-one support." },
+  { title: "We signpost", desc: "Help finding the right professional service or treatment, where needed." },
+  { title: "We don't just help", desc: "We aim to change — not just get you through today, but towards something better." },
+];
+
+const defaultFaqs = [
   {
     q: "Do I have to have a diagnosed mental health issue to use The ChatShack?",
     a: "No — absolutely not. You don't need a diagnosed mental health condition to attend, and you don't even have to consider yourself to have a mental health problem. Maybe you're feeling lonely, you've had a difficult week, you're going through a stressful period, or you simply want a coffee and a chat. The ChatShack isn't somewhere you have to earn your place — you're welcome.",
@@ -30,42 +39,72 @@ const faqs = [
 ];
 
 export default function SupportPage() {
+  const content = usePageContent("support");
+
+  const whatToExpect = block(content, "what_to_expect");
+  const closing = block(content, "closing");
+
+  const helpItems = items(content, "how_we_help");
+  const howWeHelpBase = helpItems.length
+    ? helpItems.map((h) => ({ title: h.title, desc: h.description }))
+    : defaultHowWeHelp;
+  const howWeHelp = howWeHelpBase.map((h, idx) => ({
+    ...h,
+    ...howWeHelpStyle[idx % howWeHelpStyle.length],
+  }));
+
+  const faqItems = items(content, "faqs");
+  const faqs = faqItems.length ? faqItems.map((f) => ({ q: f.title, a: f.description })) : defaultFaqs;
+
   return (
     <div className="min-h-screen">
       <PageHero
-        image={HERO_IMAGE}
+        image={content.hero?.image || HERO_IMAGE}
         icon={MessageCircle}
-        eyebrow="You are not alone"
-        title="I Need Support"
-        subtitle="The ChatShack aims to be an accessible first point of contact for anyone experiencing mental health, wellbeing or related life difficulties."
+        eyebrow={content.hero?.eyebrow || "You are not alone"}
+        title={content.hero?.title || "I Need Support"}
+        subtitle={
+          content.hero?.subtitle ||
+          "The ChatShack aims to be an accessible first point of contact for anyone experiencing mental health, wellbeing or related life difficulties."
+        }
       />
 
       <section className="bg-white py-14">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 mb-10 items-start">
             <div>
-              <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">What to expect</h2>
-              <p className="text-[#4a4a4a] mb-3">
-                Reaching out can be the hardest part. Where appropriate and where available, we help people
-                navigate towards same-day support and treatment. If we can't provide what you need ourselves,
-                our{" "}
-                <Link to="/partners" className="text-[#1a7a4a] font-bold underline">
-                  Directory of Partners &amp; Resources
-                </Link>{" "}
-                helps connect you with organisations who may be able to.
-              </p>
-              <p className="text-[#4a4a4a] mb-3">
-                One-to-one peer support has clear boundaries — a peer supporter is not a therapist,
-                psychiatrist, GP, crisis service or emergency responder. They will listen, provide appropriate
-                emotional support, signpost you, and encourage professional help where it's needed.
-              </p>
-              <p className="text-[#4a4a4a]">
-                Our{" "}
-                <Link to="/privacy" className="text-[#1a7a4a] font-bold underline">
-                  confidentiality policy
-                </Link>{" "}
-                explains what you tell us stays between us, with rare, clearly explained exceptions.
-              </p>
+              <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">{whatToExpect?.heading || "What to expect"}</h2>
+              {whatToExpect?.body ? (
+                paragraphs(whatToExpect.body).map((p, idx) => (
+                  <p key={idx} className="text-[#4a4a4a] mb-3">
+                    {p}
+                  </p>
+                ))
+              ) : (
+                <>
+                  <p className="text-[#4a4a4a] mb-3">
+                    Reaching out can be the hardest part. Where appropriate and where available, we help people
+                    navigate towards same-day support and treatment. If we can't provide what you need ourselves,
+                    our{" "}
+                    <Link to="/partners" className="text-[#1a7a4a] font-bold underline">
+                      Directory of Partners &amp; Resources
+                    </Link>{" "}
+                    helps connect you with organisations who may be able to.
+                  </p>
+                  <p className="text-[#4a4a4a] mb-3">
+                    One-to-one peer support has clear boundaries — a peer supporter is not a therapist,
+                    psychiatrist, GP, crisis service or emergency responder. They will listen, provide appropriate
+                    emotional support, signpost you, and encourage professional help where it's needed.
+                  </p>
+                  <p className="text-[#4a4a4a]">
+                    Our{" "}
+                    <Link to="/privacy" className="text-[#1a7a4a] font-bold underline">
+                      confidentiality policy
+                    </Link>{" "}
+                    explains what you tell us stays between us, with rare, clearly explained exceptions.
+                  </p>
+                </>
+              )}
             </div>
 
             <div className="grid grid-cols-2 gap-3">
@@ -99,7 +138,7 @@ export default function SupportPage() {
           </div>
 
           <div className="bg-[#e8f5ee] border-l-4 border-[#1a7a4a] px-5 py-4 rounded-r-xl mb-6 font-bold text-[#1a7a4a] text-center">
-            It's ok not to be ok. It's not ok to stay there.
+            {closing?.heading || "It's ok not to be ok. It's not ok to stay there."}
           </div>
 
           <div className="bg-red-600 text-white rounded-xl p-5 flex gap-3 mb-8 max-w-3xl mx-auto">
@@ -113,13 +152,13 @@ export default function SupportPage() {
 
           <div className="text-center">
             <a
-              href="https://facebook.com/TheChatShack"
+              href={closing?.link_url || "https://facebook.com/TheChatShack"}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[#1a7a4a] hover:bg-[#156039] text-white font-bold px-6 py-3 rounded-full transition-colors"
             >
               <ArrowRight className="w-4 h-4" />
-              REACH OUT TO US
+              {closing?.link_text || "REACH OUT TO US"}
             </a>
           </div>
         </div>
