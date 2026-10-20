@@ -27,6 +27,18 @@ DEBUG = env.bool("DEBUG", default=True)
 
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
 
+# Domains allowed to POST forms (including the Django admin login) to this
+# backend. Needed any time the admin is reached via a hostname Django
+# wasn't told to trust by default - without this, logging into /admin/
+# from a custom domain fails with "CSRF verification failed."
+CSRF_TRUSTED_ORIGINS = env.list(
+    "CSRF_TRUSTED_ORIGINS",
+    default=[
+        "https://api.chatshack.app",
+        "https://thechatshack-api-20bebef297b5.herokuapp.com",
+    ],
+)
+
 # ---------------------------------------------------------------------------
 # Applications
 # ---------------------------------------------------------------------------
