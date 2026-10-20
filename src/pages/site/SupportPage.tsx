@@ -46,7 +46,8 @@ export default function SupportPage() {
   const closing = block(content, "closing");
 
   const helpItems = items(content, "how_we_help");
-  const howWeHelpBase = helpItems.length
+  const howWeHelpFromApi = helpItems.length > 0;
+  const howWeHelpBase = howWeHelpFromApi
     ? helpItems.map((h) => ({ title: h.title, desc: h.description }))
     : defaultHowWeHelp;
   const howWeHelp = howWeHelpBase.map((h, idx) => ({
@@ -113,7 +114,11 @@ export default function SupportPage() {
                 >
                   <h.icon className="w-7 h-7 mb-2" />
                   <p className="font-black text-sm">{h.title}</p>
-                  <p className="text-white/90 text-xs mt-1">{h.desc}</p>
+                  {howWeHelpFromApi ? (
+                    <RichText html={h.desc} className="text-white/90 text-xs mt-1 [&_a]:text-white" />
+                  ) : (
+                    <p className="text-white/90 text-xs mt-1">{h.desc}</p>
+                  )}
                 </div>
               ))}
             </div>

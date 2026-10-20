@@ -50,7 +50,8 @@ export default function AboutPage() {
   const whoWeAre = whoWeAreItems.length ? whoWeAreItems.map((i) => i.title) : defaultWhoWeAre;
 
   const principleItems = items(content, "principles");
-  const principles = principleItems.length
+  const principlesFromApi = principleItems.length > 0;
+  const principles = principlesFromApi
     ? principleItems.map((i, idx) => ({ icon: principleIcons[idx] ?? Scale, title: i.title, desc: i.description }))
     : defaultPrinciples;
 
@@ -237,7 +238,11 @@ export default function AboutPage() {
                   <p.icon className="w-5 h-5 text-[#1a7a4a]" />
                 </div>
                 <p className="font-bold text-[#1a3a2a] mb-1">{p.title}</p>
-                <p className="text-sm text-[#4a4a4a]">{p.desc}</p>
+                {principlesFromApi ? (
+                  <RichText html={p.desc} className="text-sm text-[#4a4a4a]" />
+                ) : (
+                  <p className="text-sm text-[#4a4a4a]">{p.desc}</p>
+                )}
               </div>
             ))}
           </div>

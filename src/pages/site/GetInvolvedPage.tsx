@@ -24,7 +24,8 @@ export default function GetInvolvedPage() {
 
   const saferRecruitment = items(content, "safer_recruitment")[0] ?? null;
   const wayItems = items(content, "ways");
-  const ways = (wayItems.length ? wayItems.map((i) => ({ title: i.title, desc: i.description })) : defaultWays).map(
+  const waysFromApi = wayItems.length > 0;
+  const ways = (waysFromApi ? wayItems.map((i) => ({ title: i.title, desc: i.description })) : defaultWays).map(
     (w, idx) => ({ ...w, icon: wayIcons[idx] ?? Users })
   );
 
@@ -47,7 +48,11 @@ export default function GetInvolvedPage() {
                   <w.icon className="w-5 h-5 text-[#1a7a4a]" />
                 </div>
                 <p className="font-bold text-[#1a3a2a] mb-1">{w.title}</p>
-                <p className="text-sm text-[#4a4a4a]">{w.desc}</p>
+                {waysFromApi ? (
+                  <RichText html={w.desc} className="text-sm text-[#4a4a4a]" />
+                ) : (
+                  <p className="text-sm text-[#4a4a4a]">{w.desc}</p>
+                )}
               </div>
             ))}
           </div>
