@@ -92,10 +92,15 @@ PAGE_CHOICES = [
     ("contact", "Contact Us"),
 ]
 
+_PAGE_LABELS = dict(PAGE_CHOICES)
+
 
 class PageHero(models.Model):
     """The banner at the top of one of the site's main pages - the big
-    background photo, eyebrow text, title and subtitle. One row per page."""
+    background photo, eyebrow text, title and subtitle - plus, via the
+    inlines below it in admin, every other editable section and
+    card/list on that page. This is the single screen Scott opens to edit
+    one page's whole content."""
 
     page = models.CharField(max_length=30, choices=PAGE_CHOICES, unique=True)
     eyebrow = models.CharField(max_length=150, blank=True, help_text="Small text above the title.")
@@ -109,26 +114,58 @@ class PageHero(models.Model):
     )
 
     def __str__(self):
-        return f"{self.get_page_display()} - hero"
+        return self.get_page_display()
 
     class Meta:
-        verbose_name = "Page hero (banner)"
-        verbose_name_plural = "Page heroes (banners)"
+        verbose_name = "Page"
+        verbose_name_plural = "Pages"
         ordering = ["page"]
+
+
+# Every freeform text section that exists on each page, as (value, label)
+# pairs for a dropdown - this is what stops a typo'd section name from
+# silently not showing up on the live site. Labelled with the page name so
+# it's unambiguous even though the field doesn't filter by page.
+CONTENT_BLOCK_SECTION_CHOICES = [
+    ("why_we_exist", "About Us · Why we exist"),
+    ("ethos", "About Us · Our ethos & mission"),
+    ("founder_note", "About Us · Founder's note"),
+    ("what_to_expect", "I Need Support · What to expect"),
+    ("closing", "I Need Support · Closing message"),
+    ("intro", "Our Community / Homeless Outreach · Intro"),
+    ("how_groups_run", "Our Community · How our groups run"),
+    ("suggestions_intro", "Our Community · Suggestions intro"),
+    ("principle", "Partners & Resources · Our guiding principle"),
+    ("homeless_support", "Partners & Resources · Homeless support team"),
+    ("how_we_refer", "Partners & Resources · How we refer"),
+    ("how_we_approach", "Homeless Outreach · How we approach people"),
+    ("advocacy", "Homeless Outreach · Advocacy"),
+    ("the_van", "Homeless Outreach · The Van caption"),
+]
+
+LIST_ITEM_SECTION_CHOICES = [
+    ("who_we_are", "About Us · 'We listen / talk / signpost / connect' tags"),
+    ("principles", "About Us · Core principles"),
+    ("tags", "About Us · Small badge tags (SAFE SPACE, 18+, etc.)"),
+    ("photo_strip", "About Us / Our Community · Photo strip"),
+    ("how_we_help", "I Need Support · 'How we help' cards"),
+    ("faqs", "I Need Support · FAQs"),
+    ("included", "Our Community · 'Our community can include' list"),
+    ("categories", "Partners & Resources · Signposting categories"),
+    ("ethos", "Homeless Outreach · Outreach ethos list"),
+    ("ways", "Get Involved · Ways to get involved"),
+    ("safer_recruitment", "Get Involved · Safer recruitment note"),
+]
 
 
 class ContentBlock(models.Model):
     """A freeform heading + paragraph (+ optional photo and link) within a
-    page - e.g. the "Why we exist" section on the About page. Blocks are
-    grouped by `section` within a page (a page can have several, shown in
-    the order given by `order`), so new ones can be added or removed in
-    admin without touching any code."""
+    page - e.g. the "Why we exist" section on the About page. Edited as
+    part of its page (see Pages above), so new ones can be added or
+    removed without touching any code."""
 
-    page = models.CharField(max_length=30, choices=PAGE_CHOICES)
-    section = models.SlugField(
-        max_length=50,
-        help_text="Groups blocks together, e.g. 'why_we_exist'. Leave as the default unless adding a brand new section.",
-    )
+    hero = models.ForeignKey(PageHero, on_delete=models.CASCADE, related_name="blocks", verbose_name="page")
+    section = models.CharField(max_length=50, choices=CONTENT_BLOCK_SECTION_CHOICES)
     order = models.PositiveIntegerField(default=0)
     heading = models.CharField(max_length=200, blank=True)
     body = models.TextField(blank=True, help_text="Paragraph text. Leave a blank line between paragraphs.")
@@ -137,34 +174,31 @@ class ContentBlock(models.Model):
     link_url = models.CharField(max_length=300, blank=True, help_text="e.g. /get-involved or https://...")
 
     def __str__(self):
-        return f"{self.get_page_display()} / {self.section} - {self.heading or '(no heading)'}"
+        return f"{self.hero} / {self.get_section_display()}"
 
     class Meta:
         verbose_name = "Page section"
         verbose_name_plural = "Page sections"
-        ordering = ["page", "section", "order"]
+        ordering = ["hero", "section", "order"]
 
 
 class ListItem(models.Model):
     """One card/row within a repeatable list on a page - a principle, an
-    FAQ, a community photo, a 'how to get involved' option, etc. Grouped by
-    `section` within a page so Scott can add or remove individual items
-    (including photos) without needing a developer."""
+    FAQ, a community photo, a 'how to get involved' option, etc. Edited as
+    part of its page (see Pages above), so Scott can add or remove
+    individual items (including photos) without needing a developer."""
 
-    page = models.CharField(max_length=30, choices=PAGE_CHOICES)
-    section = models.SlugField(
-        max_length=50,
-        help_text="Which list this item belongs to on the page, e.g. 'principles', 'faqs', 'photo_strip'.",
-    )
+    hero = models.ForeignKey(PageHero, on_delete=models.CASCADE, related_name="items", verbose_name="page")
+    section = models.CharField(max_length=50, choices=LIST_ITEM_SECTION_CHOICES)
     order = models.PositiveIntegerField(default=0)
     title = models.CharField(max_length=200, blank=True, help_text="Or the FAQ question, for FAQ items.")
     description = models.TextField(blank=True, help_text="Or the FAQ answer, for FAQ items.")
     image = models.ImageField(upload_to="items/", blank=True, null=True)
 
     def __str__(self):
-        return f"{self.get_page_display()} / {self.section}: {self.title or '(photo)'}"
+        return f"{self.hero} / {self.get_section_display()}: {self.title or '(photo)'}"
 
     class Meta:
         verbose_name = "Card / list item"
         verbose_name_plural = "Cards & list items"
-        ordering = ["page", "section", "order"]
+        ordering = ["hero", "section", "order"]

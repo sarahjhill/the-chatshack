@@ -207,9 +207,7 @@ UNFOLD = {
                 "items": [
                     {"title": "Site settings", "icon": "tune", "link": "/admin/content/sitesettings/1/change/"},
                     {"title": "Homepage content", "icon": "home", "link": "/admin/content/homepagecontent/1/change/"},
-                    {"title": "Page heroes (banner images)", "icon": "image", "link": "/admin/content/pagehero/"},
-                    {"title": "Page sections", "icon": "article", "link": "/admin/content/contentblock/"},
-                    {"title": "Cards & lists", "icon": "view_list", "link": "/admin/content/listitem/"},
+                    {"title": "Edit a page", "icon": "edit_note", "link": "/admin/content/pagehero/"},
                 ],
             },
             {

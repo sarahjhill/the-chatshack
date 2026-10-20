@@ -55,13 +55,13 @@ class PageContentView(APIView):
             hero_data = None
 
         blocks_by_section: dict[str, list] = {}
-        for block in ContentBlock.objects.filter(page=page).order_by("section", "order"):
+        for block in ContentBlock.objects.filter(hero__page=page).order_by("section", "order"):
             blocks_by_section.setdefault(block.section, []).append(
                 ContentBlockSerializer(block, context={"request": request}).data
             )
 
         items_by_section: dict[str, list] = {}
-        for item in ListItem.objects.filter(page=page).order_by("section", "order"):
+        for item in ListItem.objects.filter(hero__page=page).order_by("section", "order"):
             items_by_section.setdefault(item.section, []).append(
                 ListItemSerializer(item, context={"request": request}).data
             )

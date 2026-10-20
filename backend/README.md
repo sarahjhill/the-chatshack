@@ -69,19 +69,22 @@ the sidebar:
   and copyright line).
 - **Homepage content** - unchanged from before, one JSON block for the
   whole homepage.
-- **Page heroes (banner images)** - the big photo + heading + subtitle at
-  the top of About, I Need Support, Our Community, Partners & Resources,
-  Homeless Outreach, Get Involved and Contact Us. One row per page -
-  click a page's row to edit its text or upload a replacement photo.
-- **Page sections** - the freeform paragraphs on each page (e.g. About's
-  "Why The ChatShack exists", Support's "What to expect"). Each one has a
-  heading, body text (leave a blank line between paragraphs) and an
-  optional photo. Filter by page in the list to find the one you want.
-- **Cards & lists** - everything that repeats on a page: principles,
-  FAQs, "how we help" cards, community photos, ways to get involved, and
-  so on. Add a new row to add a new card/photo to that list, or delete
-  one to remove it. Order controls where it appears (lower numbers
-  first) - editable right from the list page.
+- **Edit a page** - click this, then click one of the 7 pages listed
+  (About Us, I Need Support, Our Community, Partners & Resources,
+  Homeless Outreach, Get Involved, Contact Us). That one screen has
+  everything for that page:
+  - the banner at the top (photo, heading, subtitle),
+  - every text section further down the page, each with a heading, body
+    text (leave a blank line between paragraphs) and an optional photo,
+  - every card/list on that page (principles, FAQs, "how we help" cards,
+    community photos, ways to get involved, etc.) - use "Add another" to
+    add a new card or photo, or the delete checkbox to remove one, and
+    the Order number to control where it appears (lower numbers first).
+
+  Each text section and card has a dropdown to say which one it is (e.g.
+  "About Us · Why we exist") rather than needing to type anything - this
+  is what stops a typo from making something silently not show up on the
+  live site.
 
 Anything left blank in admin falls back to the page's original built-in
 text/photo, so there's no way to accidentally blank out the site - you're
