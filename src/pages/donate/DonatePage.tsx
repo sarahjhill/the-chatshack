@@ -150,7 +150,7 @@ const VAN_FUND_GOAL = 15000; // [placeholder — replace with real target once q
 const VAN_ADD_AMOUNTS = [10, 25, 50, 100];
 
 const sponsors = [
-  { icon: Building2, label: "[Local Business\nSponsor]" },
+  { icon: Building2, label: "sarahjhill.com", href: "https://sarahjhill.com" },
   { icon: Landmark, label: "[Council\nCommunity Fund]" },
   { icon: Brain, label: "[Mental Health\nWales]" },
   { icon: Award, label: "[Community\nGrant Partner]" },
@@ -784,25 +784,26 @@ export default function DonatePage() {
           </h2>
           <p className="text-[#4a4a4a] max-w-2xl mb-8">
             The ChatShack is proudly supported by local businesses, community funds and partner
-            organisations across Cardiff.{" "}
-            <span className="italic">
-              [Placeholder logos/names below — to be replaced with actual sponsors.]
-            </span>
+            organisations across Cardiff.
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-            {sponsors.map((s) => (
-              <div
-                key={s.label}
-                className="bg-white rounded-xl p-4 flex flex-col items-center text-center shadow-sm"
-              >
-                <div className="w-10 h-10 bg-[#1a7a4a]/10 rounded-full flex items-center justify-center mb-2">
-                  <s.icon className="w-5 h-5 text-[#1a7a4a]" />
-                </div>
-                <span className="text-xs font-bold text-[#1a3a2a] whitespace-pre-line leading-tight">
-                  {s.label}
-                </span>
-              </div>
-            ))}
+            {sponsors.map((s) => {
+              const Wrapper = s.href ? "a" : "div";
+              return (
+                <Wrapper
+                  key={s.label}
+                  {...(s.href ? { href: s.href, target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="bg-white rounded-xl p-4 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="w-10 h-10 bg-[#1a7a4a]/10 rounded-full flex items-center justify-center mb-2">
+                    <s.icon className="w-5 h-5 text-[#1a7a4a]" />
+                  </div>
+                  <span className="text-xs font-bold text-[#1a3a2a] whitespace-pre-line leading-tight">
+                    {s.label}
+                  </span>
+                </Wrapper>
+              );
+            })}
           </div>
         </div>
       </section>
