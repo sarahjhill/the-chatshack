@@ -127,27 +127,25 @@ export default function PartnersPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 mb-6 items-start">
-            <div>
-              <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">{howWeRefer?.heading || "How we refer"}</h2>
-              {howWeRefer?.body ? (
-                <RichText html={howWeRefer.body} className="text-[#4a4a4a] mb-2" />
-              ) : (
-                <>
-                  <p className="text-[#4a4a4a] mb-3">
-                    A referral considers your needs, your preferences where practicable, urgency, how easy a
-                    service is to reach and access, eligibility, and any safeguarding considerations. Our
-                    principle is a warm referral rather than a cold hand-off, wherever possible — we try to
-                    make the first step easier, not harder.
-                  </p>
-                  <p className="text-[#4a4a4a] mb-3">
-                    We can also help you understand available services, prepare for appointments, and
-                    identify the right questions to ask — without ever impersonating a statutory service or
-                    making decisions on your behalf.
-                  </p>
-                </>
-              )}
-            </div>
+          <div className="max-w-3xl mx-auto mb-10">
+            <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">{howWeRefer?.heading || "How we refer"}</h2>
+            {howWeRefer?.body ? (
+              <RichText html={howWeRefer.body} className="text-[#4a4a4a] mb-2" />
+            ) : (
+              <>
+                <p className="text-[#4a4a4a] mb-3">
+                  A referral considers your needs, your preferences where practicable, urgency, how easy a
+                  service is to reach and access, eligibility, and any safeguarding considerations. Our
+                  principle is a warm referral rather than a cold hand-off, wherever possible — we try to
+                  make the first step easier, not harder.
+                </p>
+                <p className="text-[#4a4a4a] mb-6">
+                  We can also help you understand available services, prepare for appointments, and
+                  identify the right questions to ask — without ever impersonating a statutory service or
+                  making decisions on your behalf.
+                </p>
+              </>
+            )}
 
             <PartnerApplicationForm />
           </div>
