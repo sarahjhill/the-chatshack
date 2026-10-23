@@ -49,7 +49,7 @@ export default function PartnerApplicationForm() {
   }
 
   return (
-    <div className="bg-[#f5f0e8] border border-amber-200 rounded-2xl p-6 md:p-8 text-center">
+    <div id="partner-application" className="bg-[#f5f0e8] border border-amber-200 rounded-2xl p-6 md:p-8 text-center scroll-mt-20">
       <h3 className="font-black text-lg text-[#1a3a2a] mb-2">
         Want to offer your services to The ChatShack and our community?
       </h3>

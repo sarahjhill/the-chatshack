@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Item, Order, OrderItem
-from .serializers import CheckoutRequestSerializer, ItemSerializer
+from .serializers import CheckoutRequestSerializer, DonationRequestSerializer, ItemSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -100,6 +100,72 @@ class CreateCheckoutSessionView(APIView):
             )
         except stripe.error.StripeError as exc:
             logger.exception("Stripe Checkout Session creation failed for order %s", order.id)
+            order.status = "failed"
+            order.save(update_fields=["status"])
+            return Response({"detail": f"Could not start checkout: {exc.user_message or str(exc)}"}, status=502)
+
+        order.stripe_checkout_session_id = session.id
+        order.save(update_fields=["stripe_checkout_session_id"])
+
+        return Response({"checkout_url": session.url}, status=status.HTTP_201_CREATED)
+
+
+class DonationCheckoutView(APIView):
+    """POST /api/shop/donate/ - a general, undirected donation (the
+    "Make a Donation" section) rather than a specific item purchase.
+    Creates a pending Order for bookkeeping, then a Stripe Checkout
+    Session for the chosen amount."""
+
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = DonationRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        if not settings.STRIPE_SECRET_KEY:
+            return Response(
+                {"detail": "Payments are not yet configured on this site. Please try again soon."},
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+            )
+
+        amount = data["amount"]
+        order = Order.objects.create(
+            donor_name=data.get("donor_name", ""),
+            donor_email=data.get("donor_email", ""),
+            total_amount=amount,
+            status="pending",
+        )
+        OrderItem.objects.create(
+            order=order,
+            item=None,
+            item_name="General donation",
+            unit_price=amount,
+            quantity=1,
+        )
+
+        frontend_url = settings.FRONTEND_URL.rstrip("/")
+        try:
+            session = stripe.checkout.Session.create(
+                mode="payment",
+                payment_method_types=["card"],
+                line_items=[
+                    {
+                        "price_data": {
+                            "currency": "gbp",
+                            "product_data": {"name": "Donation to The Chat Shack"},
+                            "unit_amount": int(amount * 100),
+                        },
+                        "quantity": 1,
+                    }
+                ],
+                customer_email=data.get("donor_email") or None,
+                success_url=f"{frontend_url}/donate?purchase=success&session_id={{CHECKOUT_SESSION_ID}}",
+                cancel_url=f"{frontend_url}/donate?purchase=cancelled",
+                metadata={"order_id": str(order.id)},
+            )
+        except stripe.error.StripeError as exc:
+            logger.exception("Stripe Checkout Session creation failed for donation order %s", order.id)
             order.status = "failed"
             order.save(update_fields=["status"])
             return Response({"detail": f"Could not start checkout: {exc.user_message or str(exc)}"}, status=502)

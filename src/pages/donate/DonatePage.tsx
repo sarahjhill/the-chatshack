@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { Link } from "react-router-dom";
 import {
   Heart,
   Clock,
@@ -10,11 +11,6 @@ import {
   Lock,
   CreditCard,
   FileCheck,
-  Building2,
-  Landmark,
-  Brain,
-  Award,
-  HeartHandshake,
   Coffee,
   MessageCircle,
   BedDouble,
@@ -150,12 +146,36 @@ const VAN_FUND_GOAL = 15000; // [placeholder — replace with real target once q
 const VAN_ADD_AMOUNTS = [10, 25, 50, 100];
 
 const sponsors = [
-  { icon: Building2, label: "sarahjhill.com", href: "https://sarahjhill.com" },
-  { icon: Landmark, label: "[Council\nCommunity Fund]" },
-  { icon: Brain, label: "[Mental Health\nWales]" },
-  { icon: Award, label: "[Community\nGrant Partner]" },
-  { icon: HeartHandshake, label: "[Charity\nPartner]" },
-  { icon: Heart, label: "[Local\nSponsor]" },
+  {
+    image: "/images/sponsors/sarahjhill-logo.png",
+    label: "sarahjhill.com",
+    href: "https://sarahjhill.com",
+  },
+  {
+    image: "/images/sponsors/sponsor-placeholder.png",
+    label: "Your Business Here",
+    href: "/partners#partner-application",
+  },
+  {
+    image: "/images/sponsors/sponsor-placeholder.png",
+    label: "Your Business Here",
+    href: "/partners#partner-application",
+  },
+  {
+    image: "/images/sponsors/sponsor-placeholder.png",
+    label: "Your Business Here",
+    href: "/partners#partner-application",
+  },
+  {
+    image: "/images/sponsors/sponsor-placeholder.png",
+    label: "Your Business Here",
+    href: "/partners#partner-application",
+  },
+  {
+    image: "/images/sponsors/sponsor-placeholder.png",
+    label: "Your Business Here",
+    href: "/partners#partner-application",
+  },
 ];
 
 const trustBadges = [
@@ -441,9 +461,6 @@ function BuyAnItemWidget() {
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 
-  const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
-  const purchaseResult = params?.get("purchase"); // "success" | "cancelled" | null
-
   useEffect(() => {
     let cancelled = false;
     getJsonFromApi<ShopItem[]>("/api/shop/items/").then((data) => {
@@ -489,7 +506,7 @@ function BuyAnItemWidget() {
     window.location.assign(result.data.checkout_url);
   }
 
-  if (items !== null && items.length === 0 && !purchaseResult) {
+  if (items !== null && items.length === 0) {
     // No items published yet (or the API isn't configured) - stay quiet
     // rather than show an empty section.
     return null;
@@ -497,21 +514,6 @@ function BuyAnItemWidget() {
 
   return (
     <div className="mb-14">
-      {purchaseResult === "success" && (
-        <div className="bg-[#1a7a4a] text-white rounded-2xl p-6 mb-8 text-center flex flex-col items-center gap-2">
-          <CheckCircle2 className="w-8 h-8" />
-          <p className="font-black text-lg">Thank you — your purchase is confirmed!</p>
-          <p className="text-white/90 text-sm max-w-md">
-            You've directly helped fund something real for someone who needs it. We're so grateful.
-          </p>
-        </div>
-      )}
-      {purchaseResult === "cancelled" && (
-        <div className="bg-amber-100 border border-amber-300 text-amber-900 rounded-2xl p-5 mb-8 text-center text-sm">
-          No worries — your card wasn't charged. Feel free to try again whenever you're ready.
-        </div>
-      )}
-
       <h3 className="font-black text-lg text-[#1a3a2a] mb-2 text-center flex items-center justify-center gap-2">
         <ShoppingBag className="w-5 h-5 text-[#1a7a4a]" />
         Buy Something Specific
@@ -602,10 +604,53 @@ function BuyAnItemWidget() {
 
 export default function DonatePage() {
   const [selectedAmount, setSelectedAmount] = useState<number | "custom">(donationAmounts[0]);
+  const [customAmount, setCustomAmount] = useState("");
+  const [donateError, setDonateError] = useState<string | null>(null);
+  const [isDonating, setIsDonating] = useState(false);
+
+  const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+  const purchaseResult = params?.get("purchase"); // "success" | "cancelled" | null
+
+  const donationAmount =
+    selectedAmount === "custom" ? Number(customAmount.replace(/[^0-9.]/g, "")) || 0 : selectedAmount;
+
+  async function handleDonate() {
+    setDonateError(null);
+    if (!donationAmount || donationAmount <= 0) {
+      setDonateError("Please choose or enter an amount first.");
+      return;
+    }
+    setIsDonating(true);
+    const result = await postJsonToApi<{ checkout_url: string }>("/api/shop/donate/", {
+      amount: donationAmount,
+    });
+    setIsDonating(false);
+    if (!result.ok) {
+      setDonateError(result.detail);
+      return;
+    }
+    window.location.assign(result.data.checkout_url);
+  }
 
   return (
     <div className="min-h-screen">
       <PageMeta title="Donate" description="Support The Chat Shack's free, peer-led mental health groups in Cardiff. Every donation helps us stay free and accessible to anyone who needs us." />
+
+      {purchaseResult === "success" && (
+        <div className="bg-[#1a7a4a] text-white p-6 text-center flex flex-col items-center gap-2">
+          <CheckCircle2 className="w-8 h-8" />
+          <p className="font-black text-lg">Thank you — your donation is confirmed!</p>
+          <p className="text-white/90 text-sm max-w-md">
+            You've helped keep The ChatShack free and open to anyone who needs us. We're so grateful.
+          </p>
+        </div>
+      )}
+      {purchaseResult === "cancelled" && (
+        <div className="bg-amber-100 border-b border-amber-300 text-amber-900 p-5 text-center text-sm">
+          No worries — your card wasn't charged. Feel free to try again whenever you're ready.
+        </div>
+      )}
+
       {/* HERO */}
       <section className="bg-[#1a2e1a] py-16 text-center text-white">
         <div className="max-w-2xl mx-auto px-4">
@@ -787,21 +832,35 @@ export default function DonatePage() {
             organisations across Cardiff.
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-            {sponsors.map((s) => {
-              const Wrapper = s.href ? "a" : "div";
-              return (
-                <Wrapper
-                  key={s.label}
-                  {...(s.href ? { href: s.href, target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="bg-white rounded-xl p-4 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <div className="w-10 h-10 bg-[#1a7a4a]/10 rounded-full flex items-center justify-center mb-2">
-                    <s.icon className="w-5 h-5 text-[#1a7a4a]" />
-                  </div>
+            {sponsors.map((s, index) => {
+              const cardContent = (
+                <>
+                  <img src={s.image} alt={s.label} className="w-14 h-14 object-contain mb-2" />
                   <span className="text-xs font-bold text-[#1a3a2a] whitespace-pre-line leading-tight">
                     {s.label}
                   </span>
-                </Wrapper>
+                </>
+              );
+              const cardClassName =
+                "bg-white rounded-xl p-4 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow";
+
+              if (s.href?.startsWith("/")) {
+                return (
+                  <Link key={`${s.label}-${index}`} to={s.href} className={cardClassName}>
+                    {cardContent}
+                  </Link>
+                );
+              }
+              return (
+                <a
+                  key={`${s.label}-${index}`}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cardClassName}
+                >
+                  {cardContent}
+                </a>
               );
             })}
           </div>
@@ -813,11 +872,9 @@ export default function DonatePage() {
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-black text-[#1a3a2a] mb-3">Donating Safely</h2>
           <p className="text-[#4a4a4a] max-w-2xl mb-8">
-            We take your trust seriously.{" "}
-            <span className="italic">
-              [This section will describe the real payment provider and safeguards once one is
-              chosen — placeholder wording for now.]
-            </span>
+            We take your trust seriously. All payments are processed securely by Stripe, a payment
+            provider trusted by millions of businesses worldwide — your card details go straight to
+            them, never to us.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {trustBadges.map((b) => (
@@ -837,13 +894,8 @@ export default function DonatePage() {
       <section id="give" className="bg-[#1a7a4a] py-16 text-white text-center">
         <div className="max-w-lg mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-black mb-3">Make a Donation</h2>
-          <p className="text-white/85 mb-8">
-            Choose an amount below, or enter your own.{" "}
-            <span className="italic">
-              [Donate button is a placeholder — not yet connected to a real payment provider.]
-            </span>
-          </p>
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
+          <p className="text-white/85 mb-8">Choose an amount below, or enter your own.</p>
+          <div className="flex flex-wrap justify-center gap-3 mb-4">
             {donationAmounts.map((amount) => (
               <button
                 key={amount}
@@ -870,17 +922,35 @@ export default function DonatePage() {
               Other
             </button>
           </div>
+          {selectedAmount === "custom" && (
+            <div className="mb-8 flex justify-center">
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1a3a2a] font-bold">£</span>
+                <input
+                  type="text"
+                  inputMode="decimal"
+                  value={customAmount}
+                  onChange={(e) => setCustomAmount(e.target.value)}
+                  placeholder="Enter amount"
+                  className="pl-8 pr-4 py-3 rounded-xl text-[#1a3a2a] font-bold w-48 text-center focus:outline-none focus:ring-2 focus:ring-amber-400"
+                />
+              </div>
+            </div>
+          )}
+          {selectedAmount !== "custom" && <div className="mb-8" />}
           <button
             type="button"
-            disabled
-            className="inline-flex items-center gap-2 bg-amber-700/60 text-white font-bold px-8 py-3.5 rounded-full text-lg cursor-not-allowed"
+            onClick={handleDonate}
+            disabled={isDonating}
+            className="inline-flex items-center gap-2 bg-amber-700 hover:bg-amber-800 disabled:opacity-60 text-white font-bold px-8 py-3.5 rounded-full text-lg transition-colors"
           >
-            <Heart className="w-5 h-5" />
+            {isDonating ? <Loader2 className="w-5 h-5 animate-spin" /> : <Heart className="w-5 h-5" />}
             DONATE NOW
           </button>
-          <p className="text-white/70 text-sm italic mt-4">
-            Online payments are coming soon — please check back shortly, or get in touch to donate
-            another way.
+          {donateError && <p className="text-amber-200 text-sm mt-4">{donateError}</p>}
+          <p className="text-white/70 text-sm mt-4">
+            You'll be taken to Stripe's secure checkout to complete your payment — we never see or
+            store your card details.
           </p>
         </div>
       </section>

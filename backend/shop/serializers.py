@@ -22,3 +22,12 @@ class CheckoutRequestSerializer(serializers.Serializer):
     items = CheckoutLineSerializer(many=True, allow_empty=False)
     donor_name = serializers.CharField(max_length=150, required=False, allow_blank=True)
     donor_email = serializers.EmailField(required=False, allow_blank=True)
+
+
+class DonationRequestSerializer(serializers.Serializer):
+    """A general, undirected donation (not tied to a specific item) from
+    the Donate page's "Make a Donation" section."""
+
+    amount = serializers.DecimalField(max_digits=8, decimal_places=2, min_value=1)
+    donor_name = serializers.CharField(max_length=150, required=False, allow_blank=True)
+    donor_email = serializers.EmailField(required=False, allow_blank=True)
