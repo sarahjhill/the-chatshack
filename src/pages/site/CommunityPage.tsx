@@ -30,7 +30,7 @@ const defaultCommunityItems = [
 const photoStripStyle = [
   { src: "/images/community-event-3.webp", className: "bg-white p-2 pb-3 rounded-lg shadow-xl rotate-3 w-32 sm:w-44 mt-4 sm:mt-6 hidden sm:block" },
   { src: "/images/community-event-1.webp", className: "bg-white p-2 pb-3 rounded-lg shadow-xl -rotate-6 w-40 sm:w-56" },
-  { src: "/images/community-team.webp", className: "bg-white p-2 pb-3 rounded-lg shadow-xl rotate-3 w-40 sm:w-56 mt-6 sm:mt-10" },
+  { src: "/images/community-meet-greet.webp", className: "bg-white p-2 pb-3 rounded-lg shadow-xl rotate-3 w-40 sm:w-56 mt-6 sm:mt-10" },
   { src: "/images/community-event-2.webp", className: "bg-white p-2 pb-3 rounded-lg shadow-xl -rotate-2 w-40 sm:w-56" },
   { src: "/images/community-event-4.webp", className: "bg-white p-2 pb-3 rounded-lg shadow-xl -rotate-3 w-32 sm:w-44 mt-4 sm:mt-6 hidden sm:block" },
 ];

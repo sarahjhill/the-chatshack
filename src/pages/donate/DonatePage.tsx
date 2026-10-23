@@ -834,15 +834,14 @@ export default function DonatePage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
             {sponsors.map((s, index) => {
               const cardContent = (
-                <>
-                  <img src={s.image} alt={s.label} className="w-14 h-14 object-contain mb-2" />
-                  <span className="text-xs font-bold text-[#1a3a2a] whitespace-pre-line leading-tight">
-                    {s.label}
-                  </span>
-                </>
+                <img
+                  src={s.image}
+                  alt={s.label}
+                  className="w-full h-full object-cover"
+                />
               );
               const cardClassName =
-                "bg-white rounded-xl p-4 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow";
+                "bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow aspect-square block";
 
               if (s.href?.startsWith("/")) {
                 return (

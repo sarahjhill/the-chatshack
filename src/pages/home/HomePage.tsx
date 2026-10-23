@@ -9,7 +9,7 @@ import {
   Shield,
   Lock,
   Smile,
-  DollarSign,
+  PoundSterling,
   User,
   AlertTriangle,
   CheckCircle,
@@ -35,7 +35,7 @@ const approachIcons = [MessageCircle, Users, Heart, Compass];
 const approachColors = ["bg-[#2d8a55]", "bg-[#4a7ebf]", "bg-[#e07b39]", "bg-[#8b5fb8]"];
 // Where each "Our Approach" card (TALK, CONNECT, SUPPORT, ACCESS) sends people, in order.
 const approachLinks = ["/support", "/community", "/support", "/partners"];
-const promiseIcons = [Shield, Lock, Smile, DollarSign, User];
+const promiseIcons = [Shield, Lock, Smile, PoundSterling, User];
 const partnerIcons = [Brain, Stethoscope, Activity, Dumbbell, Home, Banknote, RefreshCw, UsersRound];
 
 // This object is the single source of truth for the page's text, and also
