@@ -15,7 +15,7 @@ const footerGroups: { heading: string; links: { label: string; path: string }[] 
     links: [
       { label: "About Us", path: "/about" },
       { label: "Our Community", path: "/community" },
-      { label: "Get Involved", path: "/get-involved" },
+      { label: "Get Involved", path: "/community#get-involved" },
       { label: "Contact", path: "/contact" },
     ],
   },

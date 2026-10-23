@@ -118,7 +118,7 @@ export default function AboutPage() {
                 You are not alone. And you are worth getting better.
               </div>
               <Link
-                to={whyWeExist?.link_url || "/get-involved"}
+                to={whyWeExist?.link_url || "/community#get-involved"}
                 className="inline-flex items-center gap-2 text-[#1a7a4a] font-bold underline"
               >
                 <Users className="w-4 h-4" />
@@ -280,7 +280,7 @@ export default function AboutPage() {
 
             <div className="text-center md:text-right">
               <Link
-                to="/get-involved"
+                to="/community#get-involved"
                 className="inline-flex items-center gap-2 bg-[#1a7a4a] hover:bg-[#156039] text-white font-bold px-6 py-3 rounded-full transition-colors"
               >
                 <Users className="w-4 h-4" />

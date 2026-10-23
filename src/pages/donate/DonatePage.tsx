@@ -652,8 +652,13 @@ export default function DonatePage() {
       )}
 
       {/* HERO */}
-      <section className="bg-[#1a2e1a] py-16 text-center text-white">
-        <div className="max-w-2xl mx-auto px-4">
+      <section className="relative py-20 text-center text-white overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url(/images/donate-community-session.webp)" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1a2e1a]/90 via-[#1a2e1a]/85 to-[#1a2e1a]/95" />
+        <div className="relative z-10 max-w-2xl mx-auto px-4">
           <p className="text-amber-400 font-bold text-sm tracking-wide mb-2">
             EVERY POUND HELPS SOMEONE TALK SOONER.
           </p>

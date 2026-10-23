@@ -183,7 +183,7 @@ export default function HomelessOutreachPage() {
               PARTNERS &amp; RESOURCES
             </Link>
             <Link
-              to="/get-involved"
+              to="/community#get-involved"
               className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 border border-[#1a7a4a] text-[#1a7a4a] font-bold px-6 py-3 rounded-full transition-colors"
             >
               <Users2 className="w-4 h-4" />

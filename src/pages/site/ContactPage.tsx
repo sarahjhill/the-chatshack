@@ -59,7 +59,7 @@ export default function ContactPage() {
               I Need Support
             </Link>{" "}
             and{" "}
-            <Link to="/get-involved" className="text-[#1a7a4a] font-bold underline">
+            <Link to="/community#get-involved" className="text-[#1a7a4a] font-bold underline">
               Get Involved
             </Link>{" "}
             are good places to look.

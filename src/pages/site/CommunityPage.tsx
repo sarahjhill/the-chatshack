@@ -1,5 +1,15 @@
 import { Link } from "react-router-dom";
-import { Users, CheckCircle, ShieldCheck, Lightbulb } from "lucide-react";
+import {
+  Users,
+  CheckCircle,
+  ShieldCheck,
+  Lightbulb,
+  Mic2,
+  Footprints,
+  Handshake,
+  Banknote,
+  Heart,
+} from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
 import SuggestionForm from "@/components/SuggestionForm.tsx";
 import { usePageContent, block, items } from "@/lib/pageContent.ts";
@@ -35,8 +45,23 @@ const photoStripStyle = [
   { src: "/images/community-event-4.webp", className: "bg-white p-2 pb-3 rounded-lg shadow-xl -rotate-3 w-32 sm:w-44 mt-4 sm:mt-6 hidden sm:block" },
 ];
 
+// "Get Involved" section - formerly its own page, now a section at the
+// bottom of Our Community. Icons line up with the admin-editable "ways"
+// items in order; add more ways in admin and they'll cycle through these
+// icons, falling back to Users.
+const wayIcons = [Mic2, Users, Footprints, Handshake, Banknote, Heart];
+const defaultWays = [
+  { title: "Peer supporter or mentor", desc: "Share your own lived experience to support others, one-to-one or in groups." },
+  { title: "Group facilitator", desc: "Help run a session, with full training and ongoing supervision." },
+  { title: "Outreach volunteer", desc: "Join our Homeless Mental Health Support Team taking support out to where it's needed." },
+  { title: "Partner organisation", desc: "Work with us if you're a service, charity or professional in a related field." },
+  { title: "Fundraise or donate", desc: "Help fund same-day support for people who can't wait for a referral." },
+  { title: "Join in", desc: "Come along to a group, a Walk & Talk session, or a community event." },
+];
+
 export default function CommunityPage() {
   const content = usePageContent("community");
+  const getInvolvedContent = usePageContent("get_involved");
 
   const intro = block(content, "intro");
   const howGroupsRun = block(content, "how_groups_run");
@@ -46,9 +71,16 @@ export default function CommunityPage() {
   const includedItems = items(content, "included");
   const communityItems = includedItems.length ? includedItems.map((i) => i.title) : defaultCommunityItems;
 
+  const saferRecruitment = items(getInvolvedContent, "safer_recruitment")[0] ?? null;
+  const wayItems = items(getInvolvedContent, "ways");
+  const waysFromApi = wayItems.length > 0;
+  const ways = (waysFromApi ? wayItems.map((i) => ({ title: i.title, desc: i.description })) : defaultWays).map(
+    (w, idx) => ({ ...w, icon: wayIcons[idx] ?? Users })
+  );
+
   return (
     <div className="min-h-screen">
-      <PageMeta title="Our Community" description="More than a group - groups, Walk & Talk sessions, peer mentoring and community events. See what's on and how our groups run." />
+      <PageMeta title="Our Community" description="More than a group - groups, Walk & Talk sessions, peer mentoring, community events, and the ways you can get involved." />
       <PageHero
         image={content.hero?.image || HERO_IMAGE}
         icon={Users}
@@ -136,13 +168,76 @@ export default function CommunityPage() {
             </div>
 
             <div className="text-center">
-              <Link
-                to="/get-involved"
+              <a
+                href="#get-involved"
                 className="inline-flex items-center gap-2 bg-[#1a7a4a] hover:bg-[#156039] text-white font-bold px-6 py-3 rounded-full transition-colors"
               >
                 <Users className="w-4 h-4" />
                 JOIN OUR COMMUNITY
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Get Involved - formerly its own page, now its own section here */}
+      <section id="get-involved" className="bg-[#f5f0e8] py-16 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-3xl font-black text-[#1a3a2a] mb-3">
+              {getInvolvedContent.hero?.title || "Get Involved"}
+            </h2>
+            <p className="text-[#4a4a4a]">
+              {getInvolvedContent.hero?.subtitle ||
+                "However much time you have, there's a way to help The ChatShack."}
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+            {ways.map((w) => (
+              <div key={w.title} className="bg-white rounded-xl p-4 border border-amber-200">
+                <div className="w-10 h-10 bg-[#1a7a4a]/10 rounded-full flex items-center justify-center mb-2">
+                  <w.icon className="w-5 h-5 text-[#1a7a4a]" />
+                </div>
+                <p className="font-bold text-[#1a3a2a] mb-1">{w.title}</p>
+                {waysFromApi ? (
+                  <RichText html={w.desc} className="text-sm text-[#4a4a4a]" />
+                ) : (
+                  <p className="text-sm text-[#4a4a4a]">{w.desc}</p>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="max-w-3xl mx-auto">
+            <h3 className="text-2xl font-black text-[#1a3a2a] mb-3">{saferRecruitment?.title || "Safer recruitment"}</h3>
+            {saferRecruitment?.description ? (
+              <RichText html={saferRecruitment.description} className="text-[#4a4a4a] mb-2" />
+            ) : (
+              <p className="text-[#4a4a4a] mb-3">
+                Every role is assessed for its responsibilities and level of contact with the people we
+                support, including whatever DBS checks, references, identity verification, safeguarding
+                training and experience are appropriate to that role. No one takes on duties beyond what
+                they've been trained and approved for.
+              </p>
+            )}
+            <div className="flex items-center gap-2 text-[#1a7a4a] font-bold mb-10">
+              <ShieldCheck className="w-5 h-5" />
+              <Link to="/code-of-conduct" className="underline">
+                Read our Code of Conduct
               </Link>
+            </div>
+
+            <div className="text-center">
+              <a
+                href="https://facebook.com/TheChatShack"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-[#1a7a4a] hover:bg-[#156039] text-white font-bold px-6 py-3 rounded-full transition-colors"
+              >
+                <Users className="w-4 h-4" />
+                GET IN TOUCH TO GET INVOLVED
+              </a>
             </div>
           </div>
         </div>
