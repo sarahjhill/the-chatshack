@@ -1,5 +1,6 @@
 import { Shield, Heart, Ear, FileCheck, Phone, RefreshCw } from "lucide-react";
 import PolicyPageHeader from "@/components/PolicyPageHeader.tsx";
+import PageMeta from "@/components/PageMeta.tsx";
 
 const responseSteps = [
   { icon: Ear, title: "Listen", desc: "We listen calmly, without interrogating, and we never promise secrecy." },
@@ -12,6 +13,7 @@ const responseSteps = [
 export default function SafeguardingPage() {
   return (
     <div className="min-h-screen">
+      <PageMeta title="Safeguarding" description="How The Chat Shack keeps people safe - our safeguarding approach, policies and who to contact with a concern." />
       <PolicyPageHeader
         icon={Shield}
         eyebrow="Keeping you safe"

@@ -1,5 +1,6 @@
 import { HeartHandshake, Scale, HandHeart, Users2, ShieldCheck } from "lucide-react";
 import PolicyPageHeader from "@/components/PolicyPageHeader.tsx";
+import PageMeta from "@/components/PageMeta.tsx";
 
 const corePrinciples = [
   { title: "Dignity", desc: "Every person is entitled to be treated with dignity and respect." },
@@ -26,6 +27,7 @@ const standard = [
 export default function CodeOfConductPage() {
   return (
     <div className="min-h-screen">
+      <PageMeta title="Code of Conduct" description="The standards of behaviour we expect at The Chat Shack, to keep our community safe and respectful for everyone." />
       <PolicyPageHeader
         icon={HeartHandshake}
         eyebrow="How we conduct ourselves"

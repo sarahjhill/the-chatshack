@@ -23,7 +23,14 @@ import {
   Sparkles,
   X,
   Truck,
+  Plus,
+  Minus,
+  ShoppingBag,
+  Loader2,
+  CheckCircle2,
 } from "lucide-react";
+import PageMeta from "@/components/PageMeta.tsx";
+import { getJsonFromApi, postJsonToApi } from "@/lib/api.ts";
 
 // ---- Placeholder content -------------------------------------------------
 // Everything below is clearly marked as a placeholder. Swap in real figures,
@@ -155,7 +162,7 @@ const trustBadges = [
   { icon: Lock, label: "Secure Checkout" },
   { icon: Shield, label: "Your Data Is Protected" },
   { icon: CreditCard, label: "We Never Store Card Details" },
-  { icon: FileCheck, label: "Registered C.I.C." },
+  { icon: FileCheck, label: "Cardiff Community Run Charity" },
 ];
 
 const donationAmounts = [5, 10, 25, 50];
@@ -415,11 +422,193 @@ function VanFundWidget({ onDonate }: { onDonate: (amount: number) => void }) {
   );
 }
 
+type ShopItem = {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  image: string | null;
+};
+
+/**
+ * "Buy an item" - lets a donor pay for something specific (a sleeping bag,
+ * a tent, a hot meal, a hat) rather than an undirected donation. Fetches
+ * the live catalogue from the backend, builds a little basket, then hands
+ * off to a Stripe Checkout page (hosted by Stripe - this site never sees
+ * card details). See backend/shop/ for the item/order models and the
+ * checkout/webhook endpoints.
+ */
+function BuyAnItemWidget() {
+  const [items, setItemsState] = useState<ShopItem[] | null>(null);
+  const [quantities, setQuantities] = useState<Record<number, number>>({});
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+
+  const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+  const purchaseResult = params?.get("purchase"); // "success" | "cancelled" | null
+
+  useEffect(() => {
+    let cancelled = false;
+    getJsonFromApi<ShopItem[]>("/api/shop/items/").then((data) => {
+      if (!cancelled) setItemsState(data ?? []);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  function setQuantity(itemId: number, quantity: number) {
+    setQuantities((prev) => {
+      const next = { ...prev };
+      if (quantity <= 0) {
+        delete next[itemId];
+      } else {
+        next[itemId] = quantity;
+      }
+      return next;
+    });
+  }
+
+  const basket = Object.entries(quantities)
+    .map(([itemId, quantity]) => {
+      const item = items?.find((i) => i.id === Number(itemId));
+      return item ? { item, quantity } : null;
+    })
+    .filter((line): line is { item: ShopItem; quantity: number } => line !== null);
+
+  const total = basket.reduce((sum, line) => sum + Number(line.item.price) * line.quantity, 0);
+
+  async function handleCheckout() {
+    setCheckoutError(null);
+    setIsCheckingOut(true);
+    const result = await postJsonToApi<{ checkout_url: string }>("/api/shop/checkout/", {
+      items: basket.map((line) => ({ item_id: line.item.id, quantity: line.quantity })),
+    });
+    setIsCheckingOut(false);
+    if (!result.ok) {
+      setCheckoutError(result.detail);
+      return;
+    }
+    window.location.assign(result.data.checkout_url);
+  }
+
+  if (items !== null && items.length === 0 && !purchaseResult) {
+    // No items published yet (or the API isn't configured) - stay quiet
+    // rather than show an empty section.
+    return null;
+  }
+
+  return (
+    <div className="mb-14">
+      {purchaseResult === "success" && (
+        <div className="bg-[#1a7a4a] text-white rounded-2xl p-6 mb-8 text-center flex flex-col items-center gap-2">
+          <CheckCircle2 className="w-8 h-8" />
+          <p className="font-black text-lg">Thank you — your purchase is confirmed!</p>
+          <p className="text-white/90 text-sm max-w-md">
+            You've directly helped fund something real for someone who needs it. We're so grateful.
+          </p>
+        </div>
+      )}
+      {purchaseResult === "cancelled" && (
+        <div className="bg-amber-100 border border-amber-300 text-amber-900 rounded-2xl p-5 mb-8 text-center text-sm">
+          No worries — your card wasn't charged. Feel free to try again whenever you're ready.
+        </div>
+      )}
+
+      <h3 className="font-black text-lg text-[#1a3a2a] mb-2 text-center flex items-center justify-center gap-2">
+        <ShoppingBag className="w-5 h-5 text-[#1a7a4a]" />
+        Buy Something Specific
+      </h3>
+      <p className="text-sm text-[#4a4a4a] max-w-xl mx-auto mb-6 text-center">
+        Prefer to know exactly what your money provides? Choose an item below and we'll make sure it
+        reaches someone who needs it.
+      </p>
+
+      {items === null ? (
+        <div className="flex justify-center py-8 text-[#1a7a4a]">
+          <Loader2 className="w-6 h-6 animate-spin" />
+        </div>
+      ) : (
+        <>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            {items.map((item) => {
+              const quantity = quantities[item.id] ?? 0;
+              return (
+                <div
+                  key={item.id}
+                  className="bg-white rounded-xl border border-amber-200 overflow-hidden flex flex-col"
+                >
+                  {item.image && (
+                    <img src={item.image} alt={item.name} className="w-full h-28 object-cover" />
+                  )}
+                  <div className="p-4 flex flex-col flex-1">
+                    <h4 className="font-black text-sm text-[#1a3a2a] mb-1">{item.name}</h4>
+                    {item.description && (
+                      <p className="text-xs text-[#4a4a4a] mb-2 flex-1">{item.description}</p>
+                    )}
+                    <div className="font-black text-[#1a7a4a] mb-3">£{Number(item.price).toFixed(2)}</div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          aria-label={`Fewer ${item.name}`}
+                          onClick={() => setQuantity(item.id, quantity - 1)}
+                          disabled={quantity === 0}
+                          className="w-8 h-8 rounded-full border border-amber-300 flex items-center justify-center text-[#1a7a4a] disabled:opacity-30"
+                        >
+                          <Minus className="w-3.5 h-3.5" />
+                        </button>
+                        <span className="w-5 text-center font-bold text-sm">{quantity}</span>
+                        <button
+                          type="button"
+                          aria-label={`More ${item.name}`}
+                          onClick={() => setQuantity(item.id, quantity + 1)}
+                          className="w-8 h-8 rounded-full border border-amber-300 flex items-center justify-center text-[#1a7a4a]"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {basket.length > 0 && (
+            <div className="bg-[#1a3a2a] rounded-2xl p-6 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="text-sm">
+                <p className="font-bold">
+                  {basket.map((line) => `${line.quantity} × ${line.item.name}`).join(", ")}
+                </p>
+                <p className="text-white/70">Total: £{total.toFixed(2)}</p>
+              </div>
+              <button
+                type="button"
+                onClick={handleCheckout}
+                disabled={isCheckingOut}
+                className="bg-amber-700 hover:bg-amber-800 disabled:opacity-60 text-white font-bold px-6 py-3 rounded-full flex items-center gap-2 transition-colors shrink-0"
+              >
+                {isCheckingOut ? <Loader2 className="w-4 h-4 animate-spin" /> : <ShoppingBag className="w-4 h-4" />}
+                Checkout securely
+              </button>
+            </div>
+          )}
+          {checkoutError && (
+            <p className="text-red-700 text-sm mt-3 text-center">{checkoutError}</p>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function DonatePage() {
   const [selectedAmount, setSelectedAmount] = useState<number | "custom">(donationAmounts[0]);
 
   return (
     <div className="min-h-screen">
+      <PageMeta title="Donate" description="Support The Chat Shack's free, peer-led mental health groups in Cardiff. Every donation helps us stay free and accessible to anyone who needs us." />
       {/* HERO */}
       <section className="bg-[#1a2e1a] py-16 text-center text-white">
         <div className="max-w-2xl mx-auto px-4">
@@ -514,6 +703,9 @@ export default function DonatePage() {
               document.getElementById("give")?.scrollIntoView({ behavior: "smooth" });
             }}
           />
+
+          {/* BUY AN ITEM */}
+          <BuyAnItemWidget />
 
           {/* CLOSING MESSAGE */}
           <div className="bg-[#1a7a4a] rounded-2xl p-8 md:p-10 text-center text-white">

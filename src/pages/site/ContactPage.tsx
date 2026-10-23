@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Mail, AlertTriangle } from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
 import { usePageContent } from "@/lib/pageContent.ts";
+import PageMeta from "@/components/PageMeta.tsx";
 
 // Hero background photo for this page. Replace public/images/contact-hero.jpg
 // with a real photo (keep the same file name) and it updates here automatically.
@@ -13,6 +14,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen">
+      <PageMeta title="Contact Us" description="Get in touch with The Chat Shack - how to reach us, find a group, or ask a question." />
       <PageHero
         image={content.hero?.image || HERO_IMAGE}
         icon={Mail}

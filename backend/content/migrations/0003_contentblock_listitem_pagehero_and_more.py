@@ -65,7 +65,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='sitesettings',
             name='footer_copyright_text',
-            field=models.CharField(blank=True, default='The Chat Shack C.I.C. Registered in England & Wales. All rights reserved.', help_text="Shown after the year, e.g. '© 2026 <this text>'.", max_length=200),
+            field=models.CharField(blank=True, default='The Chat Shack - Cardiff community run charity. Registered in England & Wales. All rights reserved.', help_text="Shown after the year, e.g. '© 2026 <this text>'.", max_length=200),
         ),
         migrations.AddField(
             model_name='sitesettings',

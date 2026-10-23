@@ -4,6 +4,7 @@ import PageHero from "@/components/PageHero.tsx";
 import FounderVideo from "@/components/FounderVideo.tsx";
 import { usePageContent, block, items } from "@/lib/pageContent.ts";
 import RichText from "@/components/RichText.tsx";
+import PageMeta from "@/components/PageMeta.tsx";
 
 // --- Easy-swap assets --------------------------------------------------
 // Hero background photo for this page. Replace public/images/about-hero.jpg
@@ -68,6 +69,7 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen">
+      <PageMeta title="About Us" description="Who we are and why The Chat Shack exists - a peer-led mental health support community for adults 18+, run by people who understand." />
       <PageHero
         image={content.hero?.image || HERO_IMAGE}
         icon={HeartHandshake}

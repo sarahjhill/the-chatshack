@@ -3,6 +3,7 @@ import { Home, Users2, HandHeart, ShieldCheck, Compass } from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
 import { usePageContent, block, items } from "@/lib/pageContent.ts";
 import RichText from "@/components/RichText.tsx";
+import PageMeta from "@/components/PageMeta.tsx";
 
 // Hero background photo for this page. Replace public/images/homeless-outreach-hero.jpg
 // with a real photo (keep the same file name) and it updates here automatically.
@@ -35,6 +36,7 @@ export default function HomelessOutreachPage() {
 
   return (
     <div className="min-h-screen">
+      <PageMeta title="Homeless Outreach" description="Our Homeless Mental Health Support Team takes support directly to people experiencing homelessness in Cardiff." />
       <PageHero
         image={content.hero?.image || HERO_IMAGE}
         icon={Home}

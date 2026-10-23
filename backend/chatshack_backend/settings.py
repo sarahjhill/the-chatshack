@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "content",
     "submissions",
     "volunteering",
+    "shop",
 ]
 
 MIDDLEWARE = [
@@ -183,6 +184,18 @@ DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="noreply@thechatshack.exa
 # Where notification emails (new form submissions, new shift sign-ups) are
 # sent. Defaults to Scott's real enquiries address used across the site.
 NOTIFY_EMAIL = env("NOTIFY_EMAIL", default="enquiries.the.chatshack01@gmail.com")
+
+# ---------------------------------------------------------------------------
+# Stripe - the "Buy an item" checkout on the Donate page. Test keys during
+# development (start with pk_test_/sk_test_), live keys only once ready to
+# accept real payments (pk_live_/sk_live_). STRIPE_WEBHOOK_SECRET comes from
+# the webhook endpoint's own settings in the Stripe Dashboard, once created.
+# FRONTEND_URL is where Stripe sends the donor back to after paying.
+# ---------------------------------------------------------------------------
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", default="")
+STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY", default="")
+STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET", default="")
+FRONTEND_URL = env("FRONTEND_URL", default="https://chatshack.app")
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 if not DEBUG:

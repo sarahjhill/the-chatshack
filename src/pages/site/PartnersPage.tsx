@@ -4,6 +4,7 @@ import PartnerApplicationForm from "@/components/PartnerApplicationForm.tsx";
 import PageHero from "@/components/PageHero.tsx";
 import { usePageContent, block, items } from "@/lib/pageContent.ts";
 import RichText from "@/components/RichText.tsx";
+import PageMeta from "@/components/PageMeta.tsx";
 
 // Hero background photo for this page. Replace public/images/partners-hero.jpg
 // with a real photo (keep the same file name) and it updates here automatically.
@@ -31,6 +32,7 @@ export default function PartnersPage() {
 
   return (
     <div className="min-h-screen">
+      <PageMeta title="Partners & Resources" description="The Chat Shack's directory of trusted partners and resources - signposting to mental health, wellbeing and wider support services." />
       <PageHero
         image={content.hero?.image || HERO_IMAGE}
         icon={Users}

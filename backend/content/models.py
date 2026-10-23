@@ -70,7 +70,7 @@ class SiteSettings(SingletonModel):
     footer_copyright_text = models.CharField(
         max_length=200,
         blank=True,
-        default="The Chat Shack C.I.C. Registered in England & Wales. All rights reserved.",
+        default="The Chat Shack - Cardiff community run charity. Registered in England & Wales. All rights reserved.",
         help_text="Shown after the year, e.g. '© 2026 <this text>'.",
     )
 

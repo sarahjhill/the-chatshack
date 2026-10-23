@@ -49,7 +49,7 @@ export default function Footer() {
               </div>
               <div>
                 <div className="font-black text-white text-base leading-tight">
-                  {settings?.site_name ? `${settings.site_name} C.I.C.` : "THE CHAT SHACK C.I.C."}
+                  {settings?.site_name ? settings.site_name : "THE CHAT SHACK"}
                 </div>
                 <div className="text-xs text-white/70 leading-tight">
                   {settings?.tagline_1 || "Peer-led Mental Health Support"}
@@ -109,7 +109,7 @@ export default function Footer() {
           <span>
             © {new Date().getFullYear()}{" "}
             {settings?.footer_copyright_text ||
-              "The Chat Shack C.I.C. Registered in England & Wales. All rights reserved."}
+              "The Chat Shack - Cardiff community run charity. Registered in England & Wales. All rights reserved."}
           </span>
           <div className="flex items-center gap-4">
             <a

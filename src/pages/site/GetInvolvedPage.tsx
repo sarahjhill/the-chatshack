@@ -3,6 +3,7 @@ import { Users, Heart, Mic2, Footprints, Banknote, Handshake, ShieldCheck } from
 import PageHero from "@/components/PageHero.tsx";
 import { usePageContent, items } from "@/lib/pageContent.ts";
 import RichText from "@/components/RichText.tsx";
+import PageMeta from "@/components/PageMeta.tsx";
 
 // Hero background photo for this page. Replace public/images/get-involved-hero.jpg
 // with a real photo (keep the same file name) and it updates here automatically.
@@ -31,6 +32,7 @@ export default function GetInvolvedPage() {
 
   return (
     <div className="min-h-screen">
+      <PageMeta title="Get Involved" description="Volunteer, fundraise or partner with The Chat Shack - find out the ways you can support our community in Cardiff." />
       <PageHero
         image={content.hero?.image || HERO_IMAGE}
         icon={Users}

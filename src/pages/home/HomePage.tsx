@@ -23,6 +23,7 @@ import {
   RefreshCw,
   UsersRound,
 } from "lucide-react";
+import PageMeta from "@/components/PageMeta.tsx";
 
 const HERO_IMAGE = "/images/hero-image.jpg";
 
@@ -44,7 +45,7 @@ const partnerIcons = [Brain, Stethoscope, Activity, Dumbbell, Home, Banknote, Re
 const DEFAULT_CONTENT = {
   hero: {
     eyebrow: "YOU ARE NOT ALONE.",
-    title: "The ChatShack C.I.C.",
+    title: "The ChatShack - Cardiff Community Run Charity",
     lede1: "A peer-led mental health support community for adults aged 18+.",
     lede2:
       "A safe, confidential and non-judgemental place to talk, connect, find support and explore the next step.",
@@ -58,7 +59,7 @@ const DEFAULT_CONTENT = {
     heading: "What is The ChatShack?",
     tagline: "A place where you can talk.",
     intro:
-      "The ChatShack C.I.C. is a peer-led mental health support community created around a simple belief:",
+      "The ChatShack is a Cardiff community run charity and peer-led mental health support community created around a simple belief:",
     belief: "Nobody should have to face difficult times alone.",
     paragraph1:
       "We provide a welcoming community where adults can meet others, talk openly, build connections and access appropriate support.",
@@ -199,6 +200,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen">
+      <PageMeta title="Home" description="Peer-led mental health support for adults 18+ in Cardiff. A safe, confidential, non-judgemental place to talk, connect and find support." />
       {/* HERO */}
       <section className="relative min-h-[560px] flex items-center overflow-hidden">
         <div

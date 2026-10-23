@@ -1,5 +1,6 @@
 import { FileText, Eye, Share2, AlertTriangle, Archive } from "lucide-react";
 import PolicyPageHeader from "@/components/PolicyPageHeader.tsx";
+import PageMeta from "@/components/PageMeta.tsx";
 
 const principles = [
   { icon: FileText, title: "We collect only what we need", desc: "And we explain clearly why we're asking for it." },
@@ -12,6 +13,7 @@ const principles = [
 export default function GdprPage() {
   return (
     <div className="min-h-screen">
+      <PageMeta title="GDPR" description="The Chat Shack's data protection and GDPR information - your rights and how we handle your data." />
       <PolicyPageHeader
         icon={FileText}
         eyebrow="How we handle your data"

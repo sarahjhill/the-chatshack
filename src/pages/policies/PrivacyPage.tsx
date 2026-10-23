@@ -1,9 +1,11 @@
 import { Lock } from "lucide-react";
 import PolicyPageHeader from "@/components/PolicyPageHeader.tsx";
+import PageMeta from "@/components/PageMeta.tsx";
 
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen">
+      <PageMeta title="Privacy Policy" description="How The Chat Shack collects, uses and protects your personal information." />
       <PolicyPageHeader
         icon={Lock}
         eyebrow="Your conversations, respected"

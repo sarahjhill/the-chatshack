@@ -4,6 +4,7 @@ import PageHero from "@/components/PageHero.tsx";
 import SuggestionForm from "@/components/SuggestionForm.tsx";
 import { usePageContent, block, items } from "@/lib/pageContent.ts";
 import RichText from "@/components/RichText.tsx";
+import PageMeta from "@/components/PageMeta.tsx";
 
 // Hero background photo for this page. Replace public/images/community-hero.webp
 // with a real photo (keep the same file name) and it updates here automatically.
@@ -47,6 +48,7 @@ export default function CommunityPage() {
 
   return (
     <div className="min-h-screen">
+      <PageMeta title="Our Community" description="More than a group - groups, Walk & Talk sessions, peer mentoring and community events. See what's on and how our groups run." />
       <PageHero
         image={content.hero?.image || HERO_IMAGE}
         icon={Users}

@@ -4,6 +4,7 @@ import PageHero from "@/components/PageHero.tsx";
 import FirstContactForm from "@/components/FirstContactForm.tsx";
 import { usePageContent, block, items } from "@/lib/pageContent.ts";
 import RichText from "@/components/RichText.tsx";
+import PageMeta from "@/components/PageMeta.tsx";
 
 // Hero background photo for this page. Replace public/images/support-hero.jpg
 // with a real photo (keep the same file name) and it updates here automatically.
@@ -61,6 +62,7 @@ export default function SupportPage() {
 
   return (
     <div className="min-h-screen">
+      <PageMeta title="I Need Support" description="Reach out for free, confidential peer support - no diagnosis needed. Find out what to expect and how The Chat Shack can help." />
       <PageHero
         image={content.hero?.image || HERO_IMAGE}
         icon={MessageCircle}
