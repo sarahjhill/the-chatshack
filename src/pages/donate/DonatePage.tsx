@@ -139,8 +139,8 @@ const impactItems = [
   },
 ];
 
-const COUNTER_RAISED = 4820; // [placeholder — replace with real figure]
-const COUNTER_GOAL = 10000; // [placeholder — replace with real figure]
+const COUNTER_RAISED = 0; // real figure - no donations raised through the site yet
+const COUNTER_GOAL = 10000; // real fundraising goal for this year
 
 // The Van has had no donations towards it yet - £0 raised is the real,
 // current figure. The goal is a placeholder until we have an actual quote
@@ -253,9 +253,6 @@ function LiveCounter() {
           style={{ width: `${Math.min(100, barPct)}%` }}
         />
       </div>
-      <p className="text-xs italic text-[#6a6a6a]">
-        Demo figures for now — this will show real, live totals once connected to our donation platform.
-      </p>
     </div>
   );
 }
@@ -665,7 +662,15 @@ export default function DonatePage() {
                   </div>
                   <div className="font-black text-xl text-[#1a7a4a] mb-1">{tier.amount}</div>
                   <h3 className="font-black text-sm text-[#1a3a2a] mb-2">{tier.title}</h3>
-                  <p className="text-xs text-[#4a4a4a] flex-1">{tier.text}</p>
+                  <p className="text-xs text-[#4a4a4a] flex-1 mb-4">{tier.text}</p>
+                  <a
+                    href="#give"
+                    onClick={() => setSelectedAmount(Number(tier.amount.replace(/[^0-9]/g, "")))}
+                    className="inline-flex items-center justify-center gap-1.5 bg-[#1a7a4a] hover:bg-[#15613a] text-white font-bold text-xs px-4 py-2.5 rounded-full transition-colors"
+                  >
+                    <Heart className="w-3.5 h-3.5" />
+                    Donate {tier.amount}
+                  </a>
                 </div>
               </div>
             ))}
@@ -688,10 +693,18 @@ export default function DonatePage() {
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
             {otherTiers.map((tier) => (
-              <div key={tier.amount} className="bg-white rounded-xl border border-amber-200 p-5">
+              <div key={tier.amount} className="bg-white rounded-xl border border-amber-200 p-5 flex flex-col">
                 <div className="font-black text-lg text-[#1a7a4a] mb-1">{tier.amount}</div>
                 <h4 className="font-black text-sm text-[#1a3a2a] mb-2">{tier.title}</h4>
-                <p className="text-xs text-[#4a4a4a]">{tier.text}</p>
+                <p className="text-xs text-[#4a4a4a] flex-1 mb-4">{tier.text}</p>
+                <a
+                  href="#give"
+                  onClick={() => setSelectedAmount(Number(tier.amount.replace(/[^0-9]/g, "")))}
+                  className="inline-flex items-center justify-center gap-1.5 bg-[#1a7a4a] hover:bg-[#15613a] text-white font-bold text-xs px-4 py-2.5 rounded-full transition-colors self-start"
+                >
+                  <Heart className="w-3.5 h-3.5" />
+                  Donate {tier.amount}
+                </a>
               </div>
             ))}
           </div>
