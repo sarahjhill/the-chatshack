@@ -91,7 +91,6 @@ class CreateCheckoutSessionView(APIView):
         try:
             session = stripe.checkout.Session.create(
                 mode="payment",
-                payment_method_types=["card"],
                 line_items=line_items,
                 customer_email=data.get("donor_email") or None,
                 success_url=f"{frontend_url}/donate?purchase=success&session_id={{CHECKOUT_SESSION_ID}}",
@@ -148,7 +147,6 @@ class DonationCheckoutView(APIView):
         try:
             session = stripe.checkout.Session.create(
                 mode="payment",
-                payment_method_types=["card"],
                 line_items=[
                     {
                         "price_data": {
