@@ -15,7 +15,7 @@ const HERO_IMAGE = "/images/about-hero.jpg";
 // Founder video: paste a YouTube/Vimeo link here once you have one, e.g.
 //   "https://www.youtube.com/watch?v=XXXXXXXXXXX"
 // Leave blank to show the "coming soon" card.
-const FOUNDER_VIDEO_URL = "";
+const FOUNDER_VIDEO_URL = "/videos/scott-welcome.mp4";
 const FOUNDER_VIDEO_POSTER = "/images/founder-video-poster.jpg";
 
 // Community photo strip - replace these three files (same names) with real photos,
