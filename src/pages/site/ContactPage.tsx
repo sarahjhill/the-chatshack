@@ -11,18 +11,14 @@ import PageMeta from "@/components/PageMeta.tsx";
 // Or upload a new one in admin (Page heroes > Contact Us) to override it live.
 const HERO_IMAGE = "/images/contact-hero.jpg";
 
-// TODO: swap this for the real WhatsApp *group* invite link
-// (looks like https://chat.whatsapp.com/XXXXXXXXXXXXXXXXXXXXXX) once Scott
-// or Sarah shares it - this is a stopgap link to WhatsApp using the
-// contact number from Site Settings so the button isn't dead in the
-// meantime.
-const WHATSAPP_FALLBACK_NUMBER = "447375305186";
+// The ChatShack's WhatsApp group invite link.
+const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/G5oj1lwMDH036DwoIPiKq7?mode=gi_t";
 
 export default function ContactPage() {
   const content = usePageContent("contact");
   const settings = useSiteSettings();
 
-  const whatsappHref = `https://wa.me/${WHATSAPP_FALLBACK_NUMBER}`;
+  const whatsappHref = WHATSAPP_GROUP_URL;
   const facebookHref = settings?.facebook_url || "https://facebook.com/TheChatShack";
 
   return (
