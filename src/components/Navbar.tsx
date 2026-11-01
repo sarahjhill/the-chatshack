@@ -29,6 +29,7 @@ const navItems: NavItem[] = [
     path: "/community",
     children: [
       { label: "Our Community", path: "/community" },
+      { label: "Groups & Events", path: "/events" },
       { label: "Get Involved", path: "/community#get-involved" },
       { label: "Contact", path: "/contact" },
     ],

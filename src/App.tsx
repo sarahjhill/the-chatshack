@@ -14,6 +14,7 @@ import CommunityPage from "./pages/site/CommunityPage.tsx";
 import HomelessOutreachPage from "./pages/site/HomelessOutreachPage.tsx";
 import PartnersPage from "./pages/site/PartnersPage.tsx";
 import ContactPage from "./pages/site/ContactPage.tsx";
+import EventsPage from "./pages/site/EventsPage.tsx";
 
 export default function App() {
   return (
@@ -34,6 +35,7 @@ export default function App() {
             <Route path="/partners" element={<PartnersPage />} />
             <Route path="/get-involved" element={<Navigate to="/community#get-involved" replace />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/events" element={<EventsPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           </Route>
           <Route path="*" element={<NotFound />} />
