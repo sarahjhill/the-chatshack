@@ -126,7 +126,9 @@ export default function SupportPage() {
             </div>
           </div>
 
-          <FirstContactForm />
+          <div id="first-contact" className="scroll-mt-20">
+            <FirstContactForm />
+          </div>
 
           {/* FAQs */}
           <div className="flex items-center gap-2 mb-5 justify-center">

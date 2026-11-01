@@ -3,6 +3,7 @@ from django.contrib import admin
 from .models import (
     ContactMessageSubmission,
     FirstContactSubmission,
+    ImprovementFeedbackSubmission,
     PartnerApplicationSubmission,
     SuggestionSubmission,
 )
@@ -66,3 +67,19 @@ class PartnerApplicationSubmissionAdmin(admin.ModelAdmin):
         "message",
         "created_at",
     ]
+
+
+@admin.register(ImprovementFeedbackSubmission)
+class ImprovementFeedbackSubmissionAdmin(admin.ModelAdmin):
+    list_display = ["name_display", "email", "message_preview", "created_at", "is_reviewed"]
+    list_filter = ["is_reviewed", "created_at"]
+    search_fields = ["name", "email", "message"]
+    readonly_fields = ["name", "email", "message", "created_at"]
+
+    @admin.display(description="From")
+    def name_display(self, obj):
+        return obj.name or "Anonymous"
+
+    @admin.display(description="Message")
+    def message_preview(self, obj):
+        return (obj.message[:80] + "…") if len(obj.message) > 80 else obj.message

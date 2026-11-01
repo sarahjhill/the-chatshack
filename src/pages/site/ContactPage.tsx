@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
-import { Mail, AlertTriangle } from "lucide-react";
+import { Mail, AlertTriangle, MessageCircle, LifeBuoy, MessageSquareHeart } from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
-import { usePageContent } from "@/lib/pageContent.ts";
+import ContactForm from "@/components/ContactForm.tsx";
+import ImprovementFeedbackForm from "@/components/ImprovementFeedbackForm.tsx";
+import { usePageContent, useSiteSettings } from "@/lib/pageContent.ts";
 import PageMeta from "@/components/PageMeta.tsx";
 
 // Hero background photo for this page. Replace public/images/contact-hero.jpg
@@ -9,8 +11,19 @@ import PageMeta from "@/components/PageMeta.tsx";
 // Or upload a new one in admin (Page heroes > Contact Us) to override it live.
 const HERO_IMAGE = "/images/contact-hero.jpg";
 
+// TODO: swap this for the real WhatsApp *group* invite link
+// (looks like https://chat.whatsapp.com/XXXXXXXXXXXXXXXXXXXXXX) once Scott
+// or Sarah shares it - this is a stopgap link to WhatsApp using the
+// contact number from Site Settings so the button isn't dead in the
+// meantime.
+const WHATSAPP_FALLBACK_NUMBER = "447375305186";
+
 export default function ContactPage() {
   const content = usePageContent("contact");
+  const settings = useSiteSettings();
+
+  const whatsappHref = `https://wa.me/${WHATSAPP_FALLBACK_NUMBER}`;
+  const facebookHref = settings?.facebook_url || "https://facebook.com/TheChatShack";
 
   return (
     <div className="min-h-screen">
@@ -29,19 +42,40 @@ export default function ContactPage() {
             It's ok not to be ok. It's not ok to stay there.
           </p>
 
-          <div className="bg-[#f5f0e8] rounded-xl p-6 border border-amber-200 mb-10 text-center">
-            <div className="w-12 h-12 bg-[#1a7a4a]/10 rounded-full flex items-center justify-center mx-auto mb-3">
-              <span className="text-[#1a7a4a] font-black text-xl">f</span>
-            </div>
-            <p className="font-bold text-[#1a3a2a] mb-2">The easiest way to reach us is Facebook</p>
+          {/* Quick links: Facebook / WhatsApp / need help now */}
+          <div className="grid sm:grid-cols-3 gap-4 mb-10">
             <a
-              href="https://facebook.com/TheChatShack"
+              href={facebookHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#1a7a4a] hover:bg-[#156039] text-white font-bold px-6 py-3 rounded-full transition-colors"
+              className="bg-[#f5f0e8] border border-amber-200 rounded-xl p-5 text-center hover:border-[#1a7a4a] transition-colors"
             >
-              @TheChatShack
+              <div className="w-11 h-11 bg-[#1a7a4a]/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span className="text-[#1a7a4a] font-black text-lg">f</span>
+              </div>
+              <p className="font-bold text-[#1a3a2a] text-sm">Follow us on Facebook</p>
+              <p className="text-[#4a4a4a] text-xs mt-1">@TheChatShack</p>
             </a>
+
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#f5f0e8] border border-amber-200 rounded-xl p-5 text-center hover:border-[#1a7a4a] transition-colors"
+            >
+              <MessageCircle className="w-11 h-11 text-[#1a7a4a] bg-[#1a7a4a]/10 rounded-full p-2.5 mx-auto mb-2" />
+              <p className="font-bold text-[#1a3a2a] text-sm">Join our WhatsApp group</p>
+              <p className="text-[#4a4a4a] text-xs mt-1">Chat with the community</p>
+            </a>
+
+            <Link
+              to="/support#first-contact"
+              className="bg-[#f5f0e8] border border-amber-200 rounded-xl p-5 text-center hover:border-[#1a7a4a] transition-colors"
+            >
+              <LifeBuoy className="w-11 h-11 text-[#1a7a4a] bg-[#1a7a4a]/10 rounded-full p-2.5 mx-auto mb-2" />
+              <p className="font-bold text-[#1a3a2a] text-sm">Need help now?</p>
+              <p className="text-[#4a4a4a] text-xs mt-1">First point of contact</p>
+            </Link>
           </div>
 
           <p className="text-[#4a4a4a] mb-3">
@@ -64,6 +98,27 @@ export default function ContactPage() {
             </Link>{" "}
             are good places to look.
           </p>
+
+          {/* Get in touch */}
+          <div className="flex items-center gap-2 mb-4">
+            <Mail className="w-6 h-6 text-[#1a7a4a]" />
+            <h2 className="text-2xl font-black text-[#1a3a2a]">Get in touch</h2>
+          </div>
+          <div className="mb-12">
+            <ContactForm />
+          </div>
+
+          {/* Tell us how we can improve */}
+          <div className="flex items-center gap-2 mb-4">
+            <MessageSquareHeart className="w-6 h-6 text-[#1a7a4a]" />
+            <h2 className="text-2xl font-black text-[#1a3a2a]">Tell us how we can improve</h2>
+          </div>
+          <p className="text-[#4a4a4a] mb-4">
+            Good or bad, we want to hear it — your feedback helps us make The Chat Shack better.
+          </p>
+          <div className="mb-12">
+            <ImprovementFeedbackForm />
+          </div>
 
           <div className="bg-red-600 text-white rounded-xl p-5 flex gap-3">
             <AlertTriangle className="w-8 h-8 flex-shrink-0 mt-1" />

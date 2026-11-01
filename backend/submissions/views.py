@@ -1,10 +1,17 @@
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 
-from .models import ContactMessageSubmission, FirstContactSubmission, PartnerApplicationSubmission, SuggestionSubmission
+from .models import (
+    ContactMessageSubmission,
+    FirstContactSubmission,
+    ImprovementFeedbackSubmission,
+    PartnerApplicationSubmission,
+    SuggestionSubmission,
+)
 from .serializers import (
     ContactMessageSubmissionSerializer,
     FirstContactSubmissionSerializer,
+    ImprovementFeedbackSubmissionSerializer,
     PartnerApplicationSubmissionSerializer,
     SuggestionSubmissionSerializer,
 )
@@ -43,4 +50,14 @@ class PartnerApplicationCreateView(generics.CreateAPIView):
 
     queryset = PartnerApplicationSubmission.objects.all()
     serializer_class = PartnerApplicationSubmissionSerializer
+    permission_classes = [AllowAny]
+
+
+class ImprovementFeedbackCreateView(generics.CreateAPIView):
+    """POST /api/improvement-feedback/ - the Contact Us page's 'Tell us
+    how we can improve' box. Anonymous and open to anyone - no auth
+    required."""
+
+    queryset = ImprovementFeedbackSubmission.objects.all()
+    serializer_class = ImprovementFeedbackSubmissionSerializer
     permission_classes = [AllowAny]

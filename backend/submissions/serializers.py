@@ -3,6 +3,7 @@ from rest_framework import serializers
 from .models import (
     ContactMessageSubmission,
     FirstContactSubmission,
+    ImprovementFeedbackSubmission,
     PartnerApplicationSubmission,
     SuggestionSubmission,
 )
@@ -30,3 +31,9 @@ class PartnerApplicationSubmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = PartnerApplicationSubmission
         fields = ["organisation_name", "contact_name", "email", "phone", "services_offered", "message"]
+
+
+class ImprovementFeedbackSubmissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImprovementFeedbackSubmission
+        fields = ["name", "email", "message"]

@@ -91,3 +91,23 @@ class PartnerApplicationSubmission(models.Model):
 
     def __str__(self):
         return f"{self.organisation_name} ({self.get_status_display()})"
+
+
+class ImprovementFeedbackSubmission(models.Model):
+    """'Tell us how we can improve' box on the Contact Us page - general
+    feedback/reviews about The ChatShack, separate from the Community
+    page's 'what's needed' suggestions box."""
+
+    name = models.CharField(max_length=150, blank=True)
+    email = models.EmailField(blank=True, help_text="Optional - only given if they'd like a reply.")
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_reviewed = models.BooleanField(default=False, help_text="Tick once Scott has read and actioned this.")
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        who = self.name or "Anonymous"
+        return f"{who} - {self.created_at:%d %b %Y}"
+
