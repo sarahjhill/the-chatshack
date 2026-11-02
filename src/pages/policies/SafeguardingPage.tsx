@@ -80,7 +80,7 @@ export default function SafeguardingPage() {
             If you are worried about your own safety or someone else's, please tell a member of The
             ChatShack team straight away, or contact the emergency services directly if anyone is in
             immediate danger. You can also reach us via our{" "}
-            <a href="https://facebook.com/TheChatShack" target="_blank" rel="noopener noreferrer" className="text-[#1a7a4a] font-bold underline">
+            <a href="https://www.facebook.com/profile.php?id=61589476815747" target="_blank" rel="noopener noreferrer" className="text-[#1a7a4a] font-bold underline">
               Facebook page
             </a>
             .

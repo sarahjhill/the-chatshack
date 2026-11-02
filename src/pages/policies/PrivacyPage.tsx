@@ -68,7 +68,7 @@ export default function PrivacyPage() {
           <p className="text-[#4a4a4a]">
             If you'd like to know more about how we handle confidentiality or your personal information,
             please get in touch via our{" "}
-            <a href="https://facebook.com/TheChatShack" target="_blank" rel="noopener noreferrer" className="text-[#1a7a4a] font-bold underline">
+            <a href="https://www.facebook.com/profile.php?id=61589476815747" target="_blank" rel="noopener noreferrer" className="text-[#1a7a4a] font-bold underline">
               Facebook page
             </a>
             .

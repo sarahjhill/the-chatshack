@@ -87,7 +87,7 @@ export default function RegisterInterestModal({ onClose }: { onClose: () => void
               <p className="text-[#4a4a4a] text-sm bg-[#f5f0e8] border border-amber-200 rounded-lg p-4 text-center">
                 This form isn't available right now — message us on{" "}
                 <a
-                  href="https://facebook.com/TheChatShack"
+                  href="https://www.facebook.com/profile.php?id=61589476815747"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#1a7a4a] font-bold underline"

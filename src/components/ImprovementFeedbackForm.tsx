@@ -47,7 +47,7 @@ export default function ImprovementFeedbackForm() {
         <p className="text-sm text-[#4a4a4a] mt-1">
           In the meantime, message us on{" "}
           <a
-            href="https://facebook.com/TheChatShack"
+            href="https://www.facebook.com/profile.php?id=61589476815747"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#1a7a4a] font-bold underline"

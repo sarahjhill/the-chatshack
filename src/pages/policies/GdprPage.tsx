@@ -71,7 +71,7 @@ export default function GdprPage() {
           </p>
           <p className="text-[#4a4a4a]">
             To ask about your data, or to exercise any of these rights, please get in touch via our{" "}
-            <a href="https://facebook.com/TheChatShack" target="_blank" rel="noopener noreferrer" className="text-[#1a7a4a] font-bold underline">
+            <a href="https://www.facebook.com/profile.php?id=61589476815747" target="_blank" rel="noopener noreferrer" className="text-[#1a7a4a] font-bold underline">
               Facebook page
             </a>
             . See also our{" "}

@@ -60,7 +60,7 @@ export default function Footer() {
               </div>
             </div>
             <a
-              href="https://facebook.com/TheChatShack"
+              href="https://www.facebook.com/profile.php?id=61589476815747"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-white/80 hover:text-white text-sm mt-2"

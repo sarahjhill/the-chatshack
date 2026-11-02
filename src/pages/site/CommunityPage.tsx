@@ -230,7 +230,7 @@ export default function CommunityPage() {
 
             <div className="text-center">
               <a
-                href="https://facebook.com/TheChatShack"
+                href="https://www.facebook.com/profile.php?id=61589476815747"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-[#1a7a4a] hover:bg-[#156039] text-white font-bold px-6 py-3 rounded-full transition-colors"

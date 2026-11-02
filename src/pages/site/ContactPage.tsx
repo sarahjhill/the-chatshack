@@ -23,7 +23,7 @@ export default function ContactPage() {
   const settings = useSiteSettings();
 
   const whatsappHref = WHATSAPP_GROUP_URL;
-  const facebookHref = settings?.facebook_url || "https://facebook.com/TheChatShack";
+  const facebookHref = settings?.facebook_url || "https://www.facebook.com/profile.php?id=61589476815747";
 
   return (
     <div className="min-h-screen">
