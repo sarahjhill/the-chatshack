@@ -11,7 +11,13 @@ import { API_URL, postToApi } from "@/lib/api";
  * The PDF stays downloadable alongside this for anyone who'd rather fill
  * it in offline or bring it along in person.
  */
-export default function FirstContactForm() {
+export default function FirstContactForm({
+  heading = "Want to get a head start?",
+  description = "If it helps to gather your thoughts beforehand, you can fill in our First Contact & Initial Support Form below. It's entirely optional, nothing here is compulsory to answer, and it's just there to make that first step a little easier if you want it.",
+}: {
+  heading?: string;
+  description?: string;
+}) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const configured = Boolean(API_URL);
 
@@ -50,12 +56,8 @@ export default function FirstContactForm() {
 
   return (
     <div className="bg-[#f5f0e8] border border-amber-200 rounded-2xl p-6 md:p-8 max-w-2xl mx-auto mb-14">
-      <h3 className="font-black text-lg text-[#1a3a2a] mb-2 text-center">Want to get a head start?</h3>
-      <p className="text-[#4a4a4a] text-sm mb-5 text-center">
-        If it helps to gather your thoughts beforehand, you can fill in our First Contact &amp; Initial
-        Support Form below. It's entirely optional, nothing here is compulsory to answer, and it's just
-        there to make that first step a little easier if you want it.
-      </p>
+      <h3 className="font-black text-lg text-[#1a3a2a] mb-2 text-center">{heading}</h3>
+      <p className="text-[#4a4a4a] text-sm mb-5 text-center">{description}</p>
 
       {configured && (
         <form onSubmit={handleSubmit} className="mb-5">

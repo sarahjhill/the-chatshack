@@ -3,6 +3,7 @@ import { Mail, AlertTriangle, MessageCircle, LifeBuoy, MessageSquareHeart } from
 import PageHero from "@/components/PageHero.tsx";
 import ContactForm from "@/components/ContactForm.tsx";
 import ImprovementFeedbackForm from "@/components/ImprovementFeedbackForm.tsx";
+import FirstContactForm from "@/components/FirstContactForm.tsx";
 import { usePageContent, useSiteSettings } from "@/lib/pageContent.ts";
 import PageMeta from "@/components/PageMeta.tsx";
 
@@ -13,6 +14,9 @@ const HERO_IMAGE = "/images/contact-hero.jpg";
 
 // The ChatShack's WhatsApp group invite link.
 const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/G5oj1lwMDH036DwoIPiKq7?mode=gi_t";
+
+// External crisis service - live location sharing for anyone in immediate danger.
+const EMERGENCY_LOCATION_URL = "https://bem-crisis.app/emergency";
 
 export default function ContactPage() {
   const content = usePageContent("contact");
@@ -39,43 +43,9 @@ export default function ContactPage() {
           </p>
 
           <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {/* Left column: ways to reach us + emergency info */}
+            {/* Left column: intro + need help form */}
             <div>
-              <div className="grid sm:grid-cols-3 gap-4 mb-8">
-                <a
-                  href={facebookHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#f5f0e8] border border-amber-200 rounded-xl p-5 text-center hover:border-[#1a7a4a] transition-colors"
-                >
-                  <div className="w-11 h-11 bg-[#1a7a4a]/10 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <span className="text-[#1a7a4a] font-black text-lg">f</span>
-                  </div>
-                  <p className="font-bold text-[#1a3a2a] text-sm">Follow us on Facebook</p>
-                  <p className="text-[#4a4a4a] text-xs mt-1">@TheChatShack</p>
-                </a>
-
-                <a
-                  href={whatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#f5f0e8] border border-amber-200 rounded-xl p-5 text-center hover:border-[#1a7a4a] transition-colors"
-                >
-                  <MessageCircle className="w-11 h-11 text-[#1a7a4a] bg-[#1a7a4a]/10 rounded-full p-2.5 mx-auto mb-2" />
-                  <p className="font-bold text-[#1a3a2a] text-sm">Join our WhatsApp group</p>
-                  <p className="text-[#4a4a4a] text-xs mt-1">Chat with the community</p>
-                </a>
-
-                <Link
-                  to="/support#first-contact"
-                  className="bg-[#f5f0e8] border border-amber-200 rounded-xl p-5 text-center hover:border-[#1a7a4a] transition-colors"
-                >
-                  <LifeBuoy className="w-11 h-11 text-[#1a7a4a] bg-[#1a7a4a]/10 rounded-full p-2.5 mx-auto mb-2" />
-                  <p className="font-bold text-[#1a3a2a] text-sm">Need help now?</p>
-                  <p className="text-[#4a4a4a] text-xs mt-1">First point of contact</p>
-                </Link>
-              </div>
-
+              <h2 className="text-2xl md:text-3xl font-black text-[#1a3a2a] mb-4">Many ways to contact us</h2>
               <p className="text-[#4a4a4a] mb-3">
                 Whether you need support yourself, want to get involved, or represent an organisation
                 interested in partnering with us, send us a message and we'll get back to you. What you
@@ -85,7 +55,7 @@ export default function ContactPage() {
                 </Link>{" "}
                 page for the detail.
               </p>
-              <p className="text-[#4a4a4a] mb-8">
+              <p className="text-[#4a4a4a] mb-10">
                 Not sure where to start?{" "}
                 <Link to="/support" className="text-[#1a7a4a] font-bold underline">
                   I Need Support
@@ -97,14 +67,24 @@ export default function ContactPage() {
                 are good places to look.
               </p>
 
-              <div className="bg-red-600 text-white rounded-xl p-5 flex gap-3">
-                <AlertTriangle className="w-8 h-8 flex-shrink-0 mt-1" />
-                <div>
-                  <p className="font-black text-lg">IN AN EMERGENCY OR IMMEDIATE DANGER</p>
-                  <p className="font-bold text-xl">PLEASE CALL 999</p>
-                  <p className="text-white/90 text-sm mt-1">or go to your nearest A&amp;E department.</p>
-                </div>
+              <div className="mb-10">
+                <FirstContactForm
+                  heading="Need help?"
+                  description="This is the quickest way to tell us more — fill it in below and we'll get in contact with you."
+                />
               </div>
+
+              <a
+                href={EMERGENCY_LOCATION_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 bg-red-50 border border-red-200 hover:border-red-400 rounded-xl p-4 transition-colors"
+              >
+                <AlertTriangle className="w-7 h-7 text-red-600 flex-shrink-0" />
+                <span className="font-bold text-red-700">
+                  Immediate danger — live location alert
+                </span>
+              </a>
             </div>
 
             {/* Right column: the two forms */}
@@ -126,6 +106,42 @@ export default function ContactPage() {
               </p>
               <ImprovementFeedbackForm />
             </div>
+          </div>
+
+          {/* Quick links: Facebook / WhatsApp / need help now */}
+          <div className="grid sm:grid-cols-3 gap-4 mt-14 pt-10 border-t border-amber-100">
+            <a
+              href={facebookHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#f5f0e8] border border-amber-200 rounded-xl p-5 text-center hover:border-[#1a7a4a] transition-colors"
+            >
+              <div className="w-11 h-11 bg-[#1a7a4a]/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span className="text-[#1a7a4a] font-black text-lg">f</span>
+              </div>
+              <p className="font-bold text-[#1a3a2a] text-sm">Follow us on Facebook</p>
+              <p className="text-[#4a4a4a] text-xs mt-1">@TheChatShack</p>
+            </a>
+
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#f5f0e8] border border-amber-200 rounded-xl p-5 text-center hover:border-[#1a7a4a] transition-colors"
+            >
+              <MessageCircle className="w-11 h-11 text-[#1a7a4a] bg-[#1a7a4a]/10 rounded-full p-2.5 mx-auto mb-2" />
+              <p className="font-bold text-[#1a3a2a] text-sm">Join our WhatsApp group</p>
+              <p className="text-[#4a4a4a] text-xs mt-1">Chat with the community</p>
+            </a>
+
+            <Link
+              to="/support#first-contact"
+              className="bg-[#f5f0e8] border border-amber-200 rounded-xl p-5 text-center hover:border-[#1a7a4a] transition-colors"
+            >
+              <LifeBuoy className="w-11 h-11 text-[#1a7a4a] bg-[#1a7a4a]/10 rounded-full p-2.5 mx-auto mb-2" />
+              <p className="font-bold text-[#1a3a2a] text-sm">Need help now?</p>
+              <p className="text-[#4a4a4a] text-xs mt-1">First point of contact</p>
+            </Link>
           </div>
         </div>
       </section>
