@@ -2,9 +2,15 @@ import { Link } from "react-router-dom";
 import { MessageCircle, AlertTriangle, ArrowRight, Ear, HeartHandshake, UserCheck, Sparkles, HelpCircle } from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
 import FirstContactForm from "@/components/FirstContactForm.tsx";
-import { usePageContent, block, items } from "@/lib/pageContent.ts";
+import { usePageContent, useSiteSettings, block, items } from "@/lib/pageContent.ts";
 import RichText from "@/components/RichText.tsx";
 import PageMeta from "@/components/PageMeta.tsx";
+
+// The ChatShack's WhatsApp group invite link.
+const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/G5oj1lwMDH036DwoIPiKq7?mode=gi_t";
+
+// External crisis service - live location sharing for anyone in immediate danger.
+const EMERGENCY_LOCATION_URL = "https://bem-crisis.app/emergency";
 
 // Hero background photo for this page. Replace public/images/support-hero.jpg
 // with a real photo (keep the same file name) and it updates here automatically.
@@ -42,6 +48,8 @@ const defaultFaqs = [
 
 export default function SupportPage() {
   const content = usePageContent("support");
+  const settings = useSiteSettings();
+  const facebookHref = settings?.facebook_url || "https://facebook.com/TheChatShack";
 
   const whatToExpect = block(content, "what_to_expect");
   const closing = block(content, "closing");
@@ -126,8 +134,46 @@ export default function SupportPage() {
             </div>
           </div>
 
-          <div id="first-contact" className="scroll-mt-20">
-            <FirstContactForm />
+          <div id="first-contact" className="scroll-mt-20 max-w-5xl mx-auto mb-12">
+            <div className="grid lg:grid-cols-3 gap-6 items-stretch">
+              <div className="lg:col-span-2">
+                <FirstContactForm />
+              </div>
+
+              <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
+                <a
+                  href={facebookHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative rounded-2xl overflow-hidden h-36 lg:h-full min-h-[8rem] shadow-sm"
+                  style={{ backgroundImage: "url(/images/events/events-group-photo-1.jpg)", backgroundSize: "cover", backgroundPosition: "center" }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10 group-hover:from-black/85 transition-colors" />
+                  <div className="relative h-full flex flex-col items-center justify-center text-center p-4">
+                    <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center mb-2">
+                      <span className="text-[#1a7a4a] font-black">f</span>
+                    </div>
+                    <p className="font-bold text-white text-sm drop-shadow">Follow us on Facebook</p>
+                    <p className="text-white/80 text-xs mt-0.5 drop-shadow">@TheChatShack</p>
+                  </div>
+                </a>
+
+                <a
+                  href={WHATSAPP_GROUP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative rounded-2xl overflow-hidden h-36 lg:h-full min-h-[8rem] shadow-sm"
+                  style={{ backgroundImage: "url(/images/events/events-group-photo-2.webp)", backgroundSize: "cover", backgroundPosition: "center" }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10 group-hover:from-black/85 transition-colors" />
+                  <div className="relative h-full flex flex-col items-center justify-center text-center p-4">
+                    <MessageCircle className="w-9 h-9 text-white bg-[#1a7a4a] rounded-full p-1.5 mb-2" />
+                    <p className="font-bold text-white text-sm drop-shadow">Join our WhatsApp group</p>
+                    <p className="text-white/80 text-xs mt-0.5 drop-shadow">Chat with the community</p>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* FAQs */}
@@ -152,14 +198,15 @@ export default function SupportPage() {
             {closing?.heading || "It's ok not to be ok. It's not ok to stay there."}
           </div>
 
-          <div className="bg-red-600 text-white rounded-xl p-5 flex gap-3 mb-8 max-w-3xl mx-auto">
-            <AlertTriangle className="w-8 h-8 flex-shrink-0 mt-1" />
-            <div>
-              <p className="font-black text-lg">IN AN EMERGENCY OR IMMEDIATE DANGER</p>
-              <p className="font-bold text-xl">PLEASE CALL 999</p>
-              <p className="text-white/90 text-sm mt-1">or go to your nearest A&amp;E department.</p>
-            </div>
-          </div>
+          <a
+            href={EMERGENCY_LOCATION_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white rounded-xl p-5 mb-8 max-w-3xl mx-auto transition-colors"
+          >
+            <AlertTriangle className="w-8 h-8 flex-shrink-0" />
+            <span className="font-black text-lg">Immediate danger — live location alert</span>
+          </a>
 
           <div className="text-center">
             <a

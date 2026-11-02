@@ -83,10 +83,10 @@ export default function ContactPage() {
                 href={EMERGENCY_LOCATION_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 bg-red-50 border border-red-200 hover:border-red-400 rounded-xl p-4 transition-colors"
+                className="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white rounded-xl p-5 transition-colors"
               >
-                <AlertTriangle className="w-7 h-7 text-red-600 flex-shrink-0" />
-                <span className="font-bold text-red-700">
+                <AlertTriangle className="w-8 h-8 flex-shrink-0" />
+                <span className="font-black text-lg">
                   Immediate danger — live location alert
                 </span>
               </a>
