@@ -5,6 +5,7 @@ from .models import (
     FirstContactSubmission,
     ImprovementFeedbackSubmission,
     PartnerApplicationSubmission,
+    SleepOutInterestSubmission,
     SuggestionSubmission,
 )
 
@@ -83,3 +84,11 @@ class ImprovementFeedbackSubmissionAdmin(admin.ModelAdmin):
     @admin.display(description="Message")
     def message_preview(self, obj):
         return (obj.message[:80] + "…") if len(obj.message) > 80 else obj.message
+
+
+@admin.register(SleepOutInterestSubmission)
+class SleepOutInterestSubmissionAdmin(admin.ModelAdmin):
+    list_display = ["name", "email", "created_at", "is_contacted"]
+    list_filter = ["is_contacted", "created_at"]
+    search_fields = ["name", "email"]
+    readonly_fields = ["name", "email", "created_at"]

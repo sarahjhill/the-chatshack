@@ -5,6 +5,7 @@ from .views import (
     FirstContactCreateView,
     ImprovementFeedbackCreateView,
     PartnerApplicationCreateView,
+    SleepOutInterestCreateView,
     SuggestionCreateView,
 )
 
@@ -14,4 +15,5 @@ urlpatterns = [
     path("first-contact/", FirstContactCreateView.as_view(), name="api-first-contact-create"),
     path("partner-applications/", PartnerApplicationCreateView.as_view(), name="api-partner-application-create"),
     path("improvement-feedback/", ImprovementFeedbackCreateView.as_view(), name="api-improvement-feedback-create"),
+    path("sleep-out-interest/", SleepOutInterestCreateView.as_view(), name="api-sleep-out-interest-create"),
 ]

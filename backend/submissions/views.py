@@ -6,6 +6,7 @@ from .models import (
     FirstContactSubmission,
     ImprovementFeedbackSubmission,
     PartnerApplicationSubmission,
+    SleepOutInterestSubmission,
     SuggestionSubmission,
 )
 from .serializers import (
@@ -13,6 +14,7 @@ from .serializers import (
     FirstContactSubmissionSerializer,
     ImprovementFeedbackSubmissionSerializer,
     PartnerApplicationSubmissionSerializer,
+    SleepOutInterestSubmissionSerializer,
     SuggestionSubmissionSerializer,
 )
 
@@ -60,4 +62,14 @@ class ImprovementFeedbackCreateView(generics.CreateAPIView):
 
     queryset = ImprovementFeedbackSubmission.objects.all()
     serializer_class = ImprovementFeedbackSubmissionSerializer
+    permission_classes = [AllowAny]
+
+
+class SleepOutInterestCreateView(generics.CreateAPIView):
+    """POST /api/sleep-out-interest/ - the 'Register your interest' popup
+    on the Events page's Sleep Out to Help Out section. Anonymous and open
+    to anyone - no auth required."""
+
+    queryset = SleepOutInterestSubmission.objects.all()
+    serializer_class = SleepOutInterestSubmissionSerializer
     permission_classes = [AllowAny]

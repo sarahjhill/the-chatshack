@@ -5,6 +5,7 @@ from .models import (
     FirstContactSubmission,
     ImprovementFeedbackSubmission,
     PartnerApplicationSubmission,
+    SleepOutInterestSubmission,
     SuggestionSubmission,
 )
 
@@ -37,3 +38,9 @@ class ImprovementFeedbackSubmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImprovementFeedbackSubmission
         fields = ["name", "email", "message"]
+
+
+class SleepOutInterestSubmissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SleepOutInterestSubmission
+        fields = ["name", "email"]

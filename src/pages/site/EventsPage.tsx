@@ -8,6 +8,7 @@ import {
   Footprints,
   Tent,
   HandHeart,
+  ClipboardList,
   Lightbulb,
   Quote,
 } from "lucide-react";
@@ -15,6 +16,7 @@ import PageHero from "@/components/PageHero.tsx";
 import PageMeta from "@/components/PageMeta.tsx";
 import { usePageContent } from "@/lib/pageContent.ts";
 import PosterLightbox from "@/components/PosterLightbox.tsx";
+import RegisterInterestModal from "@/components/RegisterInterestModal.tsx";
 
 // Hero background photo for this page. Replace with a real photo (keep the
 // same file name) and it updates here automatically.
@@ -69,6 +71,7 @@ const GALLERY = [
 export default function EventsPage() {
   const content = usePageContent("events");
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+  const [showRegisterInterest, setShowRegisterInterest] = useState(false);
 
   return (
     <div className="min-h-screen">
@@ -229,13 +232,24 @@ export default function EventsPage() {
                 <p className="text-amber-400 font-bold text-sm">— Scott, Founder, The ChatShack</p>
               </div>
 
-              <Link
-                to="/donate"
-                className="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-[#0b2a1d] font-black px-7 py-3.5 rounded-full transition-colors shadow-lg"
-              >
-                <HandHeart className="w-5 h-5" />
-                Please donate
-              </Link>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowRegisterInterest(true)}
+                  className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-amber-400/50 text-white font-bold px-6 py-3.5 rounded-full transition-colors"
+                >
+                  <ClipboardList className="w-5 h-5" />
+                  Register your interest
+                </button>
+
+                <Link
+                  to="/donate"
+                  className="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-[#0b2a1d] font-black px-7 py-3.5 rounded-full transition-colors shadow-lg"
+                >
+                  <HandHeart className="w-5 h-5" />
+                  Please donate
+                </Link>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -303,6 +317,10 @@ export default function EventsPage() {
 
       {lightbox && (
         <PosterLightbox src={lightbox.src} alt={lightbox.alt} onClose={() => setLightbox(null)} />
+      )}
+
+      {showRegisterInterest && (
+        <RegisterInterestModal onClose={() => setShowRegisterInterest(false)} />
       )}
 
     </div>

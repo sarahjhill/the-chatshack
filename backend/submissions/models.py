@@ -111,3 +111,19 @@ class ImprovementFeedbackSubmission(models.Model):
         who = self.name or "Anonymous"
         return f"{who} - {self.created_at:%d %b %Y}"
 
+
+class SleepOutInterestSubmission(models.Model):
+    """'Register your interest' popup on the Events page's Sleep Out to Help
+    Out section - just a name and email so Scott can follow up with
+    details nearer the time."""
+
+    name = models.CharField(max_length=150)
+    email = models.EmailField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_contacted = models.BooleanField(default=False, help_text="Tick once Scott has followed up with them.")
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.name} - {self.created_at:%d %b %Y}"
