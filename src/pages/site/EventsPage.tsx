@@ -63,7 +63,7 @@ const GALLERY = [
   { src: "/images/events/world-mental-health-day-poster.webp", alt: "World Mental Health Day poster — We are here for you, when you need us" },
   { src: "/images/events/events-group-photo-1.jpg", alt: "Members of The ChatShack community around the table at a group session" },
   { src: "/images/events/events-group-photo-2.webp", alt: "Members chatting together at a ChatShack group session" },
-  { src: "/images/events/events-team-photo.jpg", alt: "The ChatShack outreach team" },
+  { src: "/images/events/events-group-photo-3.webp", alt: "Members sharing a coloring session together at The ChatShack" },
 ];
 
 export default function EventsPage() {
