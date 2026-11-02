@@ -56,8 +56,8 @@ export default function FirstContactForm({
 
   return (
     <div className="bg-[#f5f0e8] border border-amber-200 rounded-2xl p-6 md:p-8 max-w-2xl mx-auto mb-14">
-      <h3 className="font-black text-lg text-[#1a3a2a] mb-2 text-center">{heading}</h3>
-      <p className="text-[#4a4a4a] text-sm mb-5 text-center">{description}</p>
+      {heading && <h3 className="font-black text-lg text-[#1a3a2a] mb-2 text-center">{heading}</h3>}
+      {description && <p className="text-[#4a4a4a] text-sm mb-5 text-center">{description}</p>}
 
       {configured && (
         <form onSubmit={handleSubmit} className="mb-5">

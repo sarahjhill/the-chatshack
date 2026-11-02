@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, AlertTriangle, MessageCircle, LifeBuoy, MessageSquareHeart } from "lucide-react";
+import { Mail, AlertTriangle, MessageCircle, LifeBuoy, MessageSquareHeart, HandHelping } from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
 import ContactForm from "@/components/ContactForm.tsx";
 import ImprovementFeedbackForm from "@/components/ImprovementFeedbackForm.tsx";
@@ -67,11 +67,16 @@ export default function ContactPage() {
                 are good places to look.
               </p>
 
+              <div className="flex items-center gap-2 mb-4">
+                <HandHelping className="w-6 h-6 text-[#1a7a4a]" />
+                <h2 className="text-2xl font-black text-[#1a3a2a]">Need help?</h2>
+              </div>
+              <p className="text-[#4a4a4a] mb-4">
+                This is the quickest way to tell us more — fill it in below and we'll get in contact
+                with you.
+              </p>
               <div className="mb-10">
-                <FirstContactForm
-                  heading="Need help?"
-                  description="This is the quickest way to tell us more — fill it in below and we'll get in contact with you."
-                />
+                <FirstContactForm heading="" description="" />
               </div>
 
               <a
