@@ -18,7 +18,7 @@ import PosterLightbox from "@/components/PosterLightbox.tsx";
 
 // Hero background photo for this page. Replace with a real photo (keep the
 // same file name) and it updates here automatically.
-const HERO_IMAGE = "/images/events/events-team-photo.jpg";
+const HERO_IMAGE = "/images/events/events-hero.jpg";
 
 type TimelineStop = {
   tag: string;
