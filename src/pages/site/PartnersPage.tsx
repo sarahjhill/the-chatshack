@@ -23,7 +23,6 @@ export default function PartnersPage() {
   const intro = block(content, "intro");
   const principle = block(content, "principle");
   const homelessSupport = block(content, "homeless_support");
-  const howWeRefer = block(content, "how_we_refer");
 
   const categoryItems = items(content, "categories");
   const categories = (categoryItems.length ? categoryItems.map((i) => i.title) : defaultCategories).map(
@@ -128,25 +127,6 @@ export default function PartnersPage() {
           </div>
 
           <div className="max-w-3xl mx-auto mb-10">
-            <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">{howWeRefer?.heading || "How we refer"}</h2>
-            {howWeRefer?.body ? (
-              <RichText html={howWeRefer.body} className="text-[#4a4a4a] mb-2" />
-            ) : (
-              <>
-                <p className="text-[#4a4a4a] mb-3">
-                  A referral considers your needs, your preferences where practicable, urgency, how easy a
-                  service is to reach and access, eligibility, and any safeguarding considerations. Our
-                  principle is a warm referral rather than a cold hand-off, wherever possible — we try to
-                  make the first step easier, not harder.
-                </p>
-                <p className="text-[#4a4a4a] mb-6">
-                  We can also help you understand available services, prepare for appointments, and
-                  identify the right questions to ask — without ever impersonating a statutory service or
-                  making decisions on your behalf.
-                </p>
-              </>
-            )}
-
             <PartnerApplicationForm />
           </div>
 

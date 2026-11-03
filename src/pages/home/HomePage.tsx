@@ -27,6 +27,9 @@ import PageMeta from "@/components/PageMeta.tsx";
 
 const HERO_IMAGE = "/images/hero-image.jpg";
 
+// External crisis service - live location sharing for anyone in immediate danger.
+const EMERGENCY_LOCATION_URL = "https://bem-crisis.app/emergency";
+
 // Fixed visual metadata (icons/colors) for each list item. These stay in code
 // so the CMS only ever edits text, never layout/icons/colors - the look never
 // changes. Each is paired with the matching text from content/home.json by
@@ -375,23 +378,37 @@ export default function HomePage() {
 
             <div className="space-y-4">
               {/* Emergency callout */}
-              <div className="bg-red-600 text-white rounded-xl p-5 flex gap-3">
-                <AlertTriangle className="w-8 h-8 flex-shrink-0 mt-1" />
+              <a
+                href={EMERGENCY_LOCATION_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-red-600 hover:bg-red-700 text-white rounded-xl p-5 flex items-center gap-3 transition-colors"
+              >
+                <AlertTriangle className="w-8 h-8 flex-shrink-0" />
                 <div>
-                  <p className="font-black text-lg">{crisis.emergencyTitle}</p>
-                  <p className="font-bold text-xl">{crisis.emergencyNumber}</p>
-                  <p className="text-white/90 text-sm mt-1">{crisis.emergencyNote}</p>
+                  <p className="font-black text-lg">Immediate danger — live location alert</p>
+                  <p className="text-white/90 text-sm mt-1">
+                    {crisis.emergencyNumber} {crisis.emergencyNote}
+                  </p>
                 </div>
-              </div>
+              </a>
 
               {/* Signpost visual */}
               <div className="bg-white/90 backdrop-blur-sm rounded-xl p-5 border border-white/20">
                 <div className="space-y-2">
-                  {["Hope", "Support", "Community", "Recovery"].map((word) => (
-                    <div key={word} className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-amber-500" />
-                      <span className="font-bold text-primary text-lg">{word}</span>
-                    </div>
+                  {[
+                    { word: "Hope", detail: "Fill in our first point of contact form", to: "/support#first-contact" },
+                    { word: "Support", detail: "Tailored to you", to: "/support" },
+                    { word: "Community", detail: "Get involved", to: "/community" },
+                    { word: "Recovery", detail: "", to: "/events" },
+                  ].map(({ word, detail, to }) => (
+                    <Link key={word} to={to} className="group flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-amber-500 flex-shrink-0" />
+                      <span className="text-primary text-lg group-hover:underline">
+                        <span className="font-bold">{word}</span>
+                        {detail && <span className="font-semibold"> - {detail}</span>}
+                      </span>
+                    </Link>
                   ))}
                 </div>
               </div>

@@ -54,6 +54,10 @@ export default function SupportPage() {
   const whatToExpect = block(content, "what_to_expect");
   const closing = block(content, "closing");
 
+  // "How we refer" text is still edited in admin under Partners & Resources > How we refer.
+  const partnersContent = usePageContent("partners");
+  const howWeRefer = block(partnersContent, "how_we_refer");
+
   const helpItems = items(content, "how_we_help");
   const howWeHelpFromApi = helpItems.length > 0;
   const howWeHelpBase = howWeHelpFromApi
@@ -135,43 +139,30 @@ export default function SupportPage() {
           </div>
 
           <div id="first-contact" className="scroll-mt-20 max-w-5xl mx-auto mb-12">
-            <div className="grid lg:grid-cols-3 gap-6 items-stretch">
+            <div className="grid lg:grid-cols-3 gap-6 items-start">
               <div className="lg:col-span-2">
                 <FirstContactForm />
               </div>
 
-              <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
-                <a
-                  href={facebookHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative rounded-2xl overflow-hidden h-36 lg:h-full min-h-[8rem] shadow-sm"
-                  style={{ backgroundImage: "url(/images/events/events-group-photo-1.jpg)", backgroundSize: "cover", backgroundPosition: "center" }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10 group-hover:from-black/85 transition-colors" />
-                  <div className="relative h-full flex flex-col items-center justify-center text-center p-4">
-                    <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center mb-2">
-                      <span className="text-[#1a7a4a] font-black">f</span>
-                    </div>
-                    <p className="font-bold text-white text-sm drop-shadow">Follow us on Facebook</p>
-                    <p className="text-white/80 text-xs mt-0.5 drop-shadow">@TheChatShack</p>
-                  </div>
-                </a>
-
-                <a
-                  href={WHATSAPP_GROUP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative rounded-2xl overflow-hidden h-36 lg:h-full min-h-[8rem] shadow-sm"
-                  style={{ backgroundImage: "url(/images/events/events-group-photo-2.webp)", backgroundSize: "cover", backgroundPosition: "center" }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10 group-hover:from-black/85 transition-colors" />
-                  <div className="relative h-full flex flex-col items-center justify-center text-center p-4">
-                    <MessageCircle className="w-9 h-9 text-white bg-[#1a7a4a] rounded-full p-1.5 mb-2" />
-                    <p className="font-bold text-white text-sm drop-shadow">Join our WhatsApp group</p>
-                    <p className="text-white/80 text-xs mt-0.5 drop-shadow">Chat with the community</p>
-                  </div>
-                </a>
+              <div>
+                <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">{howWeRefer?.heading || "How we refer"}</h2>
+                {howWeRefer?.body ? (
+                  <RichText html={howWeRefer.body} className="text-[#4a4a4a]" />
+                ) : (
+                  <>
+                    <p className="text-[#4a4a4a] mb-3">
+                      A referral considers your needs, your preferences where practicable, urgency, how easy a
+                      service is to reach and access, eligibility, and any safeguarding considerations. Our
+                      principle is a warm referral rather than a cold hand-off, wherever possible — we try to
+                      make the first step easier, not harder.
+                    </p>
+                    <p className="text-[#4a4a4a]">
+                      We can also help you understand available services, prepare for appointments, and
+                      identify the right questions to ask — without ever impersonating a statutory service or
+                      making decisions on your behalf.
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -198,15 +189,52 @@ export default function SupportPage() {
             {closing?.heading || "It's ok not to be ok. It's not ok to stay there."}
           </div>
 
-          <a
-            href={EMERGENCY_LOCATION_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white rounded-xl p-5 mb-8 max-w-3xl mx-auto transition-colors"
-          >
-            <AlertTriangle className="w-8 h-8 flex-shrink-0" />
-            <span className="font-black text-lg">Immediate danger — live location alert</span>
-          </a>
+          {/* Socials on the left, emergency link beside them */}
+          <div className="flex flex-col md:flex-row gap-4 max-w-5xl mx-auto mb-8">
+            <div className="grid grid-cols-2 gap-4 md:w-1/2">
+              <a
+                href={facebookHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative rounded-2xl overflow-hidden h-28 shadow-sm"
+                style={{ backgroundImage: "url(/images/events/events-group-photo-1.jpg)", backgroundSize: "cover", backgroundPosition: "center" }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10 group-hover:from-black/85 transition-colors" />
+                <div className="relative h-full flex flex-col items-center justify-center text-center p-4">
+                  <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center mb-2">
+                    <span className="text-[#1a7a4a] font-black">f</span>
+                  </div>
+                  <p className="font-bold text-white text-sm drop-shadow">Follow us on Facebook</p>
+                  <p className="text-white/80 text-xs mt-0.5 drop-shadow">@TheChatShack</p>
+                </div>
+              </a>
+
+              <a
+                href={WHATSAPP_GROUP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative rounded-2xl overflow-hidden h-28 shadow-sm"
+                style={{ backgroundImage: "url(/images/events/events-group-photo-2.webp)", backgroundSize: "cover", backgroundPosition: "center" }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10 group-hover:from-black/85 transition-colors" />
+                <div className="relative h-full flex flex-col items-center justify-center text-center p-4">
+                  <MessageCircle className="w-9 h-9 text-white bg-[#1a7a4a] rounded-full p-1.5 mb-2" />
+                  <p className="font-bold text-white text-sm drop-shadow">Join our WhatsApp group</p>
+                  <p className="text-white/80 text-xs mt-0.5 drop-shadow">Chat with the community</p>
+                </div>
+              </a>
+            </div>
+
+            <a
+              href={EMERGENCY_LOCATION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white rounded-xl p-5 md:w-1/2 transition-colors"
+            >
+              <AlertTriangle className="w-8 h-8 flex-shrink-0" />
+              <span className="font-black text-lg">Immediate danger — live location alert</span>
+            </a>
+          </div>
 
           <div className="text-center">
             <a
