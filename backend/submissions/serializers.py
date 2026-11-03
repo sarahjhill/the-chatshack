@@ -7,6 +7,7 @@ from .models import (
     PartnerApplicationSubmission,
     SleepOutInterestSubmission,
     SuggestionSubmission,
+    VolunteerApplicationSubmission,
 )
 
 
@@ -44,3 +45,14 @@ class SleepOutInterestSubmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = SleepOutInterestSubmission
         fields = ["name", "email"]
+
+
+class VolunteerApplicationSubmissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VolunteerApplicationSubmission
+        fields = ["name", "email", "phone", "roles", "availability", "about", "is_over_18"]
+
+    def validate_is_over_18(self, value):
+        if not value:
+            raise serializers.ValidationError("Volunteers must be aged 18 or over.")
+        return value

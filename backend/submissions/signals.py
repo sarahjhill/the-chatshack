@@ -2,7 +2,13 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from .emailing import notify
-from .models import ContactMessageSubmission, FirstContactSubmission, PartnerApplicationSubmission, SuggestionSubmission
+from .models import (
+    ContactMessageSubmission,
+    FirstContactSubmission,
+    PartnerApplicationSubmission,
+    SuggestionSubmission,
+    VolunteerApplicationSubmission,
+)
 
 
 @receiver(post_save, sender=ContactMessageSubmission)
@@ -54,5 +60,23 @@ def notify_new_partner_application(sender, instance, created, **kwargs):
             f"Phone: {instance.phone or '(not given)'}\n\n"
             f"Services offered:\n{instance.services_offered}\n\n"
             f"Message:\n{instance.message or '(none)'}"
+        ),
+    )
+
+
+@receiver(post_save, sender=VolunteerApplicationSubmission)
+def notify_new_volunteer_application(sender, instance, created, **kwargs):
+    if not created:
+        return
+    notify(
+        "New volunteer application",
+        (
+            f"Name: {instance.name}\n"
+            f"Email: {instance.email}\n"
+            f"Phone: {instance.phone or '(not given)'}\n"
+            f"Interested in: {instance.roles or '(not given)'}\n"
+            f"Availability: {instance.availability or '(not given)'}\n"
+            f"Confirmed 18+: {'Yes' if instance.is_over_18 else 'No'}\n\n"
+            f"About them:\n{instance.about}"
         ),
     )

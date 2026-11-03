@@ -7,6 +7,7 @@ from .models import (
     PartnerApplicationSubmission,
     SleepOutInterestSubmission,
     SuggestionSubmission,
+    VolunteerApplicationSubmission,
 )
 
 
@@ -92,3 +93,11 @@ class SleepOutInterestSubmissionAdmin(admin.ModelAdmin):
     list_filter = ["is_contacted", "created_at"]
     search_fields = ["name", "email"]
     readonly_fields = ["name", "email", "created_at"]
+
+
+@admin.register(VolunteerApplicationSubmission)
+class VolunteerApplicationSubmissionAdmin(admin.ModelAdmin):
+    list_display = ["name", "email", "roles", "status", "created_at"]
+    list_filter = ["status", "created_at"]
+    search_fields = ["name", "email", "roles", "about"]
+    readonly_fields = ["name", "email", "phone", "roles", "availability", "about", "is_over_18", "created_at"]

@@ -127,3 +127,37 @@ class SleepOutInterestSubmission(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.created_at:%d %b %Y}"
+
+
+class VolunteerApplicationSubmission(models.Model):
+    """'Apply to volunteer' form in the Get Involved section of the Our
+    Community page. Only collects what's needed for a first conversation -
+    DBS checks, references and ID are handled later, offline, for roles
+    that need them (see Safer recruitment on that page)."""
+
+    name = models.CharField(max_length=150)
+    email = models.EmailField()
+    phone = models.CharField(max_length=30, blank=True)
+    roles = models.CharField(
+        max_length=300, blank=True, help_text="Which volunteer roles they're interested in (comma-separated)."
+    )
+    availability = models.TextField(blank=True, help_text="When they're usually free.")
+    about = models.TextField(help_text="About them and why they'd like to volunteer.")
+    is_over_18 = models.BooleanField(default=False, help_text="They confirmed they're aged 18 or over.")
+    created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ("new", "New"),
+            ("in_review", "In review"),
+            ("approved", "Approved volunteer"),
+            ("declined", "Declined"),
+        ],
+        default="new",
+    )
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.name} ({self.get_status_display()})"

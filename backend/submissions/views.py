@@ -8,6 +8,7 @@ from .models import (
     PartnerApplicationSubmission,
     SleepOutInterestSubmission,
     SuggestionSubmission,
+    VolunteerApplicationSubmission,
 )
 from .serializers import (
     ContactMessageSubmissionSerializer,
@@ -16,6 +17,7 @@ from .serializers import (
     PartnerApplicationSubmissionSerializer,
     SleepOutInterestSubmissionSerializer,
     SuggestionSubmissionSerializer,
+    VolunteerApplicationSubmissionSerializer,
 )
 
 
@@ -72,4 +74,13 @@ class SleepOutInterestCreateView(generics.CreateAPIView):
 
     queryset = SleepOutInterestSubmission.objects.all()
     serializer_class = SleepOutInterestSubmissionSerializer
+    permission_classes = [AllowAny]
+
+
+class VolunteerApplicationCreateView(generics.CreateAPIView):
+    """POST /api/volunteer-applications/ - the 'Apply to volunteer' form in
+    the Get Involved section of the Our Community page."""
+
+    queryset = VolunteerApplicationSubmission.objects.all()
+    serializer_class = VolunteerApplicationSubmissionSerializer
     permission_classes = [AllowAny]

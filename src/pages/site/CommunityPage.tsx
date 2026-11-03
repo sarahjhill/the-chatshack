@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Users,
@@ -15,6 +16,7 @@ import SuggestionForm from "@/components/SuggestionForm.tsx";
 import { usePageContent, block, items } from "@/lib/pageContent.ts";
 import RichText from "@/components/RichText.tsx";
 import PageMeta from "@/components/PageMeta.tsx";
+import VolunteerApplicationModal from "@/components/VolunteerApplicationModal.tsx";
 
 // Hero background photo for this page. Replace public/images/community-hero.webp
 // with a real photo (keep the same file name) and it updates here automatically.
@@ -62,6 +64,7 @@ const defaultWays = [
 export default function CommunityPage() {
   const content = usePageContent("community");
   const getInvolvedContent = usePageContent("get_involved");
+  const [showVolunteerForm, setShowVolunteerForm] = useState(false);
 
   const intro = block(content, "intro");
   const howGroupsRun = block(content, "how_groups_run");
@@ -229,19 +232,31 @@ export default function CommunityPage() {
             </div>
 
             <div className="text-center">
-              <a
-                href="https://www.facebook.com/profile.php?id=61589476815747"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={() => setShowVolunteerForm(true)}
                 className="inline-flex items-center gap-2 bg-[#1a7a4a] hover:bg-[#156039] text-white font-bold px-6 py-3 rounded-full transition-colors"
               >
                 <Users className="w-4 h-4" />
-                GET IN TOUCH TO GET INVOLVED
-              </a>
+                APPLY TO VOLUNTEER
+              </button>
+              <p className="text-sm text-[#4a4a4a] mt-3">
+                Rather chat first?{" "}
+                <a
+                  href="https://www.facebook.com/profile.php?id=61589476815747"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#1a7a4a] font-bold underline"
+                >
+                  Message us on Facebook
+                </a>
+              </p>
             </div>
           </div>
         </div>
       </section>
+
+      {showVolunteerForm && <VolunteerApplicationModal onClose={() => setShowVolunteerForm(false)} />}
     </div>
   );
 }
