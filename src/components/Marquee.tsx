@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 
-// A row of items that slides continuously from right to left.
+// A row of items that slides continuously from right to left (or left to right with `reverse`).
 // - Pauses when someone hovers over it or tabs into it, so links can be read and clicked.
 // - Respects "reduce motion": the animation stops and the row becomes a normal sideways scroll.
 // The items are drawn twice (the second copy hidden from screen readers) so the loop is seamless.
@@ -14,6 +14,8 @@ type MarqueeProps<T> = {
   duration?: number;
   // How many times to repeat the items in each half (use 2+ for short lists so the row is always full).
   repeat?: number;
+  // Slide left-to-right instead of right-to-left.
+  reverse?: boolean;
   className?: string;
 };
 
@@ -24,6 +26,7 @@ export default function Marquee<T>({
   label,
   duration = 40,
   repeat = 1,
+  reverse = false,
   className = "",
 }: MarqueeProps<T>) {
   const sequence = Array.from({ length: repeat }).flatMap((_, r) =>
@@ -36,7 +39,7 @@ export default function Marquee<T>({
       role="region"
       aria-label={label}
     >
-      <div className="marquee-track flex w-max" style={{ "--marquee-duration": `${duration}s` } as CSSProperties}>
+      <div className={`marquee-track flex w-max${reverse ? " marquee-track--reverse" : ""}`} style={{ "--marquee-duration": `${duration}s` } as CSSProperties}>
         {[0, 1].map((half) => (
           <ul key={half} className="flex shrink-0 gap-4 pr-4" aria-hidden={half === 1 ? true : undefined}>
             {sequence.map(({ item, key, dup }) => {

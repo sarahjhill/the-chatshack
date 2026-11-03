@@ -11,6 +11,7 @@ import {
   ClipboardList,
   Lightbulb,
   Quote,
+  MapPin,
 } from "lucide-react";
 import PageHero from "@/components/PageHero.tsx";
 import PageMeta from "@/components/PageMeta.tsx";
@@ -29,6 +30,8 @@ type TimelineStop = {
   body: string;
   images: { src: string; alt: string }[];
   link?: { to: string; label: string };
+  location?: string;
+  video?: { src: string; poster: string; label: string };
 };
 
 const TIMELINE: TimelineStop[] = [
@@ -44,6 +47,12 @@ const TIMELINE: TimelineStop[] = [
     tag: "Every Tuesday, 6.30pm – 8.30pm",
     title: "In-person groups — alternating Men's & Women's",
     icon: Users,
+    location: "Community Space, upstairs in Tesco Extra Gabalfa",
+    video: {
+      src: "/videos/tesco-community-space-walkthrough.mp4",
+      poster: "/images/events/tesco-walkthrough-poster.jpg",
+      label: "Not sure where to go? Watch our walk-through to the Community Space",
+    },
     body: "We always try to make the distribution of resources fair to everyone, so our Tuesday groups alternate week to week — a Men's Group one week, a Women's Group the next. This is YOUR group, so every session can look a little different: coloring and quiet chat one week, a structured discussion the next.",
     images: [
       { src: "/images/events/mens-walk-talk-poster.webp", alt: "Men's Walk & Talk event poster — childhood trauma discussion" },
@@ -144,7 +153,27 @@ export default function EventsPage() {
                           {stop.tag}
                         </p>
                         <h3 className="text-xl font-black text-[#1a3a2a] mb-3">{stop.title}</h3>
+                        {stop.location && (
+                          <p className="flex items-start gap-1.5 text-sm font-bold text-[#1a3a2a] mb-3">
+                            <MapPin className="w-4 h-4 text-[#1a7a4a] flex-shrink-0 mt-0.5" />
+                            {stop.location}
+                          </p>
+                        )}
                         <p className="text-[#4a4a4a] mb-4">{stop.body}</p>
+
+                        {stop.video && (
+                          <figure className="mb-4">
+                            <figcaption className="text-sm font-bold text-[#1a7a4a] mb-2">{stop.video.label}</figcaption>
+                            <video
+                              src={stop.video.src}
+                              poster={stop.video.poster}
+                              controls
+                              playsInline
+                              preload="none"
+                              className="w-full max-w-[240px] aspect-[368/640] rounded-lg border border-amber-200 bg-black object-cover"
+                            />
+                          </figure>
+                        )}
 
                         {stop.images.length > 0 && (
                           <div className={`grid gap-3 mb-4 ${stop.images.length > 1 ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-1 max-w-[200px]"}`}>

@@ -22,7 +22,7 @@ const PARTNERS: Partner[] = [
   },
   {
     name: "Tesco Extra Gabalfa",
-    intro: "Hosts our weekly community meet-ups. Come along for a coffee, some food and a chat.",
+    intro: "Hosts our Tuesday evening groups in the Community Space upstairs. Come along for a coffee, some food and a chat.",
   },
   {
     name: "Behind Every Mask (B.E.M.)",
@@ -98,6 +98,7 @@ export default function PartnerLogos({ className = "" }: { className?: string })
       label="Our partners"
       duration={45}
       repeat={2}
+      reverse
       className={className}
       renderItem={(partner, hidden) => <PartnerCard partner={partner} hidden={hidden} />}
     />
