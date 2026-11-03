@@ -5,6 +5,8 @@ import PageHero from "@/components/PageHero.tsx";
 import { usePageContent, block, items } from "@/lib/pageContent.ts";
 import RichText from "@/components/RichText.tsx";
 import PageMeta from "@/components/PageMeta.tsx";
+import Marquee from "@/components/Marquee.tsx";
+import PartnerLogos from "@/components/PartnerLogos.tsx";
 
 // Hero background photo for this page. Replace public/images/partners-hero.jpg
 // with a real photo (keep the same file name) and it updates here automatically.
@@ -84,16 +86,24 @@ export default function PartnersPage() {
           </div>
 
           <h2 className="text-2xl font-black text-[#1a3a2a] mb-4 text-center">Where we can signpost you</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-14">
-            {categories.map((cat, idx) => (
-              <div key={idx} className="bg-[#f5f0e8] rounded-xl p-3 flex flex-col items-center text-center shadow-sm border border-amber-200">
+          <Marquee
+            items={categories}
+            getKey={(cat) => cat.label}
+            label="Where we can signpost you"
+            duration={35}
+            className="mb-12"
+            renderItem={(cat) => (
+              <div className="w-36 h-28 bg-[#f5f0e8] rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-sm border border-amber-200">
                 <div className="w-10 h-10 bg-[#1a7a4a]/10 rounded-full flex items-center justify-center mb-2">
                   <cat.icon className="w-5 h-5 text-[#1a7a4a]" />
                 </div>
                 <span className="text-xs font-bold text-[#1a3a2a] text-center whitespace-pre-line leading-tight">{cat.label}</span>
               </div>
-            ))}
-          </div>
+            )}
+          />
+
+          <h2 className="text-2xl font-black text-[#1a3a2a] mb-4 text-center">Our partners</h2>
+          <PartnerLogos className="mb-14" />
 
           <div className="grid md:grid-cols-2 gap-12 mb-14 items-center">
             <div>

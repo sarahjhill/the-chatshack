@@ -232,21 +232,21 @@ export default function EventsPage() {
                 <p className="text-amber-400 font-bold text-sm">— Scott, Founder, The ChatShack</p>
               </div>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap sm:flex-nowrap gap-2">
                 <button
                   type="button"
                   onClick={() => setShowRegisterInterest(true)}
-                  className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-amber-400/50 text-white font-bold px-6 py-3.5 rounded-full transition-colors"
+                  className="inline-flex items-center gap-1.5 whitespace-nowrap bg-white/10 hover:bg-white/20 border border-amber-400/50 text-white text-sm font-bold px-4 py-3 rounded-full transition-colors"
                 >
-                  <ClipboardList className="w-5 h-5" />
+                  <ClipboardList className="w-4 h-4" />
                   Register your interest
                 </button>
 
                 <Link
                   to="/donate"
-                  className="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-[#0b2a1d] font-black px-7 py-3.5 rounded-full transition-colors shadow-lg"
+                  className="inline-flex items-center gap-1.5 whitespace-nowrap bg-amber-400 hover:bg-amber-300 text-[#0b2a1d] text-sm font-black px-4 py-3 rounded-full transition-colors shadow-lg"
                 >
-                  <HandHeart className="w-5 h-5" />
+                  <HandHeart className="w-4 h-4" />
                   Please donate
                 </Link>
               </div>

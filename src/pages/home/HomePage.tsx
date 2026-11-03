@@ -24,6 +24,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import PageMeta from "@/components/PageMeta.tsx";
+import PartnerLogos from "@/components/PartnerLogos.tsx";
 
 const HERO_IMAGE = "/images/hero-image.jpg";
 
@@ -284,6 +285,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* LIVERPOOL - COMING SOON */}
+      <section className="bg-amber-400 text-[#0b2a1d]">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-3 text-center text-sm">
+          <span className="font-black uppercase tracking-wide whitespace-nowrap">Coming soon: The ChatShack Liverpool</span>
+          <span className="font-semibold">
+            We've been given a room at Lark Lane leisure centre, so our Liverpool ChatShack will be opening soon.{" "}
+            <a
+              href="https://www.facebook.com/profile.php?id=61589476815747"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline font-bold"
+            >
+              Follow us on Facebook for updates
+            </a>
+          </span>
+        </div>
+      </section>
+
       {/* WHAT IS THE CHATSHACK + OUR APPROACH */}
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12">
@@ -494,6 +513,9 @@ export default function HomePage() {
               })}
             </div>
           </div>
+
+          <h3 className="text-xl font-black text-[#1a3a2a] mt-12 mb-4 text-center">Our partners</h3>
+          <PartnerLogos />
         </div>
       </section>
 
