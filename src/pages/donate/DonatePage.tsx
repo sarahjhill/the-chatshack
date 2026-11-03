@@ -26,6 +26,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import PageMeta from "@/components/PageMeta.tsx";
+import PartnerLogos from "@/components/PartnerLogos.tsx";
 import { getJsonFromApi, postJsonToApi } from "@/lib/api.ts";
 
 // ---- Placeholder content -------------------------------------------------
@@ -144,39 +145,6 @@ const COUNTER_GOAL = 10000; // real fundraising goal for this year
 const VAN_FUND_RAISED_START = 0;
 const VAN_FUND_GOAL = 15000; // [placeholder — replace with real target once quoted]
 const VAN_ADD_AMOUNTS = [10, 25, 50, 100];
-
-const sponsors = [
-  {
-    image: "/images/sponsors/sarahjhill-logo.png",
-    label: "sarahjhill.com",
-    href: "https://sarahjhill.com",
-  },
-  {
-    image: "/images/sponsors/sponsor-placeholder.png",
-    label: "Your Business Here",
-    href: "/partners#partner-application",
-  },
-  {
-    image: "/images/sponsors/sponsor-placeholder.png",
-    label: "Your Business Here",
-    href: "/partners#partner-application",
-  },
-  {
-    image: "/images/sponsors/sponsor-placeholder.png",
-    label: "Your Business Here",
-    href: "/partners#partner-application",
-  },
-  {
-    image: "/images/sponsors/sponsor-placeholder.png",
-    label: "Your Business Here",
-    href: "/partners#partner-application",
-  },
-  {
-    image: "/images/sponsors/sponsor-placeholder.png",
-    label: "Your Business Here",
-    href: "/partners#partner-application",
-  },
-];
 
 const trustBadges = [
   { icon: Lock, label: "Secure Checkout" },
@@ -836,38 +804,13 @@ export default function DonatePage() {
             The ChatShack is proudly supported by local businesses, community funds and partner
             organisations across Cardiff.
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-            {sponsors.map((s, index) => {
-              const cardContent = (
-                <img
-                  src={s.image}
-                  alt={s.label}
-                  className="w-full h-full object-cover"
-                />
-              );
-              const cardClassName =
-                "bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow aspect-square block";
-
-              if (s.href?.startsWith("/")) {
-                return (
-                  <Link key={`${s.label}-${index}`} to={s.href} className={cardClassName}>
-                    {cardContent}
-                  </Link>
-                );
-              }
-              return (
-                <a
-                  key={`${s.label}-${index}`}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cardClassName}
-                >
-                  {cardContent}
-                </a>
-              );
-            })}
-          </div>
+          <PartnerLogos className="mb-6" />
+          <p className="text-sm text-[#4a4a4a] text-center">
+            Want your business or group to support The ChatShack?{" "}
+            <Link to="/partners#partner-application" className="text-[#1a7a4a] font-bold underline">
+              Become a partner
+            </Link>
+          </p>
         </div>
       </section>
 

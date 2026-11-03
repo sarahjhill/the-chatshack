@@ -22,6 +22,7 @@ const PARTNERS: Partner[] = [
   },
   {
     name: "Tesco Extra Gabalfa",
+    logo: "/images/partners/tesco-extra.svg",
     intro: "Hosts our Tuesday evening groups in the Community Space upstairs. Come along for a coffee, some food and a chat.",
   },
   {
