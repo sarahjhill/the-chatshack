@@ -133,6 +133,10 @@ export default function RegisterInterestModal({ onClose }: { onClose: () => void
                     instead.
                   </p>
                 )}
+
+                <p className="text-[#4a4a4a] text-xs mt-3 text-center">
+                  We'll only use this to email you about Sleep Out to Help Out — nothing else.
+                </p>
               </form>
             )}
           </>

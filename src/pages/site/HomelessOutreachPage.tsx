@@ -71,7 +71,7 @@ export default function HomelessOutreachPage() {
               <div className="bg-white p-2 pb-4 rounded-lg shadow-xl">
                 <img
                   src="/images/outreach-photo-2.webp"
-                  alt="Illustrative image representing outreach support"
+                  alt="Illustrative image: outreach team members sitting with someone on the street, holding hands warmly while talking"
                   className="w-full aspect-[4/3] object-cover rounded-sm"
                 />
               </div>
@@ -80,7 +80,7 @@ export default function HomelessOutreachPage() {
               <div className="bg-white p-2 pb-4 rounded-lg shadow-xl">
                 <img
                   src="/images/outreach-photo-1.webp"
-                  alt="Illustrative image representing outreach support"
+                  alt="Illustrative image: outreach team members handing a hot drink and a blanket to someone sitting outdoors"
                   className="w-full aspect-[4/3] object-cover rounded-sm"
                 />
               </div>
@@ -89,7 +89,7 @@ export default function HomelessOutreachPage() {
               <div className="bg-white p-2 pb-4 rounded-lg shadow-2xl">
                 <img
                   src="/images/outreach-photo-3.webp"
-                  alt="Illustrative image representing outreach support"
+                  alt="Illustrative image: four ChatShack outreach team members smiling together on a city street"
                   className="w-full aspect-[4/3] object-cover rounded-sm"
                 />
                 <p className="text-center text-[#1a3a2a] font-bold text-sm mt-1">

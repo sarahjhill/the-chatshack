@@ -33,8 +33,14 @@ export default function AppLayout() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-[#1a7a4a] focus:text-white focus:font-bold focus:px-4 focus:py-2.5 focus:rounded-lg focus:shadow-lg"
+      >
+        Skip to main content
+      </a>
       <Navbar />
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <Outlet />
       </main>
       <Footer />

@@ -34,6 +34,12 @@
     />
     <meta name="twitter:image" content="https://chatshack.app/images/social-share.jpg" />
 
+    <!-- The homepage fetches from the API as soon as it loads (site settings,
+         homepage content) - this gets the connection to it warming up in
+         parallel with everything else, rather than waiting until the fetch
+         call actually fires. -->
+    <link rel="preconnect" href="https://api.chatshack.app" crossorigin />
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -7,8 +7,11 @@ hasn't changed). This backend gives you:
 - **A proper admin** (`/admin/`) where you can edit the homepage content,
   site-wide contact details, see every form submission, and manage
   volunteering events/shifts.
-- **Storage for every form on the site**: Community page suggestions, the
-  Support page's First Contact form, and Partners & Resources applications
+- **Storage for every form on the site**: general Contact, Website
+  Feedback & Suggestions, the First Contact & Initial Support form (on
+  both the Support and Contact pages), Community page suggestions,
+  Partners & Resources applications, volunteer applications, and the
+  Events page's "Register your interest" (Sleep Out to Help Out) form -
   all save to the database and show up in the admin.
 - **Email notifications**: you (at the `NOTIFY_EMAIL` address, currently
   your enquiries address) get emailed whenever someone submits a form or
@@ -16,9 +19,11 @@ hasn't changed). This backend gives you:
 - **A volunteer events/shifts system**: create an Event, add Shifts to it,
   and volunteers can sign up for a shift until it's full - you get emailed
   each time.
+- **Donations via Stripe**: a donation or shop-item checkout creates a
+  Stripe Checkout session; a webhook confirms when payment's gone through.
 - **A JSON API** (`/api/...`) that the React site calls instead of just
-  reading the static `public/content/home.json` file, so editing content
-  in the admin actually changes the live site.
+  reading static files, so editing content in the admin actually changes
+  the live site.
 
 ## This is live
 
@@ -44,12 +49,15 @@ Everything below is actually deployed and working, not just planned:
   content from `GET https://api.chatshack.app/api/home/` first, falling
   back to the static `public/content/home.json` file only if the API is
   unreachable - so edits you make in the admin show up on the live site.
-- **All three forms** on the site submit straight to this backend:
-  - **Community page** "Tell us what's needed" box -> `POST /api/suggestions/`
-  - **Support page** First Contact form (a real form now, not just a PDF
-    download - the PDF is still there as an alternative) -> `POST /api/first-contact/`
-  - **Partners & Resources** application form (same - real form, PDF still
-    available) -> `POST /api/partner-applications/`
+- **Every form on the site** submits straight to this backend:
+  - **Contact page** general enquiries -> `POST /api/contact/`
+  - **Contact page** website feedback & suggestions -> `POST /api/improvement-feedback/`
+  - **Support & Contact pages** First Contact & Initial Support form -> `POST /api/first-contact/`
+  - **Community page** "tell us what's needed" box -> `POST /api/suggestions/`
+  - **Partners & Resources** application form -> `POST /api/partner-applications/`
+  - **Volunteer application** -> `POST /api/volunteer-applications/`
+  - **Events page** "Register your interest" (Sleep Out to Help Out) -> `POST /api/sleep-out-interest/`
+  - **Volunteer shift sign-up** -> `POST /api/shifts/<id>/signup/`
 
 The frontend only does any of this when `VITE_API_URL` is set (see
 `../.env` for local dev, already pointing at `http://127.0.0.1:8000`, and
@@ -59,8 +67,8 @@ fallback instead of silently failing.
 
 ## Editing site content in admin
 
-The admin at `https://api.chatshack.app/admin/` now covers every main page
-on the site, not just the homepage, and it's been restyled (via
+The admin at `https://api.chatshack.app/admin/` covers every main page on
+the site, not just the homepage, and it's been restyled (via
 django-unfold) to be easier to use day to day. Under "Site content" in
 the sidebar:
 
@@ -85,6 +93,12 @@ the sidebar:
   "About Us · Why we exist") rather than needing to type anything - this
   is what stops a typo from making something silently not show up on the
   live site.
+
+  Note: the **Events page** isn't on this list - its content (the group
+  schedule, timeline, and the Sleep Out to Help Out story) is written
+  directly into the page's code rather than edited in admin, since it's
+  less a set of reusable cards and more a one-off piece of writing. Ask
+  your developer to update it if anything there needs to change.
 
 Anything left blank in admin falls back to the page's original built-in
 text/photo, so there's no way to accidentally blank out the site - you're
@@ -147,9 +161,28 @@ root) - `.env` already points it at `http://127.0.0.1:8000`.
 API endpoints to try:
 - `GET /api/home/` - homepage content as JSON
 - `GET /api/settings/` - contact details
+- `GET /api/pages/<page>/` - content for any of the 7 CMS-managed pages
 - `GET /api/events/` - published upcoming events + shifts
-- `POST /api/suggestions/`, `/api/first-contact/`, `/api/partner-applications/` - form submissions
+- `POST /api/contact/`, `/api/improvement-feedback/`, `/api/first-contact/`,
+  `/api/suggestions/`, `/api/partner-applications/`,
+  `/api/volunteer-applications/`, `/api/sleep-out-interest/` - form submissions
 - `POST /api/shifts/<id>/signup/` - volunteer shift sign-up
+- `GET /api/shop/items/`, `POST /api/shop/checkout/`, `POST /api/shop/donate/`,
+  `POST /api/shop/webhook/` - Stripe checkout and donations
+
+## Security settings (production)
+
+When `DEBUG` is off (as it is in production), this backend also:
+
+- Forces every request onto HTTPS (`SECURE_SSL_REDIRECT`).
+- Tells browsers to remember, for a year, to only ever reach this host
+  over HTTPS (`SECURE_HSTS_SECONDS`).
+- Marks session and CSRF cookies as HTTPS-only (`SESSION_COOKIE_SECURE`,
+  `CSRF_COOKIE_SECURE`).
+
+Double-check the `DJANGO_SECRET_KEY` Heroku config var is set to a long,
+random value (not the insecure placeholder used as a local-only default) -
+this isn't something that can be checked from the code itself.
 
 ## Deploying changes (once this is already set up, as it is now)
 
@@ -168,12 +201,17 @@ run automatically as part of the deploy (the `release` line in
 
 ## What's still outstanding
 
-- **Email sending**: notification emails print to the Heroku log rather
-  than actually sending, since no real email provider is configured yet.
-  Needs `EMAIL_HOST`, `EMAIL_HOST_USER`, and `EMAIL_HOST_PASSWORD` config
-  vars once you've picked a provider (e.g. SendGrid has a free tier, and
-  there's a Heroku add-on for it).
+- **Email sending**: double-check `EMAIL_HOST`, `EMAIL_HOST_USER`, and
+  `EMAIL_HOST_PASSWORD` are set as Heroku config vars with a real email
+  provider (e.g. SendGrid has a free tier, and there's a Heroku add-on for
+  it) - without them, notification emails print to the Heroku log instead
+  of actually sending.
 - **HTTPS enforcement on GitHub Pages**: check Settings -> Pages on the
   repo shows a green checkmark for `chatshack.app`, and tick "Enforce
   HTTPS" there once it's available (it's greyed out until GitHub verifies
   the domain and issues a certificate).
+
+## Copyright & licence
+
+See [../LICENSE](../LICENSE). The ChatShack's content and branding belong
+to The ChatShack, founded by Scott Hartley. All rights reserved.

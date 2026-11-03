@@ -201,6 +201,17 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+    # Force every request onto HTTPS. Heroku terminates TLS at its router and
+    # forwards plain HTTP internally, which is why this only works together
+    # with SECURE_PROXY_SSL_HEADER above - without it, Django can't tell the
+    # original request was already HTTPS and would redirect forever.
+    SECURE_SSL_REDIRECT = True
+    # Tell browsers to remember, for a year, that this host should only ever
+    # be reached over HTTPS - even if someone types or follows a plain http://
+    # link, the browser upgrades it before a single request goes out.
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+    SECURE_HSTS_PRELOAD = False
 
 # ---------------------------------------------------------------------------
 # Admin UI (django-unfold) - restyles the built-in Django admin so it's

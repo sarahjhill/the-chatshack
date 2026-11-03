@@ -163,7 +163,10 @@ function useCountUp(target: number, active: boolean) {
     if (!active) return;
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
-      setValue(target);
+      // Defer to a microtask so this doesn't set state synchronously inside
+      // the effect body (avoids cascading-render warnings) while still
+      // landing effectively instantly for the user.
+      queueMicrotask(() => setValue(target));
       return;
     }
     const duration = 1600;
@@ -177,7 +180,6 @@ function useCountUp(target: number, active: boolean) {
     }
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, target]);
 
   return value;
@@ -191,7 +193,8 @@ function useInView<T extends HTMLElement>() {
     const node = ref.current;
     if (!node) return;
     if (!("IntersectionObserver" in window)) {
-      setInView(true);
+      // Same deferral as above - keeps this out of the synchronous effect body.
+      queueMicrotask(() => setInView(true));
       return;
     }
     const observer = new IntersectionObserver(
