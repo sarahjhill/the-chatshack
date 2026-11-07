@@ -41,6 +41,22 @@ const PARTNERS: Partner[] = [
     intro:
       "A Cardiff mental health and suicide prevention community group: tackling stigma, signposting, support and events.",
   },
+  {
+    name: "People Against Intentional Neglect (P.A.I.N)",
+    logo: "/images/partners/pain.webp",
+    url: "https://www.peopleagainstintentionalneglect.org",
+    linkLabel: "peopleagainstintentionalneglect.org",
+    intro:
+      "A support and advocacy network standing up for people who've been let down by the systems meant to protect them.",
+  },
+  {
+    name: "Harmony Harbour UK",
+    logo: "/images/partners/harmony-harbour.webp",
+    url: "https://www.harmonyharbour.co.uk",
+    linkLabel: "harmonyharbour.co.uk",
+    intro:
+      "A suicide prevention and mental health support service, working alongside B.E.M. and P.A.I.N - a safe harbour for brighter tomorrows.",
+  },
 ];
 
 function PartnerCard({ partner, hidden }: { partner: Partner; hidden: boolean }) {
