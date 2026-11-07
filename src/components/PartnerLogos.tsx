@@ -1,8 +1,13 @@
+import { useEffect, useState } from "react";
 import { Coffee, ExternalLink } from "lucide-react";
 import Marquee from "@/components/Marquee.tsx";
 
 // The partners shown in the sliding logo row (Partners & Resources page and homepage).
-// To add a partner: put a square logo in public/images/partners/ and add an entry below.
+// Scott can add, edit, reorder or hide partners himself in the Django admin -
+// we try the live API first so his edits show up on the site; if the backend
+// isn't reachable (not deployed yet, or briefly down) we fall back to the
+// list below, so this never breaks. To add a partner locally as a fallback
+// only: put a square logo in public/images/partners/ and add an entry below.
 type Partner = {
   name: string;
   logo?: string;
@@ -11,7 +16,37 @@ type Partner = {
   intro: string;
 };
 
-const PARTNERS: Partner[] = [
+const API_URL = import.meta.env.VITE_API_URL as string | undefined;
+
+type ApiPartner = {
+  name: string;
+  logo?: string | null;
+  url?: string;
+  link_label?: string;
+  intro: string;
+};
+
+async function fetchPartners(): Promise<Partner[] | null> {
+  if (!API_URL) return null;
+  try {
+    const res = await fetch(`${API_URL}/api/partners/`, { cache: "no-store" });
+    if (!res.ok) return null;
+    const data: ApiPartner[] = await res.json();
+    if (!Array.isArray(data) || data.length === 0) return null;
+    return data.map((p) => ({
+      name: p.name,
+      logo: p.logo ?? undefined,
+      url: p.url || undefined,
+      linkLabel: p.link_label || undefined,
+      intro: p.intro,
+    }));
+  } catch {
+    // API unreachable - fall through to the built-in list below.
+    return null;
+  }
+}
+
+const FALLBACK_PARTNERS: Partner[] = [
   {
     name: "sarahjhill.com",
     logo: "/images/partners/sarahjhill.webp",
@@ -108,9 +143,21 @@ function PartnerCard({ partner, hidden }: { partner: Partner; hidden: boolean })
 }
 
 export default function PartnerLogos({ className = "" }: { className?: string }) {
+  const [partners, setPartners] = useState<Partner[]>(FALLBACK_PARTNERS);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchPartners().then((data) => {
+      if (!cancelled && data) setPartners(data);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <Marquee
-      items={PARTNERS}
+      items={partners}
       getKey={(p) => p.name}
       label="Our partners"
       duration={45}

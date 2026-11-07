@@ -77,6 +77,12 @@ the sidebar:
   and copyright line).
 - **Homepage content** - unchanged from before, one JSON block for the
   whole homepage.
+- **Partners** - add, edit, reorder or hide the partner cards shown in
+  the sliding row on the homepage and the Partners & Resources page.
+  Upload a logo (square works best), add a web address and short link
+  text if you want the card to link somewhere, write a 1-2 sentence
+  description, and set the Order number (lower numbers show first).
+  Untick "Is active" to hide a partner without deleting it.
 - **Edit a page** - click this, then click one of the 7 pages listed
   (About Us, I Need Support, Our Community, Partners & Resources,
   Homeless Outreach, Get Involved, Contact Us). That one screen has
@@ -162,6 +168,7 @@ API endpoints to try:
 - `GET /api/home/` - homepage content as JSON
 - `GET /api/settings/` - contact details
 - `GET /api/pages/<page>/` - content for any of the 7 CMS-managed pages
+- `GET /api/partners/` - active partner cards, in order
 - `GET /api/events/` - published upcoming events + shifts
 - `POST /api/contact/`, `/api/improvement-feedback/`, `/api/first-contact/`,
   `/api/suggestions/`, `/api/partner-applications/`,

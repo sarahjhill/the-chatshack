@@ -2,12 +2,13 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import ContentBlock, HomePageContent, ListItem, PAGE_CHOICES, PageHero, SiteSettings
+from .models import ContentBlock, HomePageContent, ListItem, PAGE_CHOICES, PageHero, Partner, SiteSettings
 from .serializers import (
     ContentBlockSerializer,
     HomePageContentSerializer,
     ListItemSerializer,
     PageHeroSerializer,
+    PartnerSerializer,
     SiteSettingsSerializer,
 )
 
@@ -67,3 +68,13 @@ class PageContentView(APIView):
             )
 
         return Response({"hero": hero_data, "blocks": blocks_by_section, "items": items_by_section})
+
+class PartnerListView(APIView):
+    """GET /api/partners/ - the active partners shown in the sliding logo
+    row on the homepage and the Partners & Resources page, in order."""
+
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        partners = Partner.objects.filter(is_active=True).order_by("order", "name")
+        return Response(PartnerSerializer(partners, many=True, context={"request": request}).data)

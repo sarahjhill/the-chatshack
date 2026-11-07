@@ -202,3 +202,47 @@ class ListItem(models.Model):
         verbose_name = "Card / list item"
         verbose_name_plural = "Cards & list items"
         ordering = ["hero", "section", "order"]
+
+
+class Partner(models.Model):
+    """One partner/resource shown in the sliding logo row on the homepage
+    and the Partners & Resources page. Scott can add, edit, reorder or
+    hide these himself in admin - no developer needed."""
+
+    name = models.CharField(max_length=150)
+    logo = models.ImageField(
+        upload_to="partners/",
+        blank=True,
+        null=True,
+        help_text="Square logo (ideally 256x256px). Leave blank to show a generic icon instead.",
+    )
+    logo_url = models.CharField(
+        max_length=300,
+        blank=True,
+        help_text="Only used if no logo is uploaded above - an alternative way to point at an "
+        "existing image. Most people should just upload a logo above instead.",
+    )
+    url = models.URLField(
+        max_length=300,
+        blank=True,
+        help_text="Where the partner's card links to, e.g. their website. Leave blank for no link.",
+    )
+    link_label = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Short text shown under the name, e.g. 'Visit website' or 'Facebook'. "
+        "Leave blank to not show a link line even if a web address is set above.",
+    )
+    intro = models.TextField(help_text="A short description (1-2 sentences) shown on the partner's card.")
+    order = models.PositiveIntegerField(default=0, help_text="Lower numbers show first.")
+    is_active = models.BooleanField(
+        default=True, help_text="Untick to hide this partner from the site without deleting it."
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Partner"
+        verbose_name_plural = "Partners"
+        ordering = ["order", "name"]

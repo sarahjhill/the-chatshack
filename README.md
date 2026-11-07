@@ -51,6 +51,7 @@ Content the frontend reads:
 | `GET /api/home/` | Homepage content |
 | `GET /api/settings/` | Site-wide settings (contact details, social links, branding) |
 | `GET /api/pages/<page>/` | Content for any other page edited in admin |
+| `GET /api/partners/` | Partner cards shown on the homepage and Partners & Resources page |
 | `GET /api/events/` | Published upcoming events + shifts |
 
 Forms the frontend submits to:

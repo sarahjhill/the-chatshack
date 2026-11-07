@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from unfold.admin import ModelAdmin, StackedInline
 from unfold.contrib.forms.widgets import WysiwygWidget
 
-from .models import ContentBlock, HomePageContent, ListItem, PageHero, SiteSettings
+from .models import ContentBlock, HomePageContent, ListItem, PageHero, Partner, SiteSettings
 
 
 class HomePageContentForm(forms.ModelForm):
@@ -129,3 +129,15 @@ class PageHeroAdmin(ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+@admin.register(Partner)
+class PartnerAdmin(ModelAdmin):
+    """Partners shown in the sliding row on the homepage and the
+    Partners & Resources page. Order controls the sequence; untick
+    "Is active" to hide one without deleting it."""
+
+    list_display = ["order", "name", "is_active"]
+    list_display_links = ["name"]
+    list_editable = ["order", "is_active"]
+    fields = ["name", "logo", "logo_url", "url", "link_label", "intro", "order", "is_active"]
+

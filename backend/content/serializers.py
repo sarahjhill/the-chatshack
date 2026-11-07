@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import ContentBlock, HomePageContent, ListItem, PageHero, SiteSettings
+from .models import ContentBlock, HomePageContent, ListItem, PageHero, Partner, SiteSettings
 
 
 class HomePageContentSerializer(serializers.ModelSerializer):
@@ -51,3 +51,17 @@ class ListItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = ListItem
         fields = ["section", "order", "title", "description", "image"]
+
+class PartnerSerializer(serializers.ModelSerializer):
+    logo = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Partner
+        fields = ["name", "logo", "url", "link_label", "intro"]
+
+    def get_logo(self, obj):
+        if obj.logo:
+            request = self.context.get("request")
+            url = obj.logo.url
+            return request.build_absolute_uri(url) if request else url
+        return obj.logo_url or None
