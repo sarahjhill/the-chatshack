@@ -45,7 +45,7 @@ const PARTNERS: Partner[] = [
     name: "People Against Intentional Neglect (P.A.I.N)",
     logo: "/images/partners/pain.webp",
     url: "https://www.peopleagainstintentionalneglect.org",
-    linkLabel: "peopleagainstintentionalneglect.org",
+    linkLabel: "Visit website",
     intro:
       "A support and advocacy network standing up for people who've been let down by the systems meant to protect them.",
   },
@@ -78,7 +78,7 @@ function PartnerCard({ partner, hidden }: { partner: Partner; hidden: boolean })
         <div className="min-w-0">
           <p className="font-black text-[#1a3a2a] leading-tight">{partner.name}</p>
           {partner.linkLabel && (
-            <p className="text-sm font-bold text-[#1a7a4a] inline-flex items-center gap-1 group-hover:underline">
+            <p className="text-sm font-bold text-[#1a7a4a] inline-flex items-center gap-1 group-hover:underline max-w-full truncate">
               {partner.linkLabel}
               <ExternalLink className="w-3.5 h-3.5" />
             </p>
