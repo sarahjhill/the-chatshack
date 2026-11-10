@@ -64,6 +64,18 @@ export default function PrivacyPage() {
             page.
           </p>
 
+          <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">Cookies &amp; analytics</h2>
+          <p className="text-[#4a4a4a] mb-3">
+            We use Google Analytics to understand, in general terms, how many people visit this website
+            and which pages they find useful - this helps us improve the site. It only runs if you accept
+            the cookie banner, and it never collects anything about what you say to us in a conversation,
+            form or group.
+          </p>
+          <p className="text-[#4a4a4a] mb-6">
+            You can change your mind at any time by clearing your browser's cookies for this site, which
+            will show the cookie banner again next time you visit.
+          </p>
+
           <h2 className="text-2xl font-black text-[#1a3a2a] mb-3">Any questions?</h2>
           <p className="text-[#4a4a4a]">
             If you'd like to know more about how we handle confidentiality or your personal information,

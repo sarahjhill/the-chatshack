@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar.tsx";
 import Footer from "@/components/Footer.tsx";
+import CookieConsent from "@/components/CookieConsent.tsx";
+import { initAnalyticsIfConsented, trackPageView } from "@/lib/analytics";
 
 export default function AppLayout() {
   const location = useLocation();
@@ -31,6 +33,19 @@ export default function AppLayout() {
     }
   }, [location.pathname, location.hash]);
 
+  // Load Google Analytics once, on first mount, if the visitor already
+  // accepted cookies on an earlier visit.
+  useEffect(() => {
+    initAnalyticsIfConsented();
+  }, []);
+
+  // This is a single-page app, so the browser never actually loads a new
+  // page when you navigate - we have to tell Google Analytics about each
+  // "page view" ourselves whenever the route changes.
+  useEffect(() => {
+    trackPageView(location.pathname + location.hash);
+  }, [location.pathname, location.hash]);
+
   return (
     <div className="flex flex-col min-h-screen">
       <a
@@ -44,6 +59,7 @@ export default function AppLayout() {
         <Outlet />
       </main>
       <Footer />
+      <CookieConsent />
     </div>
   );
 }
