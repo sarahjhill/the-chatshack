@@ -209,7 +209,7 @@ export default function EventsPage() {
       </section>
 
       {/* Sleep Out to Help Out - highlighted */}
-      <section className="relative bg-[#0b2a1d] py-20 overflow-hidden">
+      <section id="sleep-out" className="relative bg-[#0b2a1d] py-20 overflow-hidden scroll-mt-20">
         <div
           className="absolute inset-0 opacity-20 bg-cover bg-center"
           style={{ backgroundImage: "url(/images/events/sleep-out-poster.jpg)" }}

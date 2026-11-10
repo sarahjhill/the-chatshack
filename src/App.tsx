@@ -34,6 +34,7 @@ export default function App() {
             <Route path="/homeless-outreach" element={<HomelessOutreachPage />} />
             <Route path="/partners" element={<PartnersPage />} />
             <Route path="/get-involved" element={<Navigate to="/community#get-involved" replace />} />
+            <Route path="/sleep-out" element={<Navigate to="/events#sleep-out" replace />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/events" element={<EventsPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
